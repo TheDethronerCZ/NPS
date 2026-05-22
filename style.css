@@ -1,3 +1,11 @@
+.section h2 {
+  margin-bottom: 20px;
+  font-size: 22px;
+}
+
+.hero-panel {
+  gap: 25px;
+}
 * {
   margin: 0;
   padding: 0;
@@ -18,8 +26,10 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 35px;
-  padding: 40px 20px;
+
+  gap: 120px; /* was ~40–50px → MUCH more space */
+
+  padding: 60px 20px;
 }
 
 /* =========================
@@ -29,7 +39,7 @@ body {
 .hero-panel {
   width: 80%;
   max-width: 900px;
-  height: 260px;
+  height: 420px;
 
   display: flex;
   flex-direction: column;
@@ -112,7 +122,14 @@ body {
 /* =========================
    SECTIONS (CHLOG / MODS)
 ========================= */
-
+.section {
+  padding-top: 40px;
+  padding-bottom: 40px;
+}
+.box {
+  padding: 40px; /* was ~20px */
+  border-radius: 15px;
+}
 .section {
   width: 80%;
   max-width: 900px;
