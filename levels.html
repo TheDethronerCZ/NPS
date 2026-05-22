@@ -53,34 +53,45 @@ function difficultyColor(diff) {
 
 </div>
 // LOAD LEVEL
-async function loadLevel() {
+async function loadLevels() {
 
-  const { data, error } = await client
+  const grid = document.getElementById("grid");
+  grid.innerHTML = "<p>Loading...</p>";
+
+  const { data, error } = await supabase
     .from("levels")
-    .select("*")
-    .eq("id", id)
-    .single();
+    .select("*");
 
-  const card = document.getElementById("levelCard");
-
-  if (error || !data) {
-    card.innerHTML = "<p>Level not found</p>";
+  if (error) {
+    console.log("Supabase error:", error);
+    grid.innerHTML = "<p>Failed to load levels</p>";
     return;
   }
 
-  let videoEmbed = "";
-
-  // YouTube embed
-  if (data.video_url?.includes("youtube")) {
-    const vid = extractID(data.video_url);
-    videoEmbed = `
-      <iframe width="100%" height="250"
-        src="https://www.youtube.com/embed/${vid}"
-        frameborder="0"
-        allowfullscreen>
-      </iframe>
-    `;
+  if (!data || data.length === 0) {
+    grid.innerHTML = "<p>No levels found</p>";
+    return;
   }
+
+  grid.innerHTML = "";
+
+  data.forEach((lvl, i) => {
+    const card = document.createElement("a");
+    card.className = "level-card";
+    card.href = `level.html?id=${lvl.id}`;
+
+    card.innerHTML = `
+      <img class="thumb" src="${lvl.thumbnail_url || ''}">
+      <div class="info">
+        <h3>#${i + 1} ${lvl.level_name}</h3>
+        <p>${lvl.creator}</p>
+        <p>${lvl.difficulty}</p>
+      </div>
+    `;
+
+    grid.appendChild(card);
+  });
+}
 
   const diffColor = difficultyColor(data.difficulty);
 
