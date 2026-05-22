@@ -1,12 +1,11 @@
+<a class="nps-top-left" href="index.html">
+  <span class="nps-white">NPS</span>
+  <span class="nps-sunset">vSUNSET</span>
+</a>
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <a class="nps-top-left" href="https://thedethronercz.github.io/NPS/index.html">
-  <span class="nps-white">NPS</span>
-  <span class="nps-version">vSUNSET</span>
-</a>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>NPS - Levels</title>
 
   <link rel="stylesheet" href="style.css">
@@ -15,14 +14,19 @@
 
 <body>
 
+<a class="nps-top-left" href="index.html">
+  <span class="nps-white">NPS</span>
+  <span class="nps-sunset">vSUNSET</span>
+</a>
+
 <div class="page">
 
   <h1>Levels</h1>
 
-  <!-- GRID -->
   <div id="grid" class="grid">
     <p>Loading levels...</p>
   </div>
+
 </div>
 
 <script>
@@ -31,63 +35,40 @@ const supabase = window.supabase.createClient(
   "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZ0Z3ZoeWNhZmZ6dXdhamloYWp6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzk0NDkzNzcsImV4cCI6MjA5NTAyNTM3N30.KgibDtXxGFhTEK33430fIcOa7kgqECrO0SohYq2idDU"
 );
 
-const grid = document.getElementById("grid");
-
-// MAIN LOAD FUNCTION
 async function loadLevels() {
 
-  grid.innerHTML = "<p>Loading levels...</p>";
+  const grid = document.getElementById("grid");
 
-  try {
-    const { data, error } = await supabase
-      .from("levels")
-      .select("*")
-      .order("id", { ascending: true });
+  const { data, error } = await supabase
+    .from("levels")
+    .select("*");
 
-    // ERROR HANDLING
-    if (error) {
-      console.log("Supabase error:", error);
-      grid.innerHTML = "<p>Failed to load levels (check console)</p>";
-      return;
-    }
-
-    // EMPTY STATE
-    if (!data || data.length === 0) {
-      grid.innerHTML = "<p>No levels found</p>";
-      return;
-    }
-
-    // CLEAR GRID
-    grid.innerHTML = "";
-
-    // BUILD CARDS
-    data.forEach((lvl, index) => {
-
-      const card = document.createElement("a");
-      card.className = "level-card";
-      card.href = `level.html?id=${lvl.id}`;
-
-      card.innerHTML = `
-        <img class="thumb" src="${lvl.thumbnail_url || ''}" alt="thumbnail">
-
-        <div class="info">
-          <h3>#${index + 1} ${lvl.level_name || "Unnamed Level"}</h3>
-          <p><b>Creator:</b> ${lvl.creator || "Unknown"}</p>
-          <p><b>ID:</b> ${lvl.ingame_id || "N/A"}</p>
-          <p><b>Difficulty:</b> ${lvl.difficulty || "Unknown"}</p>
-        </div>
-      `;
-
-      grid.appendChild(card);
-    });
-
-  } catch (err) {
-    console.log("Unexpected error:", err);
-    grid.innerHTML = "<p>Unexpected error occurred</p>";
+  if (error) {
+    grid.innerHTML = "<p>Failed to load levels</p>";
+    return;
   }
+
+  grid.innerHTML = "";
+
+  data.forEach((lvl, i) => {
+
+    const card = document.createElement("a");
+    card.className = "level-card";
+    card.href = `level.html?id=${lvl.id}`;
+
+    card.innerHTML = `
+      <img class="thumb" src="${lvl.thumbnail_url || ''}">
+      <div>
+        <h3>#${i + 1} ${lvl.level_name}</h3>
+        <p>${lvl.creator}</p>
+        <p>${lvl.difficulty}</p>
+      </div>
+    `;
+
+    grid.appendChild(card);
+  });
 }
 
-// START
 loadLevels();
 </script>
 
