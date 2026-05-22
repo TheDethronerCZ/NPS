@@ -1,42 +1,59 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>NPS</title>
+
   <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-<div class="scroll">
+  <div class="scroll">
 
-  <div class="hero-panel">
+    <!-- HERO -->
+    <div class="hero-panel">
 
-    <img src="logo.png" class="logo-img">
+      <img src="logo.png" class="logo-img" alt="NPS Logo">
 
-    <div class="nav">
-      <a href="levels.html" class="btn">Levels</a>
-      <a href="account.html" class="btn">Account</a>
-      <a href="admin.html" class="btn">Admin</a>
+      <div class="nav">
+        <a href="levels.html" class="btn">Levels</a>
+        <a href="account.html" class="btn">Account</a>
+        <a href="admin.html" class="btn" id="adminBtn" style="display:none;">Admin</a>
+      </div>
+
+    </div>
+
+    <!-- CHANGELOG -->
+    <div class="section">
+
+      <h2>Changelog</h2>
+
+      <div class="box">
+        <p>v0.1 - Initial release</p>
+        <p>v0.2 - Levels system added</p>
+        <p>v0.3 - UI overhaul</p>
+        <p>v0.4 - Backend integration (Supabase)</p>
+      </div>
+
+    </div>
+
+    <!-- MODERATORS -->
+    <div class="section">
+
+      <h2>Moderators</h2>
+
+      <div class="box">
+        <p>• Developer</p>
+        <p>• Moderator 1</p>
+        <p>• Moderator 2</p>
+      </div>
+
     </div>
 
   </div>
-
-  <div class="section">
-    <h2>Changelog</h2>
-    <div class="box">
-      <p>v0.1 - Launch</p>
-      <p>v0.2 - Levels system</p>
-    </div>
-  </div>
-
-  <div class="section">
-    <h2>Moderators</h2>
-    <div class="box">
-      <p>Dev1</p>
-      <p>Dev2</p>
-    </div>
-  </div>
-
-</div>
 
 </body>
 </html>
