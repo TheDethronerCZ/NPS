@@ -1,57 +1,35 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>NPS - Account</title>
-
-  <link rel="stylesheet" href="style.css">
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
-</head>
-
-<body>
-
-<a class="nps-top-left" href="index.html">
-  <span class="nps-white">NPS</span>
-  <span class="nps-sunset">vSUNSET</span>
-</a>
-
-<div class="page">
-
-  <h1>Account</h1>
-
-  <div class="card">
-
-    <input id="username" placeholder="Username">
-    <input id="password" type="password" placeholder="Password">
-
-    <button class="btn" onclick="signup()">Sign Up</button>
-    <button class="btn" onclick="login()">Login</button>
-    <button class="btn" onclick="logout()">Logout</button>
-
-    <p id="status"></p>
-
-  </div>
-
-  <div class="card" id="profileBox">
-    <p>Not logged in</p>
-  </div>
-
-</div>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
 
 <script>
+/* =========================
+   SUPABASE INIT (ONLY ONCE)
+========================= */
 const supabase = window.supabase.createClient(
   "https://ftgvhycaffzuwajihajz.supabase.co",
   "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZ0Z3ZoeWNhZmZ6dXdhamloYWp6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzk0NDkzNzcsImV4cCI6MjA5NTAyNTM3N30.KgibDtXxGFhTEK33430fIcOa7kgqECrO0SohYq2idDU"
 );
 
 /* =========================
-   SIGN UP (AUTO EMAIL)
+   POPUP SYSTEM
+========================= */
+function showPopup(message) {
+  const popup = document.getElementById("popup");
+
+  popup.innerText = message;
+  popup.classList.remove("hidden");
+
+  setTimeout(() => {
+    popup.classList.add("hidden");
+  }, 2000);
+}
+
+/* =========================
+   SIGN UP
 ========================= */
 async function signup() {
   const username = document.getElementById("username").value;
   const password = document.getElementById("password").value;
 
-  // fake email system (required by Supabase)
   const email = username + "@nps.local";
 
   const { data, error } = await supabase.auth.signUp({
@@ -60,22 +38,16 @@ async function signup() {
   });
 
   if (error) {
-    document.getElementById("status").innerText = error.message;
+    showPopup(error.message);
     return;
   }
 
-  // store profile
   await supabase.from("profiles").insert([{
     id: data.user.id,
     username: username
   }]);
 
-  if (error) {
-  showPopup(error.message);
-  return;
-}
-
-showPopup("Sign up successful!");
+  showPopup("Sign up successful!");
 }
 
 /* =========================
@@ -91,12 +63,13 @@ async function login() {
     email,
     password
   });
-    if (error) {
-  showPopup(error.message);
-  return;
-}
 
-showPopup("Login successful!");
+  if (error) {
+    showPopup(error.message);
+    return;
+  }
+
+  showPopup("Login successful!");
 }
 
 /* =========================
@@ -104,9 +77,6 @@ showPopup("Login successful!");
 ========================= */
 async function logout() {
   await supabase.auth.signOut();
-  document.getElementById("status").innerText = "Logged out!";
+  showPopup("Logged out!");
 }
 </script>
-<div id="popup" class="popup hidden"></div>
-</body>
-</html>
