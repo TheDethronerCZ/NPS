@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>NPS - Level</title>
+  <title>NPS - Levels</title>
 
   <link rel="stylesheet" href="style.css">
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
@@ -12,150 +12,84 @@
 <body>
 
 <div class="page">
-  <!-- LEVEL HEADER -->
-  <div class="card" id="levelCard">
-    <p>Loading level...</p>
+
+  <h1>Levels</h1>
+
+  <!-- GRID -->
+  <div id="grid" class="grid">
+    <p>Loading levels...</p>
   </div>
+
+  <a class="back-btn" href="https://thedethronercz.github.io/NPS/index.html">
+    Home
+  </a>
 
 </div>
 
 <script>
-const client = supabase.createClient(
+const supabase = window.supabase.createClient(
   "https://ftgvhycaffzuwajihajz.supabase.co",
   "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZ0Z3ZoeWNhZmZ6dXdhamloYWp6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzk0NDkzNzcsImV4cCI6MjA5NTAyNTM3N30.KgibDtXxGFhTEK33430fIcOa7kgqECrO0SohYq2idDU"
 );
 
-// GET ID FROM URL
-const params = new URLSearchParams(window.location.search);
-const id = params.get("id");
+const grid = document.getElementById("grid");
 
-// DIFFICULTY COLORS
-function difficultyColor(diff) {
-  switch(diff) {
-    case "Easy Demon": return "#4caf50";
-    case "Medium Demon": return "#2196f3";
-    case "Hard Demon": return "#ff9800";
-    case "Insane Demon": return "#f44336";
-    case "Extreme Demon": return "#9c27b0";
-    default: return "white";
-  }
-}
-  span class="badge verify">
-  Verified by ${data.verifier || "Unknown"}
-</span>
-
-  <div class="card">
-
-  <h3>Progress</h3>
-<p>Attempts: ${data.attempts}</p>
-  <p>Attempts: <b>${data.attempts ?? 0}</b></p>
-  <p>Completions: <b>${data.completions ?? 0}</b></p>
-
-</div>
-// LOAD LEVEL
+// MAIN LOAD FUNCTION
 async function loadLevels() {
 
-  const grid = document.getElementById("grid");
-  grid.innerHTML = "<p>Loading...</p>";
+  grid.innerHTML = "<p>Loading levels...</p>";
 
-  const { data, error } = await supabase
-    .from("levels")
-    .select("*");
+  try {
+    const { data, error } = await supabase
+      .from("levels")
+      .select("*")
+      .order("id", { ascending: true });
 
-  if (error) {
-    console.log("Supabase error:", error);
-    grid.innerHTML = "<p>Failed to load levels</p>";
-    return;
-  }
+    // ERROR HANDLING
+    if (error) {
+      console.log("Supabase error:", error);
+      grid.innerHTML = "<p>Failed to load levels (check console)</p>";
+      return;
+    }
 
-  if (!data || data.length === 0) {
-    grid.innerHTML = "<p>No levels found</p>";
-    return;
-  }
+    // EMPTY STATE
+    if (!data || data.length === 0) {
+      grid.innerHTML = "<p>No levels found</p>";
+      return;
+    }
 
-  grid.innerHTML = "";
+    // CLEAR GRID
+    grid.innerHTML = "";
 
-  data.forEach((lvl, i) => {
-    const card = document.createElement("a");
-    card.className = "level-card";
-    card.href = `level.html?id=${lvl.id}`;
+    // BUILD CARDS
+    data.forEach((lvl, index) => {
 
-    card.innerHTML = `
-      <img class="thumb" src="${lvl.thumbnail_url || ''}">
-      <div class="info">
-        <h3>#${i + 1} ${lvl.level_name}</h3>
-        <p>${lvl.creator}</p>
-        <p>${lvl.difficulty}</p>
-      </div>
-    `;
+      const card = document.createElement("a");
+      card.className = "level-card";
+      card.href = `level.html?id=${lvl.id}`;
 
-    grid.appendChild(card);
-  });
-}
+      card.innerHTML = `
+        <img class="thumb" src="${lvl.thumbnail_url || ''}" alt="thumbnail">
 
-  const diffColor = difficultyColor(data.difficulty);
+        <div class="info">
+          <h3>#${index + 1} ${lvl.level_name || "Unnamed Level"}</h3>
+          <p><b>Creator:</b> ${lvl.creator || "Unknown"}</p>
+          <p><b>ID:</b> ${lvl.ingame_id || "N/A"}</p>
+          <p><b>Difficulty:</b> ${lvl.difficulty || "Unknown"}</p>
+        </div>
+      `;
 
-  card.innerHTML = `
-  <div class="level-header">
+      grid.appendChild(card);
+    });
 
-  <div class="level-banner">
-    <img src="${data.thumbnail_url || ''}" class="banner-img">
-    <div class="banner-overlay"></div>
-
-    <div class="banner-text">
-      <h1>${data.level_name}</h1>
-      <p>by ${data.creator}</p>
-    </div>
-  </div>
-    ">
-      ${data.difficulty}
-    </span>
-
-    ${videoEmbed}
-
-    <div style="margin-top:15px;">
-      <p><b>Creator:</b> ${data.creator}</p>
-      <p><b>Verifier:</b> ${data.verifier ?? "N/A"}</p>
-      <p><b>In-game ID:</b> ${data.ingame_id ?? "N/A"}</p>
-      <p><b>Points:</b> ${data.point_award ?? "0"}</p>
-      <p><b>Length:</b> ${data.length ?? "Unknown"}</p>
-    </div>
-
-    <div style="margin-top:15px;">
-      <p>${data.description ?? "No description provided."}</p>
-    </div>
-  `;
-}
-
-// EXTRACT YOUTUBE ID
-function extractID(url) {
-  const match = url.match(/(youtu\.be\/|v=)([^&]+)/);
-  return match ? match[2] : "";
-}
-  <button class="btn" id="editBtn" style="display:none;">
-  Edit Level
-</button>
-
-<button class="btn" id="deleteBtn" style="display:none;">
-  Delete Level
-</button>
-  const ADMIN_ID = "YOUR_SUPABASE_USER_ID";
-
-async function checkAdmin() {
-  const { data: { user } } = await supabase.auth.getUser();
-
-  if (user && user.id === ADMIN_ID) {
-    document.getElementById("editBtn").style.display = "inline-block";
-    document.getElementById("deleteBtn").style.display = "inline-block";
+  } catch (err) {
+    console.log("Unexpected error:", err);
+    grid.innerHTML = "<p>Unexpected error occurred</p>";
   }
 }
 
-checkAdmin();
-
-loadLevel();
-<a class="back-btn" href="https://thedethronercz.github.io/NPS/index.html">
-  Home
-</a>
+// START
+loadLevels();
 </script>
 
 </body>
