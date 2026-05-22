@@ -70,7 +70,12 @@ async function signup() {
     username: username
   }]);
 
-  document.getElementById("status").innerText = "Account created!";
+  if (error) {
+  showPopup(error.message);
+  return;
+}
+
+showPopup("Sign up successful!");
 }
 
 /* =========================
@@ -86,9 +91,12 @@ async function login() {
     email,
     password
   });
+    if (error) {
+  showPopup(error.message);
+  return;
+}
 
-  document.getElementById("status").innerText =
-    error ? error.message : "Logged in!";
+showPopup("Login successful!");
 }
 
 /* =========================
