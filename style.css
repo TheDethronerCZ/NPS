@@ -62,6 +62,13 @@ body {
    NAV BUTTONS
 ========================= */
 
+.scroll {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 50px; /* IMPORTANT separation */
+  padding: 40px 20px;
+}
 .nav {
   display: flex;
   gap: 12px;
