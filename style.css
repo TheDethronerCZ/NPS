@@ -1,50 +1,3 @@
-.grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-  gap: 20px;
-  width: 85%;
-  max-width: 1000px;
-}
-
-.level-card {
-  background: white;
-  color: black;
-  border-radius: 15px;
-  overflow: hidden;
-  text-decoration: none;
-  transition: 0.2s;
-}
-
-.level-card:hover {
-  transform: scale(1.03);
-  opacity: 0.9;
-}
-
-.thumb {
-  width: 100%;
-  height: 140px;
-  object-fit: cover;
-  background: #ddd;
-}
-
-.info {
-  padding: 12px;
-}
- 
-.info h3 {
-  margin-bottom: 8px;
-  font-size: 16px;
-.section {
-  width: 85%;
-  max-width: 1000px;
-
-  padding-top: 50px;
-  padding-bottom: 50px;
-}
-
-.hero-panel {
-  gap: 25px;
-}
 * {
   margin: 0;
   padding: 0;
@@ -58,7 +11,7 @@ body {
 }
 
 /* =========================
-   PAGE LAYOUT
+   MAIN VERTICAL LAYOUT
 ========================= */
 
 .scroll {
@@ -66,24 +19,26 @@ body {
   flex-direction: column;
   align-items: center;
 
-  gap: 90px; /* BIGGER spacing between panels */
+  gap: 90px;
   padding: 70px 20px;
+  width: 100%;
 }
 
 /* =========================
-   HERO PANEL (TOP SECTION)
+   HERO PANEL
 ========================= */
 
 .hero-panel {
-  width: 80%;
-  max-width: 900px;
-  height: 420px;
+  width: 85%;
+  max-width: 1000px;
+  height: 340px;
 
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  gap: 15px;
+
+  gap: 20px;
 
   background: rgba(255,255,255,0.08);
   border-radius: 20px;
@@ -92,7 +47,7 @@ body {
 
 /* LOGO */
 .logo-img {
-  width: 140px;
+  width: 150px;
   height: auto;
   object-fit: contain;
   transition: 0.3s;
@@ -101,30 +56,11 @@ body {
 .logo-img:hover {
   transform: scale(1.05);
 }
-.logo-img {
-  width: clamp(120px, 20vw, 160px);
-  height: auto;
-}
 
 /* =========================
    NAV BUTTONS
 ========================= */
-.hero-panel,
-.section {
-  width: 85%;
-  max-width: 1000px;
 
-  padding-top: 50px;
-  padding-bottom: 50px;
-}
-.hero-panel,
-.section {
-  width: 85%;
-  max-width: 1000px;
-
-  padding-top: 50px;
-  padding-bottom: 50px;
-}
 .nav {
   display: flex;
   gap: 12px;
@@ -141,7 +77,6 @@ body {
   font-weight: bold;
   cursor: pointer;
   transition: 0.2s;
-  border: none;
   display: inline-block;
 }
 
@@ -150,86 +85,107 @@ body {
   opacity: 0.85;
 }
 
-/* active button (optional) */
-.btn.active {
-  box-shadow: 0 0 15px rgba(255,255,255,0.4);
-}
-
 /* =========================
    SECTIONS (CHLOG / MODS)
 ========================= */
+
 .section {
   width: 85%;
   max-width: 1000px;
 
-  padding-top: 50px;
-  padding-bottom: 50px;
+  text-align: center;
+  padding: 50px 0;
 }
-.box {
-  padding: 40px; /* was ~20px */
-  border-radius: 15px;
-}
-.section {
-  width: 85%;
-  max-width: 1000px;
 
-  padding-top: 50px;
-  padding-bottom: 50px;
+.section h2 {
+  margin-bottom: 20px;
 }
-.section {
-  width: 85%;
-  max-width: 1000px;
 
-  padding-top: 50px;
-  padding-bottom: 50px;
-}
 .box {
   background: rgba(255,255,255,0.05);
-  padding: 20px;
+  padding: 40px;
   border-radius: 15px;
 }
 
 /* =========================
-   LEVEL LIST PAGE
+   LEVEL GRID
 ========================= */
 
-.list {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  width: 300px;
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+
+  gap: 30px;
+  width: 85%;
+  max-width: 1000px;
 }
 
-.level-item {
+/* LEVEL CARD */
+.level-card {
   background: white;
   color: black;
-  padding: 12px;
-  border-radius: 12px;
+  border-radius: 18px;
+  overflow: hidden;
   text-decoration: none;
-  text-align: center;
-  transition: 0.2s;
+  transition: 0.25s;
 }
 
-.level-item:hover {
+.level-card:hover {
   transform: scale(1.05);
-  opacity: 0.85;
+  opacity: 0.9;
+}
+
+/* THUMBNAIL */
+.thumb {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  background: #ddd;
+}
+
+/* TEXT AREA */
+.info {
+  padding: 14px;
+}
+
+.info h3 {
+  font-size: 16px;
+  margin-bottom: 8px;
 }
 
 /* =========================
-   GENERIC CARD
+   PAGE WRAPPER (ACCOUNT / ADMIN / LEVEL)
+========================= */
+
+.page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  gap: 25px;
+  padding: 60px 20px;
+  width: 100%;
+}
+
+.title {
+  font-size: 28px;
+}
+
+/* =========================
+   CARDS (ACCOUNT / ADMIN / LEVEL PAGE)
 ========================= */
 
 .card {
   background: rgba(255,255,255,0.05);
-  padding: 20px;
+  padding: 25px;
   border-radius: 15px;
-  backdrop-filter: blur(10px);
+
+  width: 85%;
+  max-width: 500px;
 
   display: flex;
   flex-direction: column;
-  gap: 10px;
-  width: 80%;
-  max-width: 500px;
+  gap: 12px;
 }
 
 /* =========================
@@ -248,25 +204,4 @@ input, select, textarea {
 
 input::placeholder, textarea::placeholder {
   color: rgba(255,255,255,0.6);
-}
-
-/* =========================
-   PAGE WRAPPER (NON-SCROLL INDEX PAGES)
-========================= */
-
-.page {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 25px;
-  padding: 40px 20px;
-}
-
-.title {
-  font-size: 28px;
-}
-
-/* back button spacing */
-.back {
-  margin-top: 10px;
 }
