@@ -48,6 +48,15 @@ function difficultyColor(diff) {
   Verified by ${data.verifier || "Unknown"}
 </span>
 
+  <div class="card">
+
+  <h3>Progress</h3>
+
+  <p>Attempts: <b>${data.attempts ?? 0}</b></p>
+  <p>Best Progress: <b>${data.best_progress ?? 0}%</b></p>
+  <p>Completions: <b>${data.completions ?? 0}</b></p>
+
+</div>
 // LOAD LEVEL
 async function loadLevel() {
 
