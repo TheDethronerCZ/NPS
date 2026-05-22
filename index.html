@@ -22,7 +22,9 @@
       <a class="btn" href="levels.html">Levels</a>
       <a class="btn" href="account.html">Account</a>
       <a class="btn" href="download.html">Download</a>
-      <a class="btn" href="admin.html">Admin</a>
+      <a class="btn" id="adminBtn" href="admin.html" style="display:none;">
+  Admin
+</a>
     </div>
   </div>
 
@@ -41,6 +43,38 @@
   </div>
 
 </div>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
 
+<script>
+window.supabaseClient =
+  window.supabaseClient ||
+  window.supabase.createClient(
+    "https://ftgvhycaffzuwajihajz.supabase.co",
+    "YOUR_ANON_KEY"
+);
+
+/* =========================
+   YOUR ADMIN UUID
+========================= */
+const OWNER_UUID = "PASTE_YOUR_UUID_HERE";
+
+/* =========================
+   ADMIN CHECK
+========================= */
+async function checkAdmin() {
+
+  const {
+    data: { user }
+  } = await window.supabaseClient.auth.getUser();
+
+  if (!user) return;
+
+  if (user.id === OWNER_UUID) {
+    document.getElementById("adminBtn").style.display = "flex";
+  }
+}
+
+checkAdmin();
+</script>
 </body>
 </html>
