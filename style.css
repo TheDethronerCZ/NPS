@@ -151,13 +151,30 @@ body {
 }
 
 .btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 140px;
+  height: 60px;
+
   background: white;
   color: black;
-  padding: 14px 22px;
-  border-radius: 14px;
+
+  border-radius: 0px; /* 👈 this is what makes them square */
+  border: none;
+
   text-decoration: none;
   font-weight: bold;
-  transition: 0.2s;
+
+  cursor: pointer;
+
+  transition: 0.2s ease;
+}
+
+.btn:hover {
+  transform: scale(1.05);
+  opacity: 0.85;
 }
 
 .btn:hover {
