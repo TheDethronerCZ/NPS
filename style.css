@@ -39,9 +39,10 @@ body {
 
 /* LOGO */
 .logo-img {
-  width: 240px;
+  width: 460px;
+  max-width: 80%;
   height: auto;
-  transition: 0.3s;
+  display: block;
 }
 
 .logo-img:hover {
