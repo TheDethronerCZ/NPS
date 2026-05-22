@@ -33,6 +33,11 @@
 <div id="popup" class="popup hidden"></div>
 
 <script>
+  /* =========================
+   RATE LIMIT
+========================= */
+const SIGNUP_COOLDOWN = 30000; // 30 sec
+const LOGIN_COOLDOWN = 5000;   // 5 sec
 window.supabaseClient = window.supabaseClient || window.supabase.createClient(
   "https://ftgvhycaffzuwajihajz.supabase.co",
   "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZ0Z3ZoeWNhZmZ6dXdhamloYWp6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzk0NDkzNzcsImV4cCI6MjA5NTAyNTM3N30.KgibDtXxGFhTEK33430fIcOa7kgqECrO0SohYq2idDU"
@@ -45,22 +50,40 @@ function popup(msg){
   setTimeout(()=>p.classList.add("hidden"), 2000);
 }
 
-async function signup(){
-  const u = username.value;
-  const p = password.value;
+async function signup() {
+
+  const lastSignup = localStorage.getItem("lastSignup");
+
+  if (lastSignup && Date.now() - lastSignup < SIGNUP_COOLDOWN) {
+    popup("Please wait before creating another account.");
+    return;
+  }
+
+  const u = username.value.trim();
+  const p = password.value.trim();
+
+  if (!u || !p) {
+    popup("Fill all fields.");
+    return;
+  }
 
   const email = u + "@nps.local";
 
-  const { data, error } = await window.supabaseClient.auth.signUp({
-    email,
-    password: p
-  });
+  const { data, error } =
+    await window.supabaseClient.auth.signUp({
+      email,
+      password: p
+    });
 
-  if(error) return popup(error.message);
+  if (error) {
+    popup(error.message);
+    return;
+  }
+
+  localStorage.setItem("lastSignup", Date.now());
 
   popup("Sign up successful!");
 }
-
 async function login(){
   const u = username.value;
   const p = password.value;
