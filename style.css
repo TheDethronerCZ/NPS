@@ -6,19 +6,19 @@
 }
 
 body {
-  background: #fff3e0; /* warm cream base */
-  color: #2b1b0f;
+  background: #1e1e1e;
+  color: white;
 
-  /* subtle pattern background */
+  /* subtle sunset noise pattern */
   background-image: radial-gradient(
-    rgba(255, 170, 80, 0.15) 2px,
+    rgba(255, 183, 77, 0.08) 2px,
     transparent 2px
   );
-  background-size: 40px 40px;
+  background-size: 45px 45px;
 }
 
 /* =========================
-   LAYOUT
+   GLOBAL LAYOUT
 ========================= */
 
 .page {
@@ -34,7 +34,39 @@ body {
 }
 
 /* =========================
-   PANELS
+   TOP LEFT BRAND BUTTON
+========================= */
+
+.nps-top-left {
+  position: fixed;
+  top: 15px;
+  left: 15px;
+
+  display: flex;
+  gap: 6px;
+
+  text-decoration: none;
+  font-weight: bold;
+
+  z-index: 1000;
+  transition: 0.2s ease;
+}
+
+.nps-white {
+  color: white;
+}
+
+.nps-sunset {
+  color: #ffb74d;
+}
+
+.nps-top-left:hover {
+  transform: scale(1.05);
+  opacity: 0.85;
+}
+
+/* =========================
+   PANEL SYSTEM (CORE UI)
 ========================= */
 
 .hero-panel,
@@ -42,16 +74,17 @@ body {
 .section,
 .box,
 .level-card {
-  background: rgba(255, 255, 255, 0.7);
+  background: rgba(255, 255, 255, 0.05);
 
-  border: 1px solid rgba(255, 180, 90, 0.35);
+  border: 1px solid rgba(255, 183, 77, 0.12);
+
   border-radius: 18px;
 
-  box-shadow: 0 6px 20px rgba(255, 160, 60, 0.15);
+  box-shadow: 0 0 20px rgba(255, 160, 60, 0.06);
 }
 
 /* =========================
-   HERO
+   HERO (INDEX)
 ========================= */
 
 .hero-panel {
@@ -67,7 +100,6 @@ body {
   gap: 30px;
 }
 
-/* LOGO */
 .logo-img {
   width: 260px;
   max-width: 80%;
@@ -83,7 +115,7 @@ body {
 }
 
 /* =========================
-   BUTTONS
+   BUTTONS (SQUARE UI)
 ========================= */
 
 .btn {
@@ -94,13 +126,13 @@ body {
   width: 140px;
   height: 60px;
 
-  background: #ffcc80; /* soft orange */
-  color: #3b220f;
+  background: white;
+  color: #1e1e1e;
 
   border-radius: 0px;
 
-  text-decoration: none;
   font-weight: bold;
+  text-decoration: none;
 
   cursor: pointer;
   transition: 0.2s ease;
@@ -108,8 +140,8 @@ body {
 
 .btn:hover {
   transform: scale(1.05);
-  background: #ffb74d;
-  box-shadow: 0 6px 18px rgba(255, 140, 40, 0.25);
+  box-shadow: 0 0 15px rgba(255, 183, 77, 0.25);
+  opacity: 0.9;
 }
 
 /* =========================
@@ -144,21 +176,21 @@ body {
   gap: 15px;
 }
 
-/* LEVEL CARD */
 .level-card {
   display: flex;
   gap: 15px;
 
   padding: 15px;
+
   text-decoration: none;
-  color: #2b1b0f;
+  color: white;
 
   transition: 0.2s ease;
 }
 
 .level-card:hover {
   transform: scale(1.02);
-  background: rgba(255, 193, 120, 0.25);
+  background: rgba(255, 183, 77, 0.08);
 }
 
 /* THUMB */
@@ -166,12 +198,12 @@ body {
   width: 120px;
   height: 70px;
 
-  border-radius: 10px;
   object-fit: cover;
+  border-radius: 10px;
 }
 
 /* =========================
-   CARDS
+   FORMS / CARDS
 ========================= */
 
 .card {
@@ -185,24 +217,23 @@ body {
   gap: 12px;
 }
 
-/* INPUTS */
 .card input {
   width: 100%;
 
   padding: 14px 16px;
 
   border-radius: 12px;
-  border: 1px solid rgba(255, 170, 80, 0.4);
+  border: 1px solid rgba(255, 183, 77, 0.15);
 
-  background: rgba(255, 255, 255, 0.6);
-  color: #2b1b0f;
+  background: rgba(255, 255, 255, 0.05);
+  color: white;
 
   outline: none;
 }
 
 .card input:focus {
-  background: rgba(255, 220, 180, 0.7);
-  box-shadow: 0 0 10px rgba(255, 170, 80, 0.25);
+  background: rgba(255, 183, 77, 0.08);
+  box-shadow: 0 0 10px rgba(255, 183, 77, 0.2);
 }
 
 /* =========================
@@ -215,8 +246,8 @@ body {
   left: 50%;
   transform: translateX(-50%);
 
-  background: #ffcc80;
-  color: #3b220f;
+  background: white;
+  color: #1e1e1e;
 
   padding: 12px 20px;
   border-radius: 12px;
@@ -230,13 +261,13 @@ body {
 
 .back-btn:hover {
   transform: translateX(-50%) scale(1.05);
-  background: #ffb74d;
+  box-shadow: 0 0 15px rgba(255, 183, 77, 0.25);
 }
 
 /* =========================
-   TEXT
+   TYPOGRAPHY
 ========================= */
 
 h1, h2, h3 {
-  color: #2b1b0f;
+  color: white;
 }
