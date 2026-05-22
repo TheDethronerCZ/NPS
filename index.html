@@ -2,88 +2,61 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-  <title>NPS</title>
+  <title>NPS - Home</title>
 
   <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-  <div class="scroll">
+<!-- TOP LEFT BRAND -->
+<a class="nps-top-left" href="index.html">
+  <span class="nps-white">NPS</span>
+  <span class="nps-sunset">vSUNSET</span>
+</a>
 
-    <!-- HERO -->
-    <div class="hero-panel">
+<div class="page">
 
-      <img src="logo.png" class="logo-img" alt="NPS Logo">
+  <!-- HERO PANEL -->
+  <div class="hero-panel">
 
-      <div class="nav">
-        <a href="levels.html" class="btn">Demons</a>
-        <a href="account.html" class="btn">Account</a>
-        <a href="admin.html" class="btn" id="adminBtn" style="display:none;">Admin</a>
-      </div>
+    <!-- LOGO -->
+    <img class="logo-img" src="YOUR_LOGO.png" alt="NPS Logo">
 
-    </div>
+    <!-- NAV BUTTONS -->
+    <div class="nav">
 
-    <!-- CHANGELOG -->
-    <div class="section">
+      <a class="btn" href="levels.html">Levels</a>
+      <a class="btn" href="account.html">Account</a>
+      <a class="btn" href="download.html">Download</a>
 
-      <h2>Changelog</h2>
-
-      <div class="box">
-        <p>v0.1 - Initial release</p>
-        <p>v0.2 - Levels system added</p>
-        <p>v0.3 - UI overhaul</p>
-      </div>
-
-    </div>
-
-    <!-- MODERATORS -->
-    <div class="section">
-
-      <h2>Moderators</h2>
-
-      <div class="box">
-        <p>• Kanameij</p>
-        <p>• Heraij</p>
-        <p>• TheRealestJeep</p>
-      </div>
+      <!-- ADMIN (optional — hide via JS later) -->
+      <a class="btn" href="admin.html">Admin</a>
 
     </div>
 
   </div>
-<script>
-const supabase = window.supabase.createClient(
-  "https://ftgvhycaffzuwajihajz.supabase.co",
-  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZ0Z3ZoeWNhZmZ6dXdhamloYWp6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzk0NDkzNzcsImV4cCI6MjA5NTAyNTM3N30.KgibDtXxGFhTEK33430fIcOa7kgqECrO0SohYq2idDU"
-);
 
-// ADMIN CHECK FUNCTION
-async function checkAdmin() {
+  <!-- CHANGELOG -->
+  <div class="section">
+    <h2>Changelog</h2>
 
-  const { data: { user } } = await supabase.auth.getUser();
+    <div class="box">
+      <p>vSUNSET First version of NPS Website 5/22/26</p>
+    </div>
+  </div>
 
-  if (!user) return;
+  <!-- MODERATORS -->
+  <div class="section">
+    <h2>Moderators</h2>
 
-  const { data, error } = await supabase
-    .from("profiles")
-    .select("is_admin")
-    .eq("id", user.id)
-    .single();
+    <div class="box">
+      <p>• Heraij</p>
+      <p>• Kanameij</p>
+    </div>
+  </div>
 
-  if (error) {
-    console.log(error);
-    return;
-  }
+</div>
 
-  if (data?.is_admin === true) {
-    document.getElementById("adminBtn").style.display = "inline-block";
-  }
-}
-
-// RUN IT AFTER PAGE LOAD
-checkAdmin();
-</script>
 </body>
 </html>
