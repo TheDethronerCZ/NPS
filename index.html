@@ -2,109 +2,38 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>NPS - New Private Server</title>
-  <link rel="stylesheet" href="style.css" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>NPS</title>
 
-  <!-- Supabase JS CDN -->
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+  <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-  <h1>NPS - New Private Server</h1>
+  <!-- MAIN WRAPPER -->
+  <div class="wrapper">
 
-  <!-- LOGIN SECTION -->
-  <div id="login-box">
-    <h2>Login</h2>
+    <!-- BIG LOGO -->
+    <h1 class="logo">NPS</h1>
 
-    <input id="email" placeholder="Email" />
-    <input id="password" type="password" placeholder="Password" />
+    <!-- CHANGELIST -->
+    <div class="changelog">
+      <h2>Changelog</h2>
+      <ul>
+        <li>v0.1 - Initial website setup</li>
+        <li>v0.2 - Levels system added</li>
+        <li>v0.3 - Admin system in progress</li>
+      </ul>
+    </div>
 
-    <button onclick="login()">Login</button>
-    <button onclick="logout()">Logout</button>
+    <!-- NAV BUTTONS -->
+    <div class="nav">
+      <a href="levels.html" class="btn">Levels</a>
+      <a href="account.html" class="btn">Account</a>
+      <a href="admin.html" class="btn">Admin</a>
+    </div>
 
-    <p id="status"></p>
   </div>
-
-  <hr>
-
-  <!-- LEVELS SECTION -->
-  <h2>Hardest Levels</h2>
-  <button onclick="loadLevels()">Load Levels</button>
-
-  <ul id="levels"></ul>
-
-  <script>
-    // =========================
-    // SUPABASE INIT
-    // =========================
-    const supabaseUrl = "https://ftgvhycaffzuwajihajz.supabase.co";
-    const supabaseKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZ0Z3ZoeWNhZmZ6dXdhamloYWp6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzk0NDkzNzcsImV4cCI6MjA5NTAyNTM3N30.KgibDtXxGFhTEK33430fIcOa7kgqECrO0SohYq2idDU_ANON_KEY";
-
-    const supabaseClient = supabase.createClient(supabaseUrl, supabaseKey);
-
-    // =========================
-    // LOGIN
-    // =========================
-    async function login() {
-      const email = document.getElementById("email").value;
-      const password = document.getElementById("password").value;
-
-      const { data, error } = await supabaseClient.auth.signInWithPassword({
-        email,
-        password
-      });
-
-      if (error) {
-        document.getElementById("status").innerText = "Login failed ";
-        console.log(error);
-      } else {
-        document.getElementById("status").innerText = "Logged in";
-        console.log(data);
-      }
-    }
-
-    async function logout() {
-      await supabaseClient.auth.signOut();
-      document.getElementById("status").innerText = "Logged out";
-    }
-
-    // =========================
-    // LOAD LEVELS
-    // =========================
-    async function loadLevels() {
-      const { data, error } = await supabaseClient
-        .from("levels")
-        .select("*")
-        .order("point_award", { ascending: false });
-
-      const list = document.getElementById("levels");
-      list.innerHTML = "";
-
-      if (error) {
-        console.log(error);
-        list.innerHTML = "<li>Error loading levels</li>";
-        return;
-      }
-
-      data.forEach(level => {
-        const item = document.createElement("li");
-
-        item.innerHTML = `
-          <b>${level.level_name}</b><br>
-          Creator: ${level.creator}<br>
-          Verifier: ${level.verifier}<br>
-          Difficulty: ${level.difficulty}<br>
-          Points: ${level.point_award}<br>
-          Length: ${level.length}<br>
-          <a href="${level.video_url}" target="_blank">Video</a>
-          <hr>
-        `;
-
-        list.appendChild(item);
-      });
-    }
-  </script>
 
 </body>
 </html>
