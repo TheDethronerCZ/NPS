@@ -6,13 +6,12 @@
 
   <link rel="stylesheet" href="style.css">
 
-  <!-- Supabase (ONLY ONCE) -->
+  <!-- ONLY ONCE -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
 </head>
 
 <body>
 
-<!-- BRAND -->
 <a class="nps-top-left" href="index.html">
   <span class="nps-white">NPS</span>
   <span class="nps-sunset">vSUNSET</span>
@@ -22,7 +21,6 @@
 
   <h1>Account</h1>
 
-  <!-- LOGIN BOX -->
   <div class="card">
 
     <input id="username" placeholder="Username">
@@ -36,32 +34,26 @@
 
   </div>
 
-  <!-- PROFILE DISPLAY -->
-  <div class="card">
-    <p id="profileBox">Not logged in</p>
-  </div>
-
 </div>
 
-<!-- POPUP -->
 <div id="popup" class="popup hidden"></div>
 
 <script>
 /* =========================
-   SUPABASE INIT
+   SAFE SUPABASE INIT (ONLY ONCE)
 ========================= */
-const supabase = window.supabase.createClient(
-  "https://ftgvhycaffzuwajihajz.supabase.co",
-  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZ0Z3ZoeWNhZmZ6dXdhamloYWp6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzk0NDkzNzcsImV4cCI6MjA5NTAyNTM3N30.KgibDtXxGFhTEK33430fIcOa7kgqECrO0SohYq2idDU"
-);
+const SUPABASE_URL = "https://ftgvhycaffzuwajihajz.supabase.co";
+const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZ0Z3ZoeWNhZmZ6dXdhamloYWp6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzk0NDkzNzcsImV4cCI6MjA5NTAyNTM3N30.KgibDtXxGFhTEK33430fIcOa7kgqECrO0SohYq2idDU";
+
+const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
 /* =========================
    POPUP SYSTEM
 ========================= */
-function showPopup(message) {
+function showPopup(msg) {
   const popup = document.getElementById("popup");
 
-  popup.innerText = message;
+  popup.innerText = msg;
   popup.classList.remove("hidden");
 
   setTimeout(() => {
@@ -70,27 +62,24 @@ function showPopup(message) {
 }
 
 /* =========================
-   SIGN UP
+   SIGNUP
 ========================= */
 async function signup() {
   const username = document.getElementById("username").value;
   const password = document.getElementById("password").value;
 
-  const email = username + "@nps.local"; // hidden email system
+  const email = username + "@nps.local";
 
   const { data, error } = await supabase.auth.signUp({
     email,
     password
   });
 
-  if (error) {
-    showPopup(error.message);
-    return;
-  }
+  if (error) return showPopup(error.message);
 
   await supabase.from("profiles").insert([{
     id: data.user.id,
-    username: username
+    username
   }]);
 
   showPopup("Sign up successful!");
@@ -110,10 +99,7 @@ async function login() {
     password
   });
 
-  if (error) {
-    showPopup(error.message);
-    return;
-  }
+  if (error) return showPopup(error.message);
 
   showPopup("Login successful!");
 }
