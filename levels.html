@@ -78,16 +78,17 @@ async function loadLevel() {
   const diffColor = difficultyColor(data.difficulty);
 
   card.innerHTML = `
-    <h2>${data.level_name}</h2>
+  <div class="level-header">
 
-    <span style="
-      background:${diffColor};
-      color:white;
-      padding:6px 12px;
-      border-radius:10px;
-      display:inline-block;
-      margin-bottom:10px;
-      font-size:14px;
+  <div class="level-banner">
+    <img src="${data.thumbnail_url || ''}" class="banner-img">
+    <div class="banner-overlay"></div>
+
+    <div class="banner-text">
+      <h1>${data.level_name}</h1>
+      <p>by ${data.creator}</p>
+    </div>
+  </div>
     ">
       ${data.difficulty}
     </span>
