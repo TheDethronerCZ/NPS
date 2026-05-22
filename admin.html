@@ -42,7 +42,13 @@
   </div>
 
   <script>
-    if (user.id !== "00db958b-1723-4d24-badd-3efef63a1f20") {
+    const OWNER_UUID = "00db958b-1723-4d24-badd-3efef63a1f20";
+
+const {
+  data: { user }
+} = await window.supabaseClient.auth.getUser();
+
+if (!user || user.id !== OWNER_UUID) {
   location.href = "index.html";
 }
     const supabaseUrl = "https://ftgvhycaffzuwajihajz.supabase.co";
