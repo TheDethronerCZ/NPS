@@ -53,6 +53,10 @@ body {
 .logo-img:hover {
   transform: scale(1.05);
 }
+.logo-img {
+  width: clamp(120px, 20vw, 160px);
+  height: auto;
+}
 
 /* =========================
    NAV BUTTONS
