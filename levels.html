@@ -125,6 +125,25 @@ function extractID(url) {
   const match = url.match(/(youtu\.be\/|v=)([^&]+)/);
   return match ? match[2] : "";
 }
+  <button class="btn" id="editBtn" style="display:none;">
+  Edit Level
+</button>
+
+<button class="btn" id="deleteBtn" style="display:none;">
+  Delete Level
+</button>
+  const ADMIN_ID = "YOUR_SUPABASE_USER_ID";
+
+async function checkAdmin() {
+  const { data: { user } } = await supabase.auth.getUser();
+
+  if (user && user.id === ADMIN_ID) {
+    document.getElementById("editBtn").style.display = "inline-block";
+    document.getElementById("deleteBtn").style.display = "inline-block";
+  }
+}
+
+checkAdmin();
 
 loadLevel();
 </script>
