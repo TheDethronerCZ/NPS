@@ -5,20 +5,24 @@
   font-family: Arial, sans-serif;
 }
 
+/* =========================
+   BASE THEME
+========================= */
+
 body {
   background: #1e1e1e;
   color: white;
 
-  /* subtle sunset noise pattern */
+  /* subtle sunset pattern */
   background-image: radial-gradient(
-    rgba(255, 183, 77, 0.08) 2px,
+    rgba(255, 183, 77, 0.06) 2px,
     transparent 2px
   );
   background-size: 45px 45px;
 }
 
 /* =========================
-   GLOBAL LAYOUT
+   LAYOUT SYSTEM
 ========================= */
 
 .page {
@@ -34,7 +38,7 @@ body {
 }
 
 /* =========================
-   TOP LEFT BRAND BUTTON
+   TOP LEFT BRAND
 ========================= */
 
 .nps-top-left {
@@ -49,6 +53,7 @@ body {
   font-weight: bold;
 
   z-index: 1000;
+
   transition: 0.2s ease;
 }
 
@@ -66,7 +71,7 @@ body {
 }
 
 /* =========================
-   PANEL SYSTEM (CORE UI)
+   PANELS / CARDS SYSTEM
 ========================= */
 
 .hero-panel,
@@ -80,7 +85,7 @@ body {
 
   border-radius: 18px;
 
-  box-shadow: 0 0 20px rgba(255, 160, 60, 0.06);
+  box-shadow: 0 0 20px rgba(255, 160, 60, 0.08);
 }
 
 /* =========================
@@ -115,7 +120,7 @@ body {
 }
 
 /* =========================
-   BUTTONS (SQUARE UI)
+   BUTTONS (ROUNDED SUNSET)
 ========================= */
 
 .btn {
@@ -126,10 +131,11 @@ body {
   width: 140px;
   height: 60px;
 
-  background: white;
-  color: #1e1e1e;
+  background: #2a2a2a;
+  color: white;
 
-  border-radius: 0px;
+  border: 1px solid rgba(255, 183, 77, 0.2);
+  border-radius: 14px;
 
   font-weight: bold;
   text-decoration: none;
@@ -140,8 +146,8 @@ body {
 
 .btn:hover {
   transform: scale(1.05);
+  background: rgba(255, 183, 77, 0.15);
   box-shadow: 0 0 15px rgba(255, 183, 77, 0.25);
-  opacity: 0.9;
 }
 
 /* =========================
@@ -193,7 +199,7 @@ body {
   background: rgba(255, 183, 77, 0.08);
 }
 
-/* THUMB */
+/* THUMBNAIL */
 .thumb {
   width: 120px;
   height: 70px;
@@ -203,7 +209,7 @@ body {
 }
 
 /* =========================
-   FORMS / CARDS
+   FORMS / ACCOUNT
 ========================= */
 
 .card {
@@ -246,11 +252,13 @@ body {
   left: 50%;
   transform: translateX(-50%);
 
-  background: white;
-  color: #1e1e1e;
+  background: #2a2a2a;
+  color: white;
+
+  border: 1px solid rgba(255, 183, 77, 0.2);
 
   padding: 12px 20px;
-  border-radius: 12px;
+  border-radius: 14px;
 
   text-decoration: none;
   font-weight: bold;
@@ -261,7 +269,7 @@ body {
 
 .back-btn:hover {
   transform: translateX(-50%) scale(1.05);
-  box-shadow: 0 0 15px rgba(255, 183, 77, 0.25);
+  background: rgba(255, 183, 77, 0.15);
 }
 
 /* =========================
