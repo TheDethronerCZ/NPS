@@ -1,251 +1,242 @@
-.card input {
-  backdrop-filter: blur(8px);
-}
-
-.card input:focus {
-  box-shadow: 0 0 12px rgba(255,255,255,0.12);
-}
-.card input::placeholder {
-  color: rgba(255, 255, 255, 0.5);
-}
-
-.card input:focus {
-  background: rgba(255, 255, 255, 0.15);
-  transform: scale(1.01);
-  transition: 0.2s;
-}
-input:focus {
-  box-shadow: 0 0 12px rgba(255, 255, 255, 0.15);
-}
-input {
-  width: 100%;
-  padding: 14px 16px;
-
-  border: none;
-  border-radius: 14px;
-
-  background: rgba(255, 255, 255, 0.08);
-  color: white;
-
-  outline: none;
-
-  font-size: 14px;
-  transition: 0.2s;
-}
-
-/* placeholder styling */
-input::placeholder {
-  color: rgba(255, 255, 255, 0.5);
-}
-
-/* hover effect */
-input:hover {
-  background: rgba(255, 255, 255, 0.12);
-}
-
-/* focus effect (important for usability) */
-input:focus {
-  background: rgba(255, 255, 255, 0.18);
-  transform: scale(1.01);
-}
-.badge {
-  padding: 6px 10px;
-  border-radius: 10px;
-  font-size: 13px;
-  display: inline-block;
-  margin-top: 8px;
-}
-
-.verify {
-  background: #00c853;
-  color: white;
-}
-.level-banner {
-  position: relative;
-  width: 100%;
-  max-width: 900px;
-  height: 220px;
-  overflow: hidden;
-  border-radius: 18px;
-}
-
-.banner-img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-.banner-overlay {
-  position: absolute;
-  inset: 0;
-  background: rgba(0,0,0,0.45);
-  backdrop-filter: blur(2px);
-}
-
-.banner-text {
-  position: absolute;
-  bottom: 15px;
-  left: 20px;
-  color: white;
-}
-
-.banner-text h1 {
-  font-size: 28px;
-}
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  font-family: Arial, sans-serif;
 }
 
 body {
-  background: #1f1f1f;
-  font-family: Arial, sans-serif;
-  color: white;
+  background: #fff3e0; /* warm cream base */
+  color: #2b1b0f;
+
+  /* subtle pattern background */
+  background-image: radial-gradient(
+    rgba(255, 170, 80, 0.15) 2px,
+    transparent 2px
+  );
+  background-size: 40px 40px;
 }
 
-/* MAIN STACK LAYOUT */
-.scroll {
+/* =========================
+   LAYOUT
+========================= */
+
+.page {
+  min-height: 100vh;
+  width: 100%;
+
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 90px;
-  padding: 70px 20px;
-}
 
-/* HERO (MAIN MENU) */
-.hero-panel {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-
+  padding: 40px 20px;
   gap: 40px;
 }
 
-.nav {
-  margin-top: 10px;
+/* =========================
+   PANELS
+========================= */
+
+.hero-panel,
+.card,
+.section,
+.box,
+.level-card {
+  background: rgba(255, 255, 255, 0.7);
+
+  border: 1px solid rgba(255, 180, 90, 0.35);
+  border-radius: 18px;
+
+  box-shadow: 0 6px 20px rgba(255, 160, 60, 0.15);
 }
-  background: rgba(255,255,255,0.08);
-  border-radius: 20px;
-  backdrop-filter: blur(10px);
+
+/* =========================
+   HERO
+========================= */
+
+.hero-panel {
+  width: 90%;
+  max-width: 900px;
+
+  padding: 60px 20px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  gap: 30px;
 }
 
 /* LOGO */
 .logo-img {
-  width: 460px;
+  width: 260px;
   max-width: 80%;
   height: auto;
-  display: block;
 }
 
-.logo-img:hover {
-  transform: scale(1.06);
-}
-
-/* NAV BUTTONS */
+/* NAV */
 .nav {
   display: flex;
-  gap: 12px;
+  gap: 20px;
   flex-wrap: wrap;
+  justify-content: center;
 }
 
+/* =========================
+   BUTTONS
+========================= */
+
 .btn {
-  display: inline-flex;
+  display: flex;
   align-items: center;
   justify-content: center;
 
   width: 140px;
   height: 60px;
 
-  background: white;
-  color: black;
+  background: #ffcc80; /* soft orange */
+  color: #3b220f;
 
-  border-radius: 0px; /* 👈 this is what makes them square */
-  border: none;
+  border-radius: 0px;
 
   text-decoration: none;
   font-weight: bold;
 
   cursor: pointer;
-
   transition: 0.2s ease;
 }
 
 .btn:hover {
   transform: scale(1.05);
-  opacity: 0.85;
+  background: #ffb74d;
+  box-shadow: 0 6px 18px rgba(255, 140, 40, 0.25);
 }
 
-.btn:hover {
-  transform: scale(1.06);
-  opacity: 0.85;
-}
+/* =========================
+   SECTIONS
+========================= */
 
-/* SECTIONS */
 .section {
   width: 90%;
-  max-width: 1100px;
-  padding: 70px 0;
-  text-align: center;
+  max-width: 900px;
+
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+
+  padding: 20px;
 }
 
 .box {
-  background: rgba(255,255,255,0.05);
-  padding: 50px;
-  border-radius: 18px;
+  padding: 20px;
 }
 
-/* LEVEL GRID */
+/* =========================
+   LEVEL LIST
+========================= */
+
 .grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-  gap: 30px;
   width: 90%;
-  max-width: 1100px;
+  max-width: 900px;
+
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
 }
 
 /* LEVEL CARD */
 .level-card {
-  background: white;
-  color: black;
-  border-radius: 18px;
-  overflow: hidden;
+  display: flex;
+  gap: 15px;
+
+  padding: 15px;
   text-decoration: none;
-  transition: 0.25s;
+  color: #2b1b0f;
+
+  transition: 0.2s ease;
 }
 
 .level-card:hover {
-  transform: scale(1.05);
-  opacity: 0.9;
+  transform: scale(1.02);
+  background: rgba(255, 193, 120, 0.25);
 }
 
+/* THUMB */
 .thumb {
-  width: 100%;
-  height: 180px;
+  width: 120px;
+  height: 70px;
+
+  border-radius: 10px;
   object-fit: cover;
 }
 
-.info {
-  padding: 14px;
-}
-
-/* PAGE WRAPPER */
-.page {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 25px;
-  padding: 60px 20px;
-}
+/* =========================
+   CARDS
+========================= */
 
 .card {
-  background: rgba(255,255,255,0.05);
-  padding: 25px;
-  border-radius: 15px;
   width: 90%;
-  max-width: 500px;
+  max-width: 700px;
+
+  padding: 20px;
+
   display: flex;
   flex-direction: column;
   gap: 12px;
+}
+
+/* INPUTS */
+.card input {
+  width: 100%;
+
+  padding: 14px 16px;
+
+  border-radius: 12px;
+  border: 1px solid rgba(255, 170, 80, 0.4);
+
+  background: rgba(255, 255, 255, 0.6);
+  color: #2b1b0f;
+
+  outline: none;
+}
+
+.card input:focus {
+  background: rgba(255, 220, 180, 0.7);
+  box-shadow: 0 0 10px rgba(255, 170, 80, 0.25);
+}
+
+/* =========================
+   BACK BUTTON
+========================= */
+
+.back-btn {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+
+  background: #ffcc80;
+  color: #3b220f;
+
+  padding: 12px 20px;
+  border-radius: 12px;
+
+  text-decoration: none;
+  font-weight: bold;
+
+  transition: 0.2s ease;
+  z-index: 999;
+}
+
+.back-btn:hover {
+  transform: translateX(-50%) scale(1.05);
+  background: #ffb74d;
+}
+
+/* =========================
+   TEXT
+========================= */
+
+h1, h2, h3 {
+  color: #2b1b0f;
 }
