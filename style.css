@@ -1,3 +1,37 @@
+input:focus {
+  box-shadow: 0 0 12px rgba(255, 255, 255, 0.15);
+}
+input {
+  width: 100%;
+  padding: 14px 16px;
+
+  border: none;
+  border-radius: 14px;
+
+  background: rgba(255, 255, 255, 0.08);
+  color: white;
+
+  outline: none;
+
+  font-size: 14px;
+  transition: 0.2s;
+}
+
+/* placeholder styling */
+input::placeholder {
+  color: rgba(255, 255, 255, 0.5);
+}
+
+/* hover effect */
+input:hover {
+  background: rgba(255, 255, 255, 0.12);
+}
+
+/* focus effect (important for usability) */
+input:focus {
+  background: rgba(255, 255, 255, 0.18);
+  transform: scale(1.01);
+}
 .badge {
   padding: 6px 10px;
   border-radius: 10px;
