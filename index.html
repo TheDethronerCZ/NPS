@@ -1,130 +1,124 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>NPS - New Private Server</title>
 
-  <title>NPS</title>
+  <link rel="stylesheet" href="style.css"/>
 
-  <link rel="stylesheet" href="style.css">
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
 </head>
+
 <body>
 
-  <div class="background-glow"></div>
-
-  <!-- NAVBAR -->
-  <header>
-    <div class="navbar">
-
-      <div class="logo">
-        <img src="assets/logo.png" alt="NPS Logo">
-      </div>
-
-      <nav>
-        <a href="#">Home</a>
-        <a href="#">Levels</a>
-        <a href="#">Community</a>
-        <a href="#">Downloads</a>
-      </nav>
-
-      <button class="login-button">Login</button>
-
-    </div>
+  <header class="header">
+    <h1>NPS</h1>
+    <p>New Private Server</p>
   </header>
 
-  <!-- DASHBOARD -->
-  <section class="dashboard">
+  <main class="container">
 
-    <div class="dash-grid">
+    <!-- LOGIN -->
+    <section class="card">
+      <h2>Account</h2>
 
-      <!-- EVENTS -->
-      <div class="panel events modern-panel">
+      <input id="email" type="email" placeholder="Email"/>
+      <input id="password" type="password" placeholder="Password"/>
 
-        <h3>Upcoming Events</h3>
-
-        <div class="event-item">
-          <span class="event-date">MAY 28</span>
-          <p>NPS Community Challenge begins.</p>
-        </div>
-
-        <div class="event-item">
-          <span class="event-date">JUN 02</span>
-          <p>New side-scroller showcase release.</p>
-        </div>
-
+      <div class="row">
+        <button onclick="login()">Login</button>
+        <button onclick="logout()">Logout</button>
       </div>
 
-      <!-- FEATURED -->
-      <div class="panel featured modern-panel">
+      <p id="status"></p>
+    </section>
 
-        <h3>Featured</h3>
-
-        <p>
-          Latest NPS side-scroller highlight will appear here.
-        </p>
-
-        <button class="primary-btn">
-          View Level
-        </button>
-
+    <!-- LEVELS -->
+    <section class="card">
+      <div class="row space">
+        <h2>Hardest Levels</h2>
+        <button onclick="loadLevels()">Load</button>
       </div>
 
-      <!-- STATS -->
-      <div class="panel stats modern-panel">
+      <div id="levels"></div>
+    </section>
 
-        <h3>Community Stats</h3>
+  </main>
 
-        <div class="stat-grid">
+  <script>
+    // =========================
+    // SUPABASE INIT (YOUR PROJECT)
+    // =========================
+    const supabaseUrl = "https://ftgvhycaffzuwajihajz.supabase.co";
+    const supabaseKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZ0Z3ZoeWNhZmZ6dXdhamloYWp6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzk0NDkzNzcsImV4cCI6MjA5NTAyNTM3N30.KgibDtXxGFhTEK33430fIcOa7kgqECrO0SohYq2idDU";
 
-          <div>
-            <p class="stat-num">120+</p>
-            <p class="stat-label">Levels</p>
-          </div>
+    const supabaseClient = supabase.createClient(supabaseUrl, supabaseKey);
 
-          <div>
-            <p class="stat-num">5K</p>
-            <p class="stat-label">Players</p>
-          </div>
+    // =========================
+    // LOGIN
+    // =========================
+    async function login() {
+      const email = document.getElementById("email").value;
+      const password = document.getElementById("password").value;
 
-          <div>
-            <p class="stat-num">24/7</p>
-            <p class="stat-label">Activity</p>
-          </div>
+      const { data, error } = await supabaseClient.auth.signInWithPassword({
+        email,
+        password
+      });
 
-        </div>
+      const status = document.getElementById("status");
 
-      </div>
+      if (error) {
+        console.log(error);
+        status.textContent = "Login failed ❌";
+      } else {
+        status.textContent = "Logged in ✅";
+      }
+    }
 
-      <!-- LOGIN -->
-      <div class="panel login modern-panel">
+    async function logout() {
+      await supabaseClient.auth.signOut();
+      document.getElementById("status").textContent = "Logged out";
+    }
 
-        <h3>Member Login</h3>
+    // =========================
+    // LOAD LEVELS
+    // =========================
+    async function loadLevels() {
+      const { data, error } = await supabaseClient
+        .from("levels")
+        .select("*")
+        .order("point_award", { ascending: false });
 
-        <p>
-          Access downloads and profiles.
-        </p>
+      const container = document.getElementById("levels");
+      container.innerHTML = "";
 
-        <div class="input-group">
-          <label>Username</label>
-          <input type="text" placeholder="Enter username">
-        </div>
+      if (error) {
+        console.log(error);
+        container.innerHTML = "<p>Failed to load levels ❌</p>";
+        return;
+      }
 
-        <div class="input-group">
-          <label>Password</label>
-          <input type="password" placeholder="Enter password">
-        </div>
+      data.forEach(level => {
+        const div = document.createElement("div");
+        div.className = "level";
 
-        <button class="sign-in">
-          Sign In
-        </button>
+        div.innerHTML = `
+          <h3>${level.level_name}</h3>
+          <p><b>Creator:</b> ${level.creator}</p>
+          <p><b>Verifier:</b> ${level.verifier}</p>
+          <p><b>Difficulty:</b> ${level.difficulty}</p>
+          <p><b>Points:</b> ${level.point_award}</p>
+          <p><b>Length:</b> ${level.length}</p>
+          <p>${level.description ?? ""}</p>
+          <a href="${level.video_url}" target="_blank">Video</a>
+        `;
 
-      </div>
-
-    </div>
-
-  </section>
-
-  <script src="script.js"></script>
+        container.appendChild(div);
+      });
+    }
+  </script>
 
 </body>
 </html>
