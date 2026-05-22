@@ -1,5 +1,45 @@
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>NPS - Account</title>
 
+  <link rel="stylesheet" href="style.css">
+
+  <!-- ONLY ONE SUPABASE IMPORT -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+</head>
+
+<body>
+
+<a class="nps-top-left" href="index.html">
+  <span class="nps-white">NPS</span>
+  <span class="nps-sunset">vSUNSET</span>
+</a>
+
+<div class="page">
+
+  <h1>Account</h1>
+
+  <div class="card">
+    <input id="username" placeholder="Username">
+    <input id="password" type="password" placeholder="Password">
+
+    <button class="btn" onclick="signup()">Sign Up</button>
+    <button class="btn" onclick="login()">Login</button>
+    <button class="btn" onclick="logout()">Logout</button>
+
+    <p id="status"></p>
+  </div>
+
+  <div class="card">
+    <p id="profileBox">Not logged in</p>
+  </div>
+
+</div>
+
+<!-- POPUP -->
+<div id="popup" class="popup hidden"></div>
 <script>
 /* =========================
    SUPABASE INIT (ONLY ONCE)
@@ -37,14 +77,11 @@ async function signup() {
     password
   });
 
-  if (error) {
-    showPopup(error.message);
-    return;
-  }
+  if (error) return showPopup(error.message);
 
   await supabase.from("profiles").insert([{
     id: data.user.id,
-    username: username
+    username
   }]);
 
   showPopup("Sign up successful!");
@@ -64,10 +101,7 @@ async function login() {
     password
   });
 
-  if (error) {
-    showPopup(error.message);
-    return;
-  }
+  if (error) return showPopup(error.message);
 
   showPopup("Login successful!");
 }
@@ -80,3 +114,6 @@ async function logout() {
   showPopup("Logged out!");
 }
 </script>
+
+</body>
+</html>
