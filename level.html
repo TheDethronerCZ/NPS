@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Level Page</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+</head>
+
+<body>
+
+  <div class="card" id="level-container">
+    <h2>Loading level...</h2>
+  </div>
+
+  <script>
+    const supabaseUrl = "https://ftgvhycaffzuwajihajz.supabase.co";
+    const supabaseKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZ0Z3ZoeWNhZmZ6dXdhamloYWp6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzk0NDkzNzcsImV4cCI6MjA5NTAyNTM3N30.KgibDtXxGFhTEK33430fIcOa7kgqECrO0SohYq2idDU";
+
+    const supabase = supabase.createClient(supabaseUrl, supabaseKey);
+
+    async function loadLevel() {
+      const params = new URLSearchParams(window.location.search);
+      const id = params.get("id");
+
+      if (!id) {
+        document.getElementById("level-container").innerHTML = "<p>No level ID provided</p>";
+        return;
+      }
+
+      const { data, error } = await supabase
+        .from("levels")
+        .select("*")
+        .eq("id", id)
+        .single();
+
+      if (error) {
+        document.getElementById("level-container").innerHTML = "<p>Failed to load level</p>";
+        console.log(error);
+        return;
+      }
+
+      document.getElementById("level-container").innerHTML = `
+        <h1>${data.level_name}</h1>
+        <p><b>Creator:</b> ${data.creator}</p>
+        <p><b>Verifier:</b> ${data.verifier}</p>
+        <p><b>Difficulty:</b> ${data.difficulty}</p>
+        <p><b>Points:</b> ${data.point_award}</p>
+        <p><b>Length:</b> ${data.length}</p>
+        <p>${data.description ?? ""}</p>
+        <a href="${data.video_url}" target="_blank">Watch Video</a>
+      `;
+    }
+
+    loadLevel();
+  </script>
+
+</body>
+</html>
