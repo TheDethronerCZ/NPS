@@ -2,57 +2,82 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Level Page</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>NPS - Levels</title>
+
   <link rel="stylesheet" href="style.css">
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
 </head>
 
 <body>
 
-  <div class="card" id="level-container">
-    <h2>Loading level...</h2>
+  <div class="page">
+
+    <h1 class="title">Levels</h1>
+
+    <!-- GRID -->
+    <div id="grid" class="grid"></div>
+
+    <a href="index.html" class="btn">Back</a>
+
   </div>
 
   <script>
-    const supabaseUrl = "https://ftgvhycaffzuwajihajz.supabase.co";
-    const supabaseKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZ0Z3ZoeWNhZmZ6dXdhamloYWp6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzk0NDkzNzcsImV4cCI6MjA5NTAyNTM3N30.KgibDtXxGFhTEK33430fIcOa7kgqECrO0SohYq2idDU";
+    const client = supabase.createClient(
+      "https://ftgvhycaffzuwajihajz.supabase.co",
+      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZ0Z3ZoeWNhZmZ6dXdhamloYWp6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzk0NDkzNzcsImV4cCI6MjA5NTAyNTM3N30.KgibDtXxGFhTEK33430fIcOa7kgqECrO0SohYq2idDU"
+    );
 
-    const supabase = supabase.createClient(supabaseUrl, supabaseKey);
+    async function loadLevels() {
 
-    async function loadLevel() {
-      const params = new URLSearchParams(window.location.search);
-      const id = params.get("id");
-
-      if (!id) {
-        document.getElementById("level-container").innerHTML = "<p>No level ID provided</p>";
-        return;
-      }
-
-      const { data, error } = await supabase
+      const { data, error } = await client
         .from("levels")
         .select("*")
-        .eq("id", id)
-        .single();
+        .order("point_award", { ascending: false });
 
-      if (error) {
-        document.getElementById("level-container").innerHTML = "<p>Failed to load level</p>";
+      const grid = document.getElementById("grid");
+
+      if (error || !data) {
+        grid.innerHTML = "<p>Failed to load levels</p>";
         console.log(error);
         return;
       }
 
-      document.getElementById("level-container").innerHTML = `
-        <h1>${data.level_name}</h1>
-        <p><b>Creator:</b> ${data.creator}</p>
-        <p><b>Verifier:</b> ${data.verifier}</p>
-        <p><b>Difficulty:</b> ${data.difficulty}</p>
-        <p><b>Points:</b> ${data.point_award}</p>
-        <p><b>Length:</b> ${data.length}</p>
-        <p>${data.description ?? ""}</p>
-        <a href="${data.video_url}" target="_blank">Watch Video</a>
-      `;
+      grid.innerHTML = "";
+
+      data.forEach((lvl, index) => {
+
+        // YouTube thumbnail (if video is YouTube link)
+        let thumb = "";
+        if (lvl.video_url?.includes("youtube.com") || lvl.video_url?.includes("youtu.be")) {
+          const id = extractYouTubeID(lvl.video_url);
+          thumb = `https://img.youtube.com/vi/${id}/hqdefault.jpg`;
+        }
+
+        const card = document.createElement("a");
+        card.className = "level-card";
+        card.href = `level.html?id=${lvl.id}`;
+
+        card.innerHTML = `
+          <img src="${thumb}" class="thumb" />
+          <div class="info">
+            <h3>#${index + 1} ${lvl.level_name}</h3>
+            <p><b>Creator:</b> ${lvl.creator}</p>
+            <p><b>ID:</b> ${lvl.ingame_id ?? "N/A"}</p>
+            <p><b>Position:</b> ${index + 1}</p>
+          </div>
+        `;
+
+        grid.appendChild(card);
+      });
     }
 
-    loadLevel();
+    function extractYouTubeID(url) {
+      const match = url.match(/(youtu\.be\/|v=)([^&?/]+)/);
+      return match ? match[2] : "";
+    }
+
+    loadLevels();
   </script>
 
 </body>
