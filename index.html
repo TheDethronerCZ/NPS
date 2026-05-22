@@ -53,6 +53,37 @@
     </div>
 
   </div>
+<script>
+const supabase = window.supabase.createClient(
+  "https://ftgvhycaffzuwajihajz.supabase.co",
+  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZ0Z3ZoeWNhZmZ6dXdhamloYWp6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzk0NDkzNzcsImV4cCI6MjA5NTAyNTM3N30.KgibDtXxGFhTEK33430fIcOa7kgqECrO0SohYq2idDU"
+);
 
+// ADMIN CHECK FUNCTION
+async function checkAdmin() {
+
+  const { data: { user } } = await supabase.auth.getUser();
+
+  if (!user) return;
+
+  const { data, error } = await supabase
+    .from("profiles")
+    .select("is_admin")
+    .eq("id", user.id)
+    .single();
+
+  if (error) {
+    console.log(error);
+    return;
+  }
+
+  if (data?.is_admin === true) {
+    document.getElementById("adminBtn").style.display = "inline-block";
+  }
+}
+
+// RUN IT AFTER PAGE LOAD
+checkAdmin();
+</script>
 </body>
 </html>
