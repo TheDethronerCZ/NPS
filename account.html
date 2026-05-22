@@ -1,128 +1,20 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>NPS - Account</title>
-
   <link rel="stylesheet" href="style.css">
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
 </head>
 
 <body>
 
-  <div class="page">
+<div class="page">
 
-    <h1 class="title">Account</h1>
+  <h1>Account</h1>
 
-    <!-- LOGIN BOX -->
-    <div class="card">
-
-      <h2>Login</h2>
-
-      <input id="email" type="email" placeholder="Email">
-      <input id="password" type="password" placeholder="Password">
-
-      <button class="btn" onclick="login()">Login</button>
-      <button class="btn" onclick="logout()">Logout</button>
-
-      <p id="status"></p>
-
-    </div>
-
-    <!-- PROFILE BOX -->
-    <div class="card">
-
-      <h2>Profile</h2>
-
-      <div id="profile">
-        <p>Not logged in</p>
-      </div>
-
-    </div>
-
-    <!-- STATS BOX -->
-    <div class="card">
-
-      <h2>Stats</h2>
-
-      <p>Completed Levels: <b id="completed">0</b></p>
-      <p>Total Points: <b id="points">0</b></p>
-
-    </div>
-
-    <!-- HARDEST LEVEL -->
-    <div class="card">
-
-      <h2>Hardest Level</h2>
-
-      <div id="hardest">
-        <p>No data yet</p>
-      </div>
-
-    </div>
-
-    <a href="index.html" class="btn">Back</a>
-
+  <div class="card">
+    <p>Login system goes here</p>
   </div>
 
-  <script>
-    const supabase = supabase.createClient(
-      "https://ftgvhycaffzuwajihajz.supabase.co",
-      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZ0Z3ZoeWNhZmZ6dXdhamloYWp6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzk0NDkzNzcsImV4cCI6MjA5NTAyNTM3N30.KgibDtXxGFhTEK33430fIcOa7kgqECrO0SohYq2idDU"
-    );
-
-    let user;
-
-    // LOGIN
-    async function login() {
-      const email = document.getElementById("email").value;
-      const password = document.getElementById("password").value;
-
-      const { data, error } = await supabase.auth.signInWithPassword({
-        email,
-        password
-      });
-
-      if (error) {
-        document.getElementById("status").innerText = "Login failed";
-        return;
-      }
-
-      document.getElementById("status").innerText = "Logged in";
-      loadProfile();
-    }
-
-    // LOGOUT
-    async function logout() {
-      await supabase.auth.signOut();
-      document.getElementById("status").innerText = "Logged out";
-      document.getElementById("profile").innerHTML = "<p>Not logged in</p>";
-    }
-
-    // LOAD PROFILE
-    async function loadProfile() {
-      const { data: { user: u } } = await supabase.auth.getUser();
-      user = u;
-
-      if (!user) return;
-
-      document.getElementById("profile").innerHTML = `
-        <p><b>Email:</b> ${user.email}</p>
-        <p><b>User ID:</b> ${user.id}</p>
-      `;
-
-      // Placeholder stats (we will connect later)
-      document.getElementById("completed").innerText = "0";
-      document.getElementById("points").innerText = "0";
-
-      document.getElementById("hardest").innerHTML = `
-        <p>Not connected yet</p>
-      `;
-    }
-
-    loadProfile();
-  </script>
+</div>
 
 </body>
 </html>
