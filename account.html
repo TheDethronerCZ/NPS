@@ -2,11 +2,9 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>NPS - Account</title>
+  <title>Account</title>
 
   <link rel="stylesheet" href="style.css">
-
-  <!-- ONLY ONCE -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
 </head>
 
@@ -19,10 +17,7 @@
 
 <div class="page">
 
-  <h1>Account</h1>
-
   <div class="card">
-
     <input id="username" placeholder="Username">
     <input id="password" type="password" placeholder="Password">
 
@@ -31,7 +26,6 @@
     <button class="btn" onclick="logout()">Logout</button>
 
     <p id="status"></p>
-
   </div>
 
 </div>
@@ -39,77 +33,53 @@
 <div id="popup" class="popup hidden"></div>
 
 <script>
-/* =========================
-   SAFE SUPABASE INIT (ONLY ONCE)
-========================= */
-const SUPABASE_URL = "https://ftgvhycaffzuwajihajz.supabase.co";
-const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZ0Z3ZoeWNhZmZ6dXdhamloYWp6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzk0NDkzNzcsImV4cCI6MjA5NTAyNTM3N30.KgibDtXxGFhTEK33430fIcOa7kgqECrO0SohYq2idDU";
+window.supabaseClient = window.supabaseClient || window.supabase.createClient(
+  "https://ftgvhycaffzuwajihajz.supabase.co",
+  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZ0Z3ZoeWNhZmZ6dXdhamloYWp6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzk0NDkzNzcsImV4cCI6MjA5NTAyNTM3N30.KgibDtXxGFhTEK33430fIcOa7kgqECrO0SohYq2idDU"
+);
 
-const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
-
-/* =========================
-   POPUP SYSTEM
-========================= */
-function showPopup(msg) {
-  const popup = document.getElementById("popup");
-
-  popup.innerText = msg;
-  popup.classList.remove("hidden");
-
-  setTimeout(() => {
-    popup.classList.add("hidden");
-  }, 2000);
+function popup(msg){
+  const p = document.getElementById("popup");
+  p.innerText = msg;
+  p.classList.remove("hidden");
+  setTimeout(()=>p.classList.add("hidden"), 2000);
 }
 
-/* =========================
-   SIGNUP
-========================= */
-async function signup() {
-  const username = document.getElementById("username").value;
-  const password = document.getElementById("password").value;
+async function signup(){
+  const u = username.value;
+  const p = password.value;
 
-  const email = username + "@nps.local";
+  const email = u + "@nps.local";
 
-  const { data, error } = await supabase.auth.signUp({
+  const { data, error } = await window.supabaseClient.auth.signUp({
     email,
-    password
+    password: p
   });
 
-  if (error) return showPopup(error.message);
+  if(error) return popup(error.message);
 
-  await supabase.from("profiles").insert([{
-    id: data.user.id,
-    username
-  }]);
-
-  showPopup("Sign up successful!");
+  popup("Sign up successful!");
 }
 
-/* =========================
-   LOGIN
-========================= */
-async function login() {
-  const username = document.getElementById("username").value;
-  const password = document.getElementById("password").value;
+async function login(){
+  const u = username.value;
+  const p = password.value;
 
-  const email = username + "@nps.local";
+  const email = u + "@nps.local";
 
-  const { error } = await supabase.auth.signInWithPassword({
+  const { error } = await window.supabaseClient.auth.signInWithPassword({
     email,
-    password
+    password: p
   });
 
-  if (error) return showPopup(error.message);
+  if(error) return popup(error.message);
 
-  showPopup("Login successful!");
+  popup("Login successful!");
 }
 
-/* =========================
-   LOGOUT
-========================= */
-async function logout() {
-  await supabase.auth.signOut();
-  showPopup("Logged out!");
+async function logout(){
+  await window.supabaseClient.auth.signOut();
+  popup("Logged out");
 }
 </script>
 
