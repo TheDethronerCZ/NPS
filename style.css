@@ -99,17 +99,17 @@ body {
 
 /* HERO (MAIN MENU) */
 .hero-panel {
-  width: 90%;
-  max-width: 1100px;
-  height: 450px;
-
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
 
-  gap: 30px;
+  gap: 40px;
+}
 
+.nav {
+  margin-top: 10px;
+}
   background: rgba(255,255,255,0.08);
   border-radius: 20px;
   backdrop-filter: blur(10px);
