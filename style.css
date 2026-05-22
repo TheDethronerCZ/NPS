@@ -61,7 +61,17 @@ body {
 /* =========================
    NAV BUTTONS
 ========================= */
-
+.hero-panel { outline: 3px solid red; }
+.section { outline: 3px solid blue; }
+.hero-panel,
+.section {
+  width: 80%;
+  max-width: 900px;
+}
+.hero-panel,
+.section {
+  position: relative;
+}
 .scroll {
   display: flex;
   flex-direction: column;
