@@ -1,7 +1,10 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+  <meta charset="UTF-8">
+  <title>NPS - Account</title>
   <link rel="stylesheet" href="style.css">
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
 </head>
 
 <body>
@@ -11,10 +14,107 @@
   <h1>Account</h1>
 
   <div class="card">
-    <p>Login system goes here</p>
+
+    <input id="email" placeholder="Email">
+    <input id="password" type="password" placeholder="Password">
+    <input id="username" placeholder="Username">
+
+    <button class="btn" onclick="signup()">Sign Up</button>
+    <button class="btn" onclick="login()">Login</button>
+    <button class="btn" onclick="logout()">Logout</button>
+
+    <p id="status"></p>
+
+  </div>
+
+  <div class="card" id="userBox">
+    <p>Not logged in</p>
   </div>
 
 </div>
+
+<script>
+const supabase = window.supabase.createClient(
+  "https://ftgvhycaffzuwajihajz.supabase.co",
+  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZ0Z3ZoeWNhZmZ6dXdhamloYWp6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzk0NDkzNzcsImV4cCI6MjA5NTAyNTM3N30.KgibDtXxGFhTEK33430fIcOa7kgqECrO0SohYq2idDU"
+);
+
+// SIGN UP
+async function signup() {
+  const email = document.getElementById("email").value;
+  const password = document.getElementById("password").value;
+  const username = document.getElementById("username").value;
+
+  const { data, error } = await supabase.auth.signUp({
+    email,
+    password
+  });
+
+  if (error) {
+    document.getElementById("status").innerText = error.message;
+    return;
+  }
+
+  // Create profile row
+  await supabase.from("profiles").insert([
+    {
+      id: data.user.id,
+      username: username,
+      ingame_name: username
+    }
+  ]);
+
+  document.getElementById("status").innerText = "Account created!";
+  loadUser();
+}
+
+// LOGIN
+async function login() {
+  const email = document.getElementById("email").value;
+  const password = document.getElementById("password").value;
+
+  const { error } = await supabase.auth.signInWithPassword({
+    email,
+    password
+  });
+
+  if (error) {
+    document.getElementById("status").innerText = error.message;
+    return;
+  }
+
+  document.getElementById("status").innerText = "Logged in!";
+  loadUser();
+}
+
+// LOGOUT
+async function logout() {
+  await supabase.auth.signOut();
+  document.getElementById("status").innerText = "Logged out";
+  document.getElementById("userBox").innerHTML = "<p>Not logged in</p>";
+}
+
+// LOAD USER
+async function loadUser() {
+  const { data: { user } } = await supabase.auth.getUser();
+
+  if (!user) return;
+
+  const { data: profile } = await supabase
+    .from("profiles")
+    .select("*")
+    .eq("id", user.id)
+    .single();
+
+  document.getElementById("userBox").innerHTML = `
+    <h3>${profile.username}</h3>
+    <p>${user.email}</p>
+    <p>User ID: ${user.id}</p>
+  `;
+}
+
+loadUser();
+</script>
 
 </body>
 </html>
