@@ -1,43 +1,20 @@
-input {
-  padding: 10px;
-  border-radius: 8px;
-  border: 1px solid #333;
-  background: #111;
-  color: white;
-  margin: 5px;
-}
-
-input:focus {
-  outline: none;
-  border-color: #ff8a3d;
-}
 body {
   margin: 0;
   background: black;
   color: white;
   font-family: Arial;
-  overflow: hidden;
+  overflow-x: hidden;
 }
 
-/* BRAND */
-.brand {
-  position: fixed;
-  top: 15px;
-  left: 15px;
-  font-weight: bold;
-  text-decoration: none;
-  color: white;
-}
+/* ================= NAV ================= */
 
-.brand span {
-  color: #ff8a3d;
-}
-
-/* NAV */
 .nav {
+  position: fixed;
+  top: 10px;
+  left: 80px;
   display: flex;
   gap: 10px;
-  margin-top: 20px;
+  z-index: 100;
 }
 
 .nav a {
@@ -55,13 +32,35 @@ body {
   transform: scale(1.05);
 }
 
-/* ADMIN HOVER */
-.admin-btn:hover {
+.admin-hover:hover {
   background: linear-gradient(to right, #8a3dff, #c08aff) !important;
-  color: white !important;
 }
 
-/* ART SYSTEM */
+/* ================= BRAND ================= */
+
+.brand {
+  position: fixed;
+  top: 10px;
+  left: 10px;
+  font-weight: bold;
+  color: white;
+  text-decoration: none;
+  z-index: 100;
+}
+
+.brand span {
+  color: #ff8a3d;
+}
+
+/* ================= LAYOUT ================= */
+
+.container {
+  padding-top: 120px;
+  text-align: center;
+}
+
+/* ================= ART ================= */
+
 .page-art {
   position: fixed;
   bottom: 0;
@@ -74,22 +73,28 @@ body {
   z-index: 0;
 }
 
-.container {
-  position: relative;
-  z-index: 10;
-  text-align: center;
-  margin-top: 100px;
+/* ================= CARDS ================= */
+
+.card {
+  background: #111;
+  border-radius: 10px;
+  padding: 10px;
+  margin: 10px;
 }
 
-/* DEMONS */
+/* ================= DEMONS ================= */
+
 .demon-grid {
   display: flex;
-  flex-wrap: wrap;
   gap: 12px;
+  flex-wrap: wrap;
   justify-content: center;
 }
 
 .demon-card {
+  width: 200px;
+  background: #111;
+  border-radius: 10px;
   cursor: pointer;
   transition: 0.2s;
 }
@@ -98,19 +103,16 @@ body {
   transform: scale(1.05);
 }
 
-.demon-card img {
-  width: 100%;
-}
+/* ================= LOADER ================= */
 
-/* LOADING */
-#loading {
+#loader {
   position: fixed;
   inset: 0;
   background: black;
-  display: none;
+  display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
-  flex-direction: column;
   z-index: 999;
 }
 
@@ -126,10 +128,4 @@ body {
   height: 100%;
   background: #ff8a3d;
   transition: 1s;
-}
-.level-card {
-  background: #111;
-  padding: 10px;
-  margin: 10px;
-  border-radius: 10px;
 }
