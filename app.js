@@ -118,3 +118,70 @@ window.onload = () => {
   const page = document.body.dataset.page;
   if (page) setArt(page);
 };
+/* =========================
+    BG Particles
+========================= */
+function createParticles() {
+  const canvas = document.createElement("canvas");
+  document.body.appendChild(canvas);
+
+  const ctx = canvas.getContext("2d");
+
+  canvas.style.position = "fixed";
+  canvas.style.top = "0";
+  canvas.style.left = "0";
+  canvas.style.zIndex = "0";
+  canvas.style.pointerEvents = "none";
+
+  let w, h;
+  function resize() {
+    w = canvas.width = window.innerWidth;
+    h = canvas.height = window.innerHeight;
+  }
+
+  resize();
+  window.addEventListener("resize", resize);
+
+  const particles = Array.from({ length: 60 }, () => ({
+    x: Math.random() * w,
+    y: Math.random() * h,
+    r: Math.random() * 3 + 1,
+    dx: (Math.random() - 0.5) * 0.6,
+    dy: -Math.random() * 0.6 - 0.2
+  }));
+
+  function draw() {
+    ctx.clearRect(0, 0, w, h);
+
+    particles.forEach(p => {
+      const gradient = ctx.createLinearGradient(p.x, p.y, p.x + 10, p.y + 10);
+      gradient.addColorStop(0, "#ff8a3d");
+      gradient.addColorStop(1, "#ffe08a");
+
+      ctx.fillStyle = gradient;
+
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+      ctx.fill();
+
+      p.x += p.dx;
+      p.y += p.dy;
+
+      if (p.y < 0) {
+        p.y = h;
+        p.x = Math.random() * w;
+      }
+    });
+
+    requestAnimationFrame(draw);
+  }
+
+  draw();
+}
+window.onload = () => {
+  buildBrand();
+  buildNav();
+  buildLoader();
+  checkAdmin();
+  createParticles();
+};
