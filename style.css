@@ -1,3 +1,11 @@
+.demon-card:hover {
+  transform:
+    translateY(-5px)
+    scale(1.03);
+
+  box-shadow:
+    0 0 20px rgba(255,138,61,0.25);
+}
 .demon-card {
   width: 220px;
 
