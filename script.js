@@ -42,5 +42,19 @@ if (levelBox) {
         <p>${l.difficulty}</p>
       </div>
     `;
+    /* LOADING */
+    window.addEventListener("load", () => {
+  const loader = document.getElementById("loading");
+  if (!loader) return; // ONLY run if it exists
+
+  loader.style.display = "flex";
+
+  const bar = document.querySelector(".bar-fill");
+  if (bar) bar.style.width = "100%";
+
+  setTimeout(() => {
+    loader.style.display = "none";
+  }, 1000);
+});
   });
 }
