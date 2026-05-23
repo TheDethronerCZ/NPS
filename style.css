@@ -1,3 +1,6 @@
+.gd-btn:active {
+  transform: scale(0.92);
+}
 @keyframes sunsetGlow {
   0% {
     filter:
