@@ -77,11 +77,12 @@ body {
 }
 
 .demon-card {
-  width: 200px;
-  background: #111;
-  border-radius: 10px;
-  overflow: hidden;
   cursor: pointer;
+  transition: 0.2s;
+}
+
+.demon-card:hover {
+  transform: scale(1.05);
 }
 
 .demon-card img {
