@@ -64,9 +64,16 @@ body {
   color: #ff8a3d; /* SUNSET color */
 }
 
-.brand-btn:hover {
+.gd-btn:hover {
+  transform:
+    translateY(-3px)
+    scale(1.08);
+
   border-color: #ff8a3d;
-  box-shadow: 0 0 10px rgba(255, 138, 61, 0.3);
+
+  box-shadow:
+    0 0 12px rgba(255,138,61,0.5),
+    inset 0 0 10px rgba(255,138,61,0.2);
 }
 
 /* =========================
@@ -160,9 +167,16 @@ body {
   transition: 0.2s;
 }
 
-.nav-btn:hover {
+.gd-btn:hover {
+  transform:
+    translateY(-3px)
+    scale(1.08);
+
   border-color: #ff8a3d;
-  box-shadow: 0 0 10px rgba(255, 138, 61, 0.3);
+
+  box-shadow:
+    0 0 12px rgba(255,138,61,0.5),
+    inset 0 0 10px rgba(255,138,61,0.2);
 }
 
 /* =========================
