@@ -3,18 +3,22 @@
 <body data-page="account">
 
 <div class="container">
-  <h1>Account</h1>
 
-  <input placeholder="Username">
-  <input placeholder="Password">
-
-  <button>Login</button>
-
-  <div id="stats">
-    <p>Creator Points: 0</p>
-    <p>Demon Points: 0</p>
-    <p>Stars: 0</p>
+  <div id="loginBox">
+    <input placeholder="Username">
+    <input placeholder="Password">
+    <button onclick="login()">Login</button>
   </div>
+
+  <div id="statsPanel" style="display:none;">
+    <div class="card">
+      <h2>Stats</h2>
+      <p>Creator Points: 0</p>
+      <p>Demon Points: 0</p>
+      <p>Stars: 0</p>
+    </div>
+  </div>
+
 </div>
 
 </body>
