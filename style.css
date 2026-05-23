@@ -1,3 +1,16 @@
+input {
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #333;
+  background: #111;
+  color: white;
+  margin: 5px;
+}
+
+input:focus {
+  outline: none;
+  border-color: #ff8a3d;
+}
 body {
   margin: 0;
   background: black;
