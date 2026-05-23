@@ -1,3 +1,45 @@
+.nav {
+  position: relative;
+}
+.nav-selector {
+  position: absolute;
+
+  width: 90px;
+  height: 40px;
+
+  background:
+    linear-gradient(
+      to bottom,
+      rgba(255,138,61,0.25),
+      rgba(255,138,61,0.08)
+    );
+
+  border:
+    1px solid rgba(255,138,61,0.4);
+
+  border-radius: 10px;
+
+  left: 10px;
+  top: 8px;
+
+  transition: 0.25s ease;
+
+  pointer-events: none;
+}
+body {
+  animation: fadeIn 0.4s ease;
+}
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: scale(1.01);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
 @keyframes drift {
   from {
     transform: translateY(0px);
