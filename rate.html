@@ -1,27 +1,20 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <title>Rated Levels</title>
-  <link rel="stylesheet" href="style.css">
-  <script defer src="script.js"></script>
-</head>
-
-<body>
-
-<a class="brand" href="index.html">NPS v<span>SUNSET</span></a>
+<body data-page="rate">
 
 <div class="container">
-  <h1>Rated Levels</h1>
+  <h1>Rate a Level</h1>
 
-  <div id="levels"></div>
-</div>
+  <input placeholder="Level ID">
+  <input placeholder="Level Name">
 
-<div class="page-art levels-art"></div>
+  <select>
+    <option>1 Auto</option>
+    <option>2 Easy</option>
+    <option>10 Demon</option>
+  </select>
 
-<div id="loading">
-  <div>Loading page..</div>
-  <div class="bar"><div class="bar-fill"></div></div>
+  <input placeholder="Optional YouTube Link">
+
+  <button>Submit Rating</button>
 </div>
 
 </body>
-</html>
