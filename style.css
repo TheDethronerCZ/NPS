@@ -113,3 +113,9 @@ body {
   background: #ff8a3d;
   transition: 1s;
 }
+.level-card {
+  background: #111;
+  padding: 10px;
+  margin: 10px;
+  border-radius: 10px;
+}
