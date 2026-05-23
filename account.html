@@ -1,111 +1,18 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>Account</title>
+<body data-page="account">
 
-  <link rel="stylesheet" href="style.css">
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
-</head>
+<div class="container">
+  <h1>Account</h1>
 
-<body>
+  <input placeholder="Username">
+  <input placeholder="Password">
 
-<a class="nps-top-left" href="index.html">
-  <span class="nps-white">NPS</span>
-  <span class="nps-sunset">vSUNSET</span>
-</a>
+  <button>Login</button>
 
-<div class="page">
-
-  <div class="card">
-    <input id="username" placeholder="Username">
-    <input id="password" type="password" placeholder="Password">
-
- <div class="button-row">
-  <button class="btn" onclick="signup()">Sign Up</button>
-  <button class="btn" onclick="login()">Login</button>
-  <button class="btn" onclick="logout()">Logout</button>
-</div>
-    <p id="status"></p>
+  <div id="stats">
+    <p>Creator Points: 0</p>
+    <p>Demon Points: 0</p>
+    <p>Stars: 0</p>
   </div>
-
 </div>
-
-<div id="popup" class="popup hidden"></div>
-
-<script>
-  /* =========================
-   RATE LIMIT
-========================= */
-const SIGNUP_COOLDOWN = 30000; // 30 sec
-const LOGIN_COOLDOWN = 5000;   // 5 sec
-window.supabaseClient = window.supabaseClient || window.supabase.createClient(
-  "https://ftgvhycaffzuwajihajz.supabase.co",
-  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZ0Z3ZoeWNhZmZ6dXdhamloYWp6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzk0NDkzNzcsImV4cCI6MjA5NTAyNTM3N30.KgibDtXxGFhTEK33430fIcOa7kgqECrO0SohYq2idDU"
-);
-
-function popup(msg){
-  const p = document.getElementById("popup");
-  p.innerText = msg;
-  p.classList.remove("hidden");
-  setTimeout(()=>p.classList.add("hidden"), 2000);
-}
-
-async function signup() {
-
-  const lastSignup = localStorage.getItem("lastSignup");
-
-  if (lastSignup && Date.now() - lastSignup < SIGNUP_COOLDOWN) {
-    popup("Please wait before creating another account.");
-    return;
-  }
-
-  const u = username.value.trim();
-  const p = password.value.trim();
-
-  if (!u || !p) {
-    popup("Fill all fields.");
-    return;
-  }
-
-  const email = u + "@nps.local";
-
-  const { data, error } =
-    await window.supabaseClient.auth.signUp({
-      email,
-      password: p
-    });
-
-  if (error) {
-    popup(error.message);
-    return;
-  }
-
-  localStorage.setItem("lastSignup", Date.now());
-
-  popup("Sign up successful!");
-}
-async function login(){
-  const u = username.value;
-  const p = password.value;
-
-  const email = u + "@nps.local";
-
-  const { error } = await window.supabaseClient.auth.signInWithPassword({
-    email,
-    password: p
-  });
-
-  if(error) return popup(error.message);
-
-  popup("Login successful!");
-}
-
-async function logout(){
-  await window.supabaseClient.auth.signOut();
-  popup("Logged out");
-}
-</script>
 
 </body>
-</html>
