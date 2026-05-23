@@ -1,3 +1,25 @@
+@keyframes drift {
+  from {
+    transform: translateY(0px);
+  }
+
+  to {
+    transform: translateY(-50px);
+  }
+}
+.particles {
+  position: fixed;
+  inset: 0;
+
+  background-image:
+    radial-gradient(rgba(255,138,61,0.15) 1px, transparent 1px);
+
+  background-size: 50px 50px;
+
+  animation: drift 20s linear infinite;
+
+  pointer-events: none;
+}
 .gd-btn:active {
   transform: scale(0.92);
 }
