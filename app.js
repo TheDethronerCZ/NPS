@@ -1,3 +1,25 @@
+function renderPage() {
+  const dGrid = document.getElementById("demonGrid");
+  if (dGrid && typeof DEMONS !== "undefined") {
+    dGrid.innerHTML = DEMONS.map(d => `
+      <div class="demon-card">
+        <img src="https://img.youtube.com/vi/${d.video}/maxresdefault.jpg">
+        <p>#${d.rank} ${d.name}</p>
+      </div>
+    `).join("");
+  }
+
+  const lBox = document.getElementById("levels");
+  if (lBox && typeof LEVELS !== "undefined") {
+    lBox.innerHTML = LEVELS.map(l => `
+      <div class="card">
+        <h3>${l.name}</h3>
+        <p>${l.creator}</p>
+        <p>${l.difficulty}</p>
+      </div>
+    `).join("");
+  }
+}
 document.addEventListener("DOMContentLoaded", () => {
   buildNav();
   buildLoader();
