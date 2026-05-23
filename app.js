@@ -170,4 +170,44 @@ const supabase = createClient(
   "https://ftgvhycaffzuwajihajz.supabase.co/",
   "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZ0Z3ZoeWNhZmZ6dXdhamloYWp6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzk0NDkzNzcsImV4cCI6MjA5NTAyNTM3N30.KgibDtXxGFhTEK33430fIcOa7kgqECrO0SohYq2idDU"
 );
+async function loadDemons() {
+  const { data, error } = await supabase
+    .from("demons")
+    .select("*")
+    .order("rank", { ascending: true });
 
+  const grid = document.getElementById("demonGrid");
+  if (!grid || error) return;
+
+  grid.innerHTML = data.map(d => `
+    <div class="demon-card">
+      <img src="https://img.youtube.com/vi/${d.youtube}/maxresdefault.jpg">
+      <p>#${d.rank} ${d.name}</p>
+    </div>
+  `).join("");
+}
+async function loadLevels() {
+  const { data, error } = await supabase
+    .from("levels")
+    .select("*");
+
+  const box = document.getElementById("levels");
+  if (!box || error) return;
+
+  box.innerHTML = data.map(l => `
+    <div class="card">
+      <h3>${l.name}</h3>
+      <p>${l.creator}</p>
+      <p>${l.difficulty}</p>
+    </div>
+  `).join("");
+}
+document.addEventListener("DOMContentLoaded", () => {
+  buildNav();
+  buildLoader();
+  createParticles();
+
+  loadDemons();
+  loadLevels();
+  checkLogin();
+});
