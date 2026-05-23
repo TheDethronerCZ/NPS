@@ -11,10 +11,9 @@ body {
 .nav {
   position: fixed;
   top: 10px;
-  left: 80px;
-  display: flex;
-  gap: 10px;
-  z-index: 100;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1000;
 }
 
 .nav a {
