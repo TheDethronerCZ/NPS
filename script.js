@@ -1,121 +1,46 @@
-body {
-  margin: 0;
-  background: black;
-  color: white;
-  font-family: Arial;
-  overflow: hidden;
-}
+const demons = [
+  {
+    name: "Tidal Wave",
+    creator: "Unknown",
+    video: "dQw4w9WgXcQ",
+    id: "1001",
+    rank: 1
+  }
+];
 
-/* BRAND */
-.brand {
-  position: fixed;
-  top: 15px;
-  left: 15px;
-  font-weight: bold;
-  text-decoration: none;
-  color: white;
-}
-
-.brand span {
-  color: #ff8a3d;
-}
-
-/* NAV */
-.nav {
-  display: flex;
-  gap: 10px;
-  margin-top: 20px;
-}
-
-.nav a {
-  padding: 10px 14px;
-  border-radius: 10px;
-  background: #1a1a1a;
-  color: white;
-  text-decoration: none;
-  transition: 0.2s;
-}
-
-.nav a:hover {
-  background: linear-gradient(to right, #ff8a3d, #ffe08a);
-  color: black;
-  transform: scale(1.05);
-}
-
-/* ADMIN HOVER */
-.admin-btn:hover {
-  background: linear-gradient(to right, #8a3dff, #c08aff) !important;
-  color: white !important;
-}
-
-/* ART SYSTEM */
-.page-art {
-  position: fixed;
-  bottom: 0;
-  width: 100%;
-  height: 40%;
-  background-size: contain;
-  background-repeat: no-repeat;
-  background-position: bottom center;
-  pointer-events: none;
-  z-index: 0;
-}
-
-.container {
-  position: relative;
-  z-index: 10;
-  text-align: center;
-  margin-top: 100px;
-}
+const levels = [
+  {
+    name: "Easy Level",
+    creator: "User1",
+    difficulty: "Easy"
+  }
+];
 
 /* DEMONS */
-.demon-grid {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 12px;
-  justify-content: center;
+const demonGrid = document.getElementById("demonGrid");
+
+if (demonGrid) {
+  demons.forEach(d => {
+    demonGrid.innerHTML += `
+      <div class="demon-card">
+        <img src="https://img.youtube.com/vi/${d.video}/maxresdefault.jpg">
+        <p>#${d.rank} ${d.name}</p>
+      </div>
+    `;
+  });
 }
 
-.demon-card {
-  width: 200px;
-  background: #111;
-  border-radius: 10px;
-  overflow: hidden;
-  cursor: pointer;
-}
+/* LEVELS */
+const levelBox = document.getElementById("levels");
 
-.demon-card img {
-  width: 100%;
-}
-
-/* LOADING */
-#loading {
-  position: fixed;
-  inset: 0;
-  background: black;
-  display: none;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  z-index: 999;
-}
-
-.bar {
-  width: 200px;
-  height: 8px;
-  border: 1px solid #444;
-  margin-top: 10px;
-}
-
-.bar-fill {
-  width: 0%;
-  height: 100%;
-  background: #ff8a3d;
-  transition: 1s;
-}
-.level-card {
-  background: #111;
-  padding: 10px;
-  margin: 10px;
-  border-radius: 10px;
+if (levelBox) {
+  levels.forEach(l => {
+    levelBox.innerHTML += `
+      <div class="level-card">
+        <h3>${l.name}</h3>
+        <p>${l.creator}</p>
+        <p>${l.difficulty}</p>
+      </div>
+    `;
+  });
 }
