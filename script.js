@@ -1,27 +1,17 @@
 const demons = [
-  "Rosecity"
+  "TidalWave",
+  "Acheron"
 ];
 
 const grid = document.getElementById("demonGrid");
 
 if (grid) {
-
-  demons.forEach(demon => {
-
-    const prettyName =
-      demon.replace(/([A-Z])/g, " $1").trim();
-
+  demons.forEach(name => {
     grid.innerHTML += `
-      <div class="demon-card">
-
-        <img src="images/${demon}.png">
-
-        <h2>${prettyName}</h2>
-
-        <p>Extreme Demon</p>
-
+      <div class="demon">
+        <img src="images/${name}.png">
+        <p>${name}</p>
       </div>
     `;
   });
-
 }
