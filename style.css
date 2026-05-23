@@ -1,3 +1,19 @@
+.demon-card {
+  width: 220px;
+
+  background: rgba(15,15,15,0.9);
+
+  border:
+    1px solid #222;
+
+  border-radius: 14px;
+
+  overflow: hidden;
+
+  transition:
+    transform 0.2s,
+    box-shadow 0.2s;
+}
 .demon-grid {
   display: flex;
   gap: 20px;
