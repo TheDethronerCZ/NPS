@@ -1,5 +1,8 @@
 
 /* ================= NAV ================= */
+#adminBtn {
+  display: none;
+}
 
 .nav {
   position: fixed;
