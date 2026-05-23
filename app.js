@@ -1,3 +1,9 @@
+document.addEventListener("DOMContentLoaded", () => {
+  buildNav();
+  buildLoader();
+  createParticles();
+  renderPage();
+});
 function buildNav() {
   const nav = document.createElement("div");
   nav.className = "nav";
