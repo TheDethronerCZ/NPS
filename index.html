@@ -2,80 +2,34 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>NPS</title>
+  <title>NPS vSUNSET</title>
   <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
+  <div class="app">
 
-<a class="nps-top-left" href="index.html">
-  <span class="nps-white">NPS</span>
-  <span class="nps-sunset">vSUNSET</span>
-</a>
+    <div class="ui">
 
-<div class="page">
+      <img src="icon.png" class="logo">
 
-<div class="logo-wrap">
-  <img src="logo.png" class="logo">
-</div>
+      <button class="btn primary">
+        Install (Coming Soon)
+      </button>
 
-    <div class="nav">
-      <a class="btn" href="levels.html">Levels</a>
-      <a class="btn" href="account.html">Account</a>
-      <a class="btn" href="download.html">Download</a>
-      <a class="btn" id="adminBtn" href="admin.html" style="display:none;">
-  Admin
-</a>
+      <div class="nav">
+        <button class="nav-btn">Account</button>
+        <button class="nav-btn">Admin</button>
+        <button class="nav-btn">Download</button>
+        <a href="level.html">
+          <button class="nav-btn">Demons</button>
+        </a>
+      </div>
+
     </div>
+
+    <div class="bottom-art"></div>
+
   </div>
-
-  <div class="section">
-    <h2>Changelog</h2>
-    <div class="box">
-      <p>vSUNSET: First version of the website</p>
-    </div>
-  </div>
-
-  <div class="section">
-    <h2>Moderators</h2>
-    <div class="box">
-      <p>• Heraij</p>
-    </div>
-  </div>
-
-</div>
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
-
-<script>
-window.supabaseClient =
-  window.supabaseClient ||
-  window.supabase.createClient(
-    "https://ftgvhycaffzuwajihajz.supabase.co",
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZ0Z3ZoeWNhZmZ6dXdhamloYWp6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzk0NDkzNzcsImV4cCI6MjA5NTAyNTM3N30.KgibDtXxGFhTEK33430fIcOa7kgqECrO0SohYq2idDU"
-);
-
-/* =========================
-   YOUR ADMIN UUID
-========================= */
-const OWNER_UUID = "00db958b-1723-4d24-badd-3efef63a1f20";
-
-/* =========================
-   ADMIN CHECK
-========================= */
-async function checkAdmin() {
-
-  const {
-    data: { user }
-  } = await window.supabaseClient.auth.getUser();
-
-  if (!user) return;
-
-  if (user.id === OWNER_UUID) {
-    document.getElementById("adminBtn").style.display = "flex";
-  }
-}
-
-checkAdmin();
-</script>
 </body>
 </html>
