@@ -1,7 +1,25 @@
 /* =========================
    NAV SYSTEM (GLOBAL)
 ========================= */
+function checkAdmin() {
+  const adminBtn = document.getElementById("adminBtn");
 
+  // TEMP SYSTEM (replace later with Supabase)
+  const isLoggedInAsAdmin = localStorage.getItem("admin") === "true";
+
+  if (adminBtn && isLoggedInAsAdmin) {
+    adminBtn.style.display = "inline-block";
+  }
+}
+window.onload = () => {
+  buildBrand();
+  buildNav();
+  buildLoader();
+  checkAdmin();
+
+  const page = document.body.dataset.page;
+  if (page) setArt(page);
+};
 const pages = [
   ["Demons", "demons.html"],
   ["Levels", "levels.html"],
@@ -29,6 +47,7 @@ function buildNav() {
 
   document.body.appendChild(nav);
 }
+
 
 /* =========================
    BRAND
