@@ -88,3 +88,14 @@ window.onload = () => {
   const page = document.body.dataset.page;
   if (page) setArt(page);
 };
+/* =========================
+   Load only once
+========================= */
+window.onload = () => {
+  buildBrand();
+  buildNav();
+  buildLoader();
+
+  const page = document.body.dataset.page;
+  if (page) setArt(page);
+};
