@@ -1,3 +1,22 @@
+@keyframes sunsetGlow {
+  0% {
+    filter:
+      drop-shadow(0 0 10px rgba(255,138,61,0.3))
+      drop-shadow(0 0 20px rgba(255,138,61,0.1));
+  }
+
+  50% {
+    filter:
+      drop-shadow(0 0 18px rgba(255,138,61,0.6))
+      drop-shadow(0 0 40px rgba(255,138,61,0.3));
+  }
+
+  100% {
+    filter:
+      drop-shadow(0 0 10px rgba(255,138,61,0.3))
+      drop-shadow(0 0 20px rgba(255,138,61,0.1));
+  }
+}
 /* =========================
    BASE
 ========================= */
@@ -67,10 +86,11 @@ body {
 
 /* logo */
 .logo {
-  width: 180px;
+  width: 190px;
+
   margin-bottom: 30px;
 
-  filter: drop-shadow(0 0 15px rgba(255, 138, 61, 0.4));
+  animation: sunsetGlow 4s ease-in-out infinite;
 }
 
 /* text styles */
