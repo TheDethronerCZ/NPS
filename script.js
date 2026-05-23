@@ -1,6 +1,6 @@
 const demons = [
   {
-    name: "TidalWave",
+    name: "Tidal Wave",
     creator: "Unknown",
     video: "dQw4w9WgXcQ",
     id: "1001",
@@ -8,12 +8,21 @@ const demons = [
   }
 ];
 
-const grid = document.getElementById("demonGrid");
+const levels = [
+  {
+    name: "Easy Level",
+    creator: "User1",
+    difficulty: "Easy"
+  }
+];
 
-if (grid) {
+/* DEMONS */
+const demonGrid = document.getElementById("demonGrid");
+
+if (demonGrid) {
   demons.forEach(d => {
-    grid.innerHTML += `
-      <div class="demon-card" onclick="openDemon('${d.name}')">
+    demonGrid.innerHTML += `
+      <div class="demon-card">
         <img src="https://img.youtube.com/vi/${d.video}/maxresdefault.jpg">
         <p>#${d.rank} ${d.name}</p>
       </div>
@@ -21,19 +30,17 @@ if (grid) {
   });
 }
 
-function openDemon(name) {
-  const d = demons.find(x => x.name === name);
-  alert(
-    `Name: ${d.name}\nCreator: ${d.creator}\nID: ${d.id}\nRank: #${d.rank}`
-  );
+/* LEVELS */
+const levelBox = document.getElementById("levels");
+
+if (levelBox) {
+  levels.forEach(l => {
+    levelBox.innerHTML += `
+      <div class="level-card">
+        <h3>${l.name}</h3>
+        <p>${l.creator}</p>
+        <p>${l.difficulty}</p>
+      </div>
+    `;
+  });
 }
-
-/* LOADING SCREEN */
-window.onload = () => {
-  const loader = document.getElementById("loading");
-  if (!loader) return;
-
-  loader.style.display = "flex";
-  setTimeout(() => document.querySelector(".bar-fill").style.width = "100%", 100);
-  setTimeout(() => loader.style.display = "none", 1200);
-};
