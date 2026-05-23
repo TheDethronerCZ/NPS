@@ -1,20 +1,38 @@
+body {
+  margin: 0;
+  background: black;
+  color: white;
+  font-family: Arial;
 
-* {
-  transition: all 0.2s ease;
-}
-/* ================= NAV ================= */
-button:active, a:active {
-  transform: scale(0.95);
-}
-#adminBtn {
-  display: none;
+  overflow-x: hidden;
 }
 
+/* CENTER STRUCTURE FIX (fixes "buttons at top") */
+.container {
+  min-height: 100vh;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;   /* centers vertically */
+  align-items: center;
+
+  gap: 20px;
+  text-align: center;
+
+  position: relative;
+  z-index: 5;
+}
+
+/* NAV */
 .nav {
   position: fixed;
-  top: 10px;
+  top: 15px;
   left: 50%;
   transform: translateX(-50%);
+
+  display: flex;
+  gap: 10px;
+
   z-index: 1000;
 }
 
@@ -33,93 +51,23 @@ button:active, a:active {
   transform: scale(1.05);
 }
 
+/* ADMIN HOVER */
 .admin-hover:hover {
   background: linear-gradient(to right, #8a3dff, #c08aff) !important;
-  color: white !important;
-}
-/* ================= BRAND ================= */
-
-.brand {
-  position: fixed;
-  top: 10px;
-  left: 10px;
-  font-weight: bold;
-  color: white;
-  text-decoration: none;
-  z-index: 100;
 }
 
-.brand span {
-  color: #ff8a3d;
-}
-
-/* ================= LAYOUT ================= */
-
-body {
-  margin: 0;
-  background: black;
-  color: white;
-  font-family: Arial;
-
-  height: 100vh;
-  overflow-x: hidden;
-
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.container {
-  width: 100%;
-  max-width: 900px;
-  text-align: center;
-
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 20px;
-}
-/* ================= CARDS ================= */
-
-.card {
-  background: #111;
-  border-radius: 10px;
-  padding: 10px;
-  margin: 10px;
-}
-
-/* ================= DEMONS ================= */
-
-.demon-grid {
-  display: flex;
-  gap: 12px;
-  flex-wrap: wrap;
-  justify-content: center;
-}
-
-.demon-card {
-  width: 200px;
-  background: #111;
-  border-radius: 10px;
-  cursor: pointer;
-  transition: 0.2s;
-}
-
-.demon-card:hover {
-  box-shadow: 0 0 20px rgba(255, 138, 61, 0.4);
-}
-
-/* ================= LOADER ================= */
-
+/* LOADER */
 #loader {
   position: fixed;
   inset: 0;
   background: black;
+
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  z-index: 999;
+
+  z-index: 9999;
 }
 
 .bar {
@@ -135,22 +83,44 @@ body {
   background: #ff8a3d;
   transition: 1s;
 }
-/* ================= FOG ================= */
+
+/* FOG (FIXED + LOWER + FULL WIDTH) */
 body::after {
   content: "";
   position: fixed;
-  bottom: 0;
+  bottom: -10vh;   /* pushes it LOWER */
   left: 0;
+
   width: 100%;
-  height: 40%;
+  height: 60vh;   /* bigger coverage */
 
   background: radial-gradient(
-    circle at bottom,
+    ellipse at bottom,
     rgba(255, 138, 61, 0.25),
-    rgba(255, 224, 138, 0.1),
-    transparent
+    rgba(255, 224, 138, 0.12),
+    transparent 70%
   );
 
   pointer-events: none;
   z-index: 1;
+}
+
+/* DEMONS */
+.demon-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px;
+}
+
+.demon-card {
+  width: 200px;
+  background: #111;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.demon-card:hover {
+  transform: scale(1.05);
 }
