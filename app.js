@@ -1,3 +1,26 @@
+function login() {
+  localStorage.setItem("loggedIn", "true");
+  checkLogin();
+}
+
+function checkLogin() {
+  if (localStorage.getItem("loggedIn") === "true") {
+    const loginBox = document.getElementById("loginBox");
+    const statsPanel = document.getElementById("statsPanel");
+
+    if (loginBox && statsPanel) {
+      loginBox.style.display = "none";
+      statsPanel.style.display = "block";
+    }
+  }
+}
+document.addEventListener("DOMContentLoaded", () => {
+  buildNav();
+  buildLoader();
+  createParticles();
+  renderPage();
+  checkLogin();
+});
 function renderPage() {
   const dGrid = document.getElementById("demonGrid");
   if (dGrid && typeof DEMONS !== "undefined") {
