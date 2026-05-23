@@ -13,9 +13,13 @@
 <div class="container">
   <h1>Demon List</h1>
 
-  <div class="demon-grid" id="demonGrid"></div>
-</div>
-
+demonGrid.innerHTML += `
+  <div class="demon-card" onclick='openDemon(${JSON.stringify(d)})'>
+    <img src="https://img.youtube.com/vi/${d.video}/maxresdefault.jpg">
+    <p>#${d.rank} ${d.name}</p>
+  </div>
+`;
+  
 <div class="page-art demons-art"></div>
 
 <div id="loading">
