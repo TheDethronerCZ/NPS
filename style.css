@@ -1,5 +1,11 @@
 
+* {
+  transition: all 0.2s ease;
+}
 /* ================= NAV ================= */
+button:active, a:active {
+  transform: scale(0.95);
+}
 #adminBtn {
   display: none;
 }
@@ -29,8 +35,8 @@
 
 .admin-hover:hover {
   background: linear-gradient(to right, #8a3dff, #c08aff) !important;
+  color: white !important;
 }
-
 /* ================= BRAND ================= */
 
 .brand {
@@ -73,20 +79,6 @@ body {
   align-items: center;
   gap: 20px;
 }
-/* ================= ART ================= */
-
-.page-art {
-  position: fixed;
-  bottom: 0;
-  width: 100%;
-  height: 40%;
-  background-size: contain;
-  background-repeat: no-repeat;
-  background-position: bottom center;
-  pointer-events: none;
-  z-index: 0;
-}
-
 /* ================= CARDS ================= */
 
 .card {
@@ -114,7 +106,7 @@ body {
 }
 
 .demon-card:hover {
-  transform: scale(1.05);
+  box-shadow: 0 0 20px rgba(255, 138, 61, 0.4);
 }
 
 /* ================= LOADER ================= */
