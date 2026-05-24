@@ -146,22 +146,28 @@ canvas {
   bottom: 0;
 
   width: 100%;
-  height: 24px;
+  height: 60px; /* taller so the glow can rise */
 
   z-index: 9999;
 
   pointer-events: none;
 
   background: linear-gradient(
-    90deg,
-    transparent,
-    var(--sunset1),
-    #ffb35c,
-    var(--sunset2),
-    #ffb35c,
-    var(--sunset1),
+    to top,
+    rgba(255, 138, 61, 0.6),
+    rgba(255, 179, 92, 0.35),
+    rgba(255, 224, 138, 0.15),
     transparent
   );
+
+  box-shadow:
+    0 0 40px rgba(255,138,61,0.35),
+    0 0 80px rgba(255,224,138,0.15);
+
+  opacity: 0.9;
+
+  animation: glowPulse 3.5s ease-in-out infinite;
+}
 
   box-shadow:
     0 0 25px rgba(255,138,61,0.5),
@@ -182,4 +188,7 @@ canvas {
     opacity: 1;
     transform: scaleY(1.15);
   }
+}
+.bottom-glow {
+  filter: blur(2px);
 }
