@@ -1,3 +1,6 @@
+body {
+  background: red !important;
+}
 :root {
   --bg: #000000;
   --card: #111111;
