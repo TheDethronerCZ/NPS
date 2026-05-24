@@ -194,3 +194,58 @@ canvas {
     transform: scaleY(1.4);
   }
 }
+.logo {
+  position: fixed;
+  top: 18px;
+  left: 18px;
+
+  z-index: 9999;
+
+  font-size: 20px;
+  font-weight: bold;
+
+  text-decoration: none;
+
+  color: #888;
+
+  background: transparent !important;
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+.logo span {
+  background: linear-gradient(90deg, #ff8a3d, #ffe08a);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.bottom-glow {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+
+  width: 100%;
+  height: 24px;
+
+  z-index: 9999;
+
+  pointer-events: none;
+
+  background: linear-gradient(
+    90deg,
+    transparent,
+    #ff8a3d,
+    #ffb35c,
+    #ffe08a,
+    #ffb35c,
+    #ff8a3d,
+    transparent
+  );
+
+  box-shadow:
+    0 0 25px rgba(255,138,61,0.6),
+    0 0 70px rgba(255,224,138,0.25);
+
+  opacity: 0.9;
+}
