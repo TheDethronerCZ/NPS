@@ -1,3 +1,17 @@
+.auth-card input {
+  margin-bottom: 10px;
+}
+
+.button-row {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.auth-card button {
+  flex: 1;
+  min-width: 90px;
+}
 #userCard {
   border: 1px solid rgba(255, 138, 61, 0.2);
 }
