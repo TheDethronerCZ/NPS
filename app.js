@@ -91,21 +91,59 @@ window.addEventListener("click", (e) => {
     modal.classList.add("hidden");
   }
 });
-const SUPABASE_URL = "https://itlgyetcajqhbuqpxmyj.supabase.co";
-const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Iml0bGd5ZXRjYWpxaGJ1cXB4bXlqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzk2MDIxNDUsImV4cCI6MjA5NTE3ODE0NX0.0ix8VFlR-BRliJIZCkBor9RIczvw8skruGVYyKWamBo";
+const SUPABASE_URL = "YOUR_SUPABASE_URL";
+const SUPABASE_KEY = "YOUR_SUPABASE_ANON_KEY";
 
 const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
 async function signUp() {
   const email = document.getElementById("email").value;
   const password = document.getElementById("password").value;
 
-  const { data, error } = await supabase.auth.signUp({
-    email,
-    password
-  });
-
-  if (error) console.log(error);
+  await supabase.auth.signUp({ email, password });
 }
+
+async function logIn() {
+  const email = document.getElementById("email").value;
+  const password = document.getElementById("password").value;
+
+  await supabase.auth.signInWithPassword({ email, password });
+
+  loadProfile();
+}
+
+async function logOut() {
+  await supabase.auth.signOut();
+  location.reload();
+}
+
+async function loadProfile() {
+  const { data: userData } = await supabase.auth.getUser();
+
+  if (!userData.user) return;
+
+  const { data } = await supabase
+    .from("profiles")
+    .select("*")
+    .eq("id", userData.user.id)
+    .single();
+
+  if (!data) return;
+
+  document.getElementById("usernameDisplay").textContent =
+    "Username: " + (data.username || "Unknown");
+
+  document.getElementById("creatorPoints").textContent =
+    "Creator Points: " + data.creator_points;
+
+  document.getElementById("demonPoints").textContent =
+    "Demon Points: " + data.demon_points;
+
+  document.getElementById("stars").textContent =
+    "Stars: " + data.stars;
+}
+
+loadProfile();
 
 async function logIn() {
   const email = document.getElementById("email").value;
