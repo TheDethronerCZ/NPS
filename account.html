@@ -3,10 +3,11 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
   <title>Account</title>
+
   <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
 
   <canvas id="bg"></canvas>
@@ -21,42 +22,55 @@
     <a href="demons.html">Demons</a>
     <a href="levels.html">Levels</a>
     <a href="submit.html">Submit</a>
-    <a href="rate.html">Rate</a>
+    <a href="leader.html">Leaderboard</a>
     <a href="account.html">Account</a>
   </nav>
 
   <main class="page">
 
-    <h1>Account</h1>
-
-    <!-- USER INFO -->
     <div class="card">
-      <h2>Profile</h2>
-      <p id="usernameDisplay">Not logged in</p>
+
+      <h2>Account</h2>
+
+      <input
+        id="username"
+        placeholder="Username"
+      >
+
+      <input
+        id="password"
+        type="password"
+        placeholder="Password"
+      >
+
+      <button onclick="signUp()">
+        Sign Up
+      </button>
+
+      <button onclick="logIn()">
+        Log In
+      </button>
+
+      <button onclick="logOut()">
+        Log Out
+      </button>
+
     </div>
 
-    <!-- AUTH -->
-   <div class="card">
-
-  <h2>Account Access</h2>
-
-  <input id="email" placeholder="Username">
-  <input id="password" type="password" placeholder="Password">
-
-  <div class="button-row">
-    <button onclick="signUp()">Create Account</button>
-    <button onclick="logIn()">Log In</button>
-    <button onclick="logOut()">Log Out</button>
-  </div>
-
-</div>
-
-    <!-- STATS -->
     <div class="card">
-      <h2>Stats</h2>
-      <p id="creatorPoints">Creator Points: 0</p>
-      <p id="demonPoints">Demon Points: 0</p>
-      <p id="stars">Stars: 0</p>
+
+      <h2 id="usernameDisplay">
+        Not logged in
+      </h2>
+
+      <p id="creatorPoints">
+        Creator Points: 0
+      </p>
+
+      <p id="playerPoints">
+        Player Points: 0
+      </p>
+
     </div>
 
   </main>
