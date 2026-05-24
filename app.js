@@ -1,210 +1,305 @@
 //
-// =====================
-// SUPABASE INIT (GLOBAL SAFE)
-// =====================
+// ========================================
+// SUPABASE
+// ========================================
 //
 
 const SUPABASE_URL = "https://itlgyetcajqhbuqpxmyj.supabase.co";
 const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Iml0bGd5ZXRjYWpxaGJ1cXB4bXlqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzk2MDIxNDUsImV4cCI6MjA5NTE3ODE0NX0.0ix8VFlR-BRliJIZCkBor9RIczvw8skruGVYyKWamBo";
 
-const sb = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
-
-window.sb = sb; // optional debug access
+const sb = supabase.createClient(
+  SUPABASE_URL,
+  SUPABASE_KEY
+);
 
 
 //
-// =====================
-// AUTH FUNCTIONS (GLOBAL)
-// =====================
+// ========================================
+// GLOBAL PROFILE
+// ========================================
+//
+
+let currentProfile = null;
+
+
+//
+// ========================================
+// POPUP
+// ========================================
+//
+
+function popup(text) {
+  alert(text);
+}
+
+
+//
+// ========================================
+// AUTH
+// ========================================
 //
 
 window.signUp = async function () {
-  const username = document.getElementById("username")?.value?.trim();
-  const password = document.getElementById("password")?.value?.trim();
 
-  if (!username || !password) return;
+  const username =
+    document.getElementById("username")?.value.trim();
 
-  const fakeEmail = `${username}@season.nps`;
+  const password =
+    document.getElementById("password")?.value.trim();
 
-  const { error } = await sb.auth.signUp({
-    email: fakeEmail,
-    password
-  });
+  if (!username || !password) {
+    popup("Missing username or password");
+    return;
+  }
 
-  function popup(text) {
-  alert(text);
-}
+  const fakeEmail =
+    `${username}@season.nps`;
+
+  const { data, error } =
+    await sb.auth.signUp({
+      email: fakeEmail,
+      password
+    });
+
+  if (error) {
+    popup(error.message);
+    return;
+  }
+
   popup("Account created!");
-  popup(error.message);
 };
 
 window.logIn = async function () {
-  const username = document.getElementById("username")?.value?.trim();
-  const password = document.getElementById("password")?.value?.trim();
 
-  if (!username || !password) return;
+  const username =
+    document.getElementById("username")?.value.trim();
 
-  const fakeEmail = `${username}@season.nps`;
+  const password =
+    document.getElementById("password")?.value.trim();
 
-  const { error } = await sb.auth.signInWithPassword({
-    email: fakeEmail,
-    password
-  });
+  const fakeEmail =
+    `${username}@season.nps`;
+
+  const { error } =
+    await sb.auth.signInWithPassword({
+      email: fakeEmail,
+      password
+    });
 
   if (error) {
-    console.log("Login error:", error.message);
+    popup(error.message);
     return;
   }
 
-  loadProfile();
+  popup("Logged in!");
+
+  location.reload();
 };
 
+window.logOut = async function () {
+
+  await sb.auth.signOut();
+
+  popup("Logged out.");
+
+  location.reload();
+};
+
+
 //
-// =====================
-// PROFILE SYSTEM
-// =====================
+// ========================================
+// PROFILE
+// ========================================
 //
 
 async function loadProfile() {
-  const { data: userData } = await sb.auth.getUser();
+
+  const { data: userData } =
+    await sb.auth.getUser();
 
   if (!userData.user) return;
 
-  const { data, error } = await sb
-    .from("profiles")
-    .select("*")
-    .eq("id", userData.user.id)
-    .single();
+  const { data } =
+    await sb
+      .from("profiles")
+      .select("*")
+      .eq("id", userData.user.id)
+      .single();
 
-  if (error) {
-    console.log(error.message);
+  if (!data) return;
+
+  currentProfile = data;
+
+  setText(
+    "usernameDisplay",
+    data.username
+  );
+
+  setText(
+    "creatorPoints",
+    `Creator Points: ${data.creator_points}`
+  );
+
+  setText(
+    "playerPoints",
+    `Player Points: ${data.player_points}`
+  );
+
+  if (data.is_admin) {
+    showAdminUI();
+  }
+}
+
+
+//
+// ========================================
+// ADMIN UI
+// ========================================
+//
+
+function showAdminUI() {
+
+  document
+    .querySelectorAll(".admin-only")
+    .forEach(el => {
+      el.style.display = "block";
+    });
+}
+
+
+//
+// ========================================
+// SUBMIT
+// ========================================
+//
+
+window.submitRun = async function () {
+
+  const { data: userData } =
+    await sb.auth.getUser();
+
+  if (!userData.user) {
+    popup("You must be logged in.");
     return;
   }
 
- document.getElementById("usernameDisplay").textContent =
-  "Username: " + (data.username || userData.user.email.split("@")[0]);
-  setText("creatorPoints", "Creator Points: " + data.creator_points);
-  setText("demonPoints", "Demon Points: " + data.demon_points);
-  setText("stars", "Stars: " + data.stars);
-}
-async function setupSubmitPage() {
-  const { data: userData } = await sb.auth.getUser();
+  const levelName =
+    document.getElementById("levelName").value;
 
-  if (!userData.user) return;
+  const video =
+    document.getElementById("video").value;
 
-  const { data: profile } = await sb
-    .from("profiles")
-    .select("is_admin")
-    .eq("id", userData.user.id)
-    .single();
+  const submissionType =
+    document.getElementById("submissionType").value;
 
-  if (!profile?.is_admin) return;
+  const enjoyability =
+    parseInt(
+      document.getElementById("enjoyability").value
+    );
 
-  loadAdminSubmissions();
-}
+  const { error } =
+    await sb
+      .from("submissions")
+      .insert({
+        user_id: userData.user.id,
 
-setupSubmitPage();
-async function loadAdminSubmissions() {
+        level_name: levelName,
 
-  const { data } = await sb
-    .from("submissions")
-    .select("*")
-    .order("created_at", { ascending: false });
+        video,
 
-  const panel = document.getElementById("adminPanel");
+        submission_type: submissionType,
 
-  panel.innerHTML = "<h1>Admin Queue</h1>";
+        enjoyability
+      });
 
-  data.forEach(sub => {
+  if (error) {
+    popup(error.message);
+    return;
+  }
 
-    panel.innerHTML += `
+  popup("Submission sent!");
+};
+
+
+//
+// ========================================
+// LEADERBOARDS
+// ========================================
+//
+
+async function loadLeaderboards() {
+
+  const creatorBoard =
+    document.getElementById("creatorBoard");
+
+  const playerBoard =
+    document.getElementById("playerBoard");
+
+  if (!creatorBoard || !playerBoard) return;
+
+  const { data: creators } =
+    await sb
+      .from("profiles")
+      .select("*")
+      .order("creator_points", {
+        ascending: false
+      });
+
+  const { data: players } =
+    await sb
+      .from("profiles")
+      .select("*")
+      .order("player_points", {
+        ascending: false
+      });
+
+  creatorBoard.innerHTML = "";
+  playerBoard.innerHTML = "";
+
+  creators.forEach((user, i) => {
+
+    creatorBoard.innerHTML += `
       <div class="card">
+        <h3>#${i + 1} ${user.username}</h3>
+        <p>${user.creator_points} CP</p>
+      </div>
+    `;
+  });
 
-        <h3>${sub.level_name}</h3>
+  players.forEach((user, i) => {
 
-        <p>Type: ${sub.submission_type}</p>
-        <p>Enjoyability: ${sub.enjoyability}/10</p>
-
-        <button onclick="acceptSubmission(${sub.id})">
-          Accept
-        </button>
-
-        <button onclick="denySubmission(${sub.id})">
-          Deny
-        </button>
-
+    playerBoard.innerHTML += `
+      <div class="card">
+        <h3>#${i + 1} ${user.username}</h3>
+        <p>${user.player_points} PP</p>
       </div>
     `;
   });
 }
-window.acceptSubmission = async function(id) {
 
-  await sb
-    .from("submissions")
-    .update({
-      accepted: true,
-      denied: false
-    })
-    .eq("id", id);
-
-  location.reload();
-}
-window.denySubmission = async function(id) {
-
-  await sb
-    .from("submissions")
-    .update({
-      denied: true,
-      accepted: false
-    })
-    .eq("id", id);
-
-  location.reload();
-}
-window.submitRun = async function() {
-
-  const { data: userData } = await sb.auth.getUser();
-
-  if (!userData.user) {
-    alert("You must be logged in.");
-    return;
-  }
-
-  await sb
-    .from("submissions")
-    .insert({
-      user_id: userData.user.id,
-
-      level_name: document.getElementById("levelName").value,
-
-      video: document.getElementById("video").value,
-
-      submission_type: document.getElementById("submissionType").value,
-
-      enjoyability: parseInt(
-        document.getElementById("enjoyability").value
-      )
-    });
-
-  alert("Submission sent.");
-}
 
 //
-// =====================
+// ========================================
 // HELPERS
-// =====================
+// ========================================
 //
 
 function setText(id, text) {
-  const el = document.getElementById(id);
-  if (el) el.textContent = text;
+
+  const el =
+    document.getElementById(id);
+
+  if (el) {
+    el.textContent = text;
+  }
 }
 
 
 //
-// =====================
+// ========================================
 // INIT
-// =====================
+// ========================================
 //
 
 loadProfile();
+loadLeaderboards();
