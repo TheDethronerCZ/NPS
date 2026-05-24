@@ -1,27 +1,34 @@
 <!DOCTYPE html>
 <html lang="en">
-<<main class="page">
+<main class="page">
 
   <h1>Account</h1>
 
   <div class="card" id="userCard">
-
-    <h2>User</h2>
+    <h2>User Info</h2>
     <p id="userEmail">Not logged in</p>
-
   </div>
 
-  <div class="card">
+  <div class="card auth-card">
 
-    <h2>Auth</h2>
+    <h2>Authentication</h2>
 
     <input id="email" placeholder="Email">
     <input id="password" type="password" placeholder="Password">
 
-    <button onclick="signUp()">Sign Up</button>
-    <button onclick="logIn()">Log In</button>
-    <button onclick="logOut()">Log Out</button>
+    <div class="button-row">
+      <button onclick="signUp()">Sign Up</button>
+      <button onclick="logIn()">Log In</button>
+      <button onclick="logOut()">Log Out</button>
+    </div>
 
+  </div>
+
+  <div class="card">
+    <h2>Stats</h2>
+    <p>Creator Points: 0</p>
+    <p>Demon Points: 0</p>
+    <p>Stars: 0</p>
   </div>
 
 </main>
