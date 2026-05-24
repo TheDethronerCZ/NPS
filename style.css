@@ -295,3 +295,21 @@ body {
 
   z-index: 2;
 }
+.logo-btn {
+  position: fixed;
+  top: 18px;
+  left: 18px;
+  z-index: 1000;
+
+  text-decoration: none;
+  font-size: 22px;
+  font-weight: bold;
+
+  color: #888;
+}
+.logo-btn {
+  position: absolute;
+}
+.logo-btn {
+  outline: 2px solid red;
+}
