@@ -6,7 +6,21 @@
   <title>NPS vSUNSET</title>
   <link rel="stylesheet" href="style.css">
 </head>
+<script>
+  async function isAdmin() {
+  const { data } = await supabase.auth.getUser();
 
+  if (!data.user) return false;
+
+  const res = await supabase
+    .from("profiles")
+    .select("is_admin")
+    .eq("id", data.user.id)
+    .single();
+
+  return res.data?.is_admin;
+}
+</script>
 <body>
 
   <canvas id="bg"></canvas>
