@@ -79,7 +79,18 @@ canvas {
     0 0 18px rgba(255, 224, 138, 0.55),
     0 0 40px rgba(255, 241, 179, 0.25);
 }
+.horizon::after {
+  animation: horizonGlow 4s ease-in-out infinite;
+}
 
+@keyframes horizonGlow {
+  0%, 100% {
+    opacity: 0.6;
+  }
+  50% {
+    opacity: 1;
+  }
+}
 /* ================= PAGE LAYOUT ================= */
 
 .page {
