@@ -31,7 +31,11 @@ window.signUp = async function () {
     password
   });
 
-  if (error) console.log("SignUp error:", error.message);
+  function popup(text) {
+  alert(text);
+}
+  popup("Account created!");
+  popup(error.message);
 };
 
 window.logIn = async function () {
