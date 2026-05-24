@@ -1,1 +1,28 @@
+.challenge-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
 
+.challenge-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  padding: 12px;
+  border-radius: 14px;
+
+  background: rgba(255,255,255,0.03);
+
+  transition: 0.2s;
+}
+
+.challenge-item:hover {
+  background: linear-gradient(
+    90deg,
+    rgba(255,138,61,0.15),
+    rgba(255,224,138,0.08)
+  );
+
+  transform: translateX(4px);
+}
