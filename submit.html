@@ -4,9 +4,9 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Submit</title>
+
   <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
 
   <canvas id="bg"></canvas>
@@ -27,16 +27,39 @@
 
   <main class="page">
 
-    <h1>Submit Level</h1>
+    <div id="adminPanel"></div>
 
     <div class="card">
-      <input placeholder="Level name"><br><br>
-      <input placeholder="YouTube link"><br><br>
-      <button>Submit</button>
+
+      <h2>Submit Completion</h2>
+
+      <input id="levelName" placeholder="Level Name">
+
+      <input id="video" placeholder="YouTube Video Link">
+
+      <select id="submissionType">
+        <option value="completion">Completion</option>
+        <option value="verification">Verification</option>
+      </select>
+
+      <input
+        id="enjoyability"
+        type="number"
+        min="1"
+        max="10"
+        placeholder="Enjoyability (1-10)"
+      >
+
+      <button onclick="submitRun()">
+        Submit
+      </button>
+
     </div>
 
   </main>
 
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="app.js"></script>
+
 </body>
 </html>
