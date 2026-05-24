@@ -134,3 +134,7 @@ canvas {
   transform: translateY(-3px);
   box-shadow: 0 0 35px rgba(255,138,61,0.15);
 }
+.logo {
+  outline: 2px solid red;
+  background: blue;
+}
