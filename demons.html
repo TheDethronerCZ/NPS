@@ -3,10 +3,11 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Demons</title>
+
+  <title>Demon List</title>
+
   <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
 
   <canvas id="bg"></canvas>
@@ -21,39 +22,274 @@
     <a href="demons.html">Demons</a>
     <a href="levels.html">Levels</a>
     <a href="submit.html">Submit</a>
-    <a href="rate.html">Rate</a>
+    <a href="leader.html">Leaderboard</a>
     <a href="account.html">Account</a>
   </nav>
-<main class="page">
 
-  <h1>Demons</h1>
+  <main class="page">
 
-  <div class="card demon-card" data-name="Tidal Wave" data-creator="Zoink" data-id="1" data-difficulty="Extreme Demon" data-video="https://www.youtube.com/watch?v=dQw4w9WgXcQ">
-    Tidal Wave
+    <section class="hero">
+      <h1>Demon List</h1>
+      <p>Hardest levels in vSUNSET</p>
+    </section>
+
+    <!-- ========================= -->
+    <!-- ADMIN PANEL -->
+    <!-- ========================= -->
+
+    <div
+      class="card admin-only"
+      style="display:none;"
+    >
+
+      <h2>Add Demon</h2>
+
+      <input
+        id="demonName"
+        placeholder="Demon Name"
+      >
+
+      <input
+        id="demonCreator"
+        placeholder="Creator"
+      >
+
+      <select id="demonDifficulty">
+
+        <option>Easy Demon</option>
+        <option>Medium Demon</option>
+        <option>Hard Demon</option>
+        <option>Insane Demon</option>
+        <option>Extreme Demon</option>
+
+      </select>
+
+      <input
+        id="demonPoints"
+        type="number"
+        placeholder="Player Points Reward"
+      >
+
+      <input
+        id="demonVideo"
+        placeholder="Showcase Video"
+      >
+
+      <button onclick="addDemon()">
+        Add Demon
+      </button>
+
+    </div>
+
+    <!-- ========================= -->
+    <!-- DEMON LIST -->
+    <!-- ========================= -->
+
+    <div
+      id="demonList"
+      style="
+        display:flex;
+        flex-wrap:wrap;
+        gap:20px;
+        justify-content:center;
+      "
+    ></div>
+
+  </main>
+
+  <!-- ========================= -->
+  <!-- DEMON MODAL -->
+  <!-- ========================= -->
+
+  <div
+    id="demonModal"
+    style="
+      display:none;
+      position:fixed;
+      inset:0;
+      background:rgba(0,0,0,0.8);
+      z-index:99999;
+      justify-content:center;
+      align-items:center;
+    "
+  >
+
+    <div
+      class="card"
+      style="width:420px;"
+    >
+
+      <h2 id="modalName"></h2>
+
+      <p id="modalCreator"></p>
+      <p id="modalDifficulty"></p>
+      <p id="modalPoints"></p>
+
+      <a
+        id="modalVideo"
+        target="_blank"
+      >
+        Watch Showcase
+      </a>
+
+      <br><br>
+
+      <button onclick="closeDemonModal()">
+        Close
+      </button>
+
+    </div>
+
   </div>
 
-  <div class="card demon-card" data-name="Acheron" data-creator="Riot" data-id="2" data-difficulty="Extreme Demon" data-video="https://www.youtube.com/watch?v=dQw4w9WgXcQ">
-    Acheron
-  </div>
-
-</main>
-<div class="modal hidden" id="demonModal">
-
-  <div class="modal-content">
-    <span class="close" id="closeModal">&times;</span>
-
-    <h2 id="modalName"></h2>
-
-    <p><strong>Creator:</strong> <span id="modalCreator"></span></p>
-    <p><strong>ID:</strong> <span id="modalId"></span></p>
-    <p><strong>Difficulty:</strong> <span id="modalDifficulty"></span></p>
-
-    <a id="modalVideo" target="_blank">Watch Video</a>
-
-  </div>
-
-</div>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<script src="app.js"></script>
+  <script src="particles.js"></script>
+  <script src="app.js"></script>
+
+  <script>
+
+    async function loadDemons() {
+
+      const list =
+        document.getElementById("demonList");
+
+      const { data } =
+        await sb
+          .from("demons")
+          .select("*")
+          .order("points", {
+            ascending: false
+          });
+
+      list.innerHTML = "";
+
+      data.forEach((demon, i) => {
+
+        list.innerHTML += `
+
+          <div
+            class="card"
+            onclick='openDemonModal(${JSON.stringify(demon)})'
+            style="cursor:pointer;"
+          >
+
+            <h2>#${i + 1}</h2>
+
+            <h3>${demon.name}</h3>
+
+            <p>${demon.difficulty}</p>
+
+            <p>${demon.points} Points</p>
+
+            <button
+              class="admin-only"
+              style="display:none;"
+              onclick="deleteDemon(${demon.id})"
+            >
+              Delete
+            </button>
+
+          </div>
+
+        `;
+      });
+    }
+
+    function openDemonModal(demon) {
+
+      document.getElementById(
+        "demonModal"
+      ).style.display = "flex";
+
+      document.getElementById(
+        "modalName"
+      ).textContent = demon.name;
+
+      document.getElementById(
+        "modalCreator"
+      ).textContent =
+        "Creator: " + demon.creator;
+
+      document.getElementById(
+        "modalDifficulty"
+      ).textContent =
+        "Difficulty: " + demon.difficulty;
+
+      document.getElementById(
+        "modalPoints"
+      ).textContent =
+        "Reward: " + demon.points;
+
+      document.getElementById(
+        "modalVideo"
+      ).href = demon.video;
+    }
+
+    function closeDemonModal() {
+
+      document.getElementById(
+        "demonModal"
+      ).style.display = "none";
+    }
+
+    window.addDemon = async function () {
+
+      const { error } =
+        await sb
+          .from("demons")
+          .insert({
+
+            name:
+              document.getElementById(
+                "demonName"
+              ).value,
+
+            creator:
+              document.getElementById(
+                "demonCreator"
+              ).value,
+
+            difficulty:
+              document.getElementById(
+                "demonDifficulty"
+              ).value,
+
+            points:
+              parseInt(
+                document.getElementById(
+                  "demonPoints"
+                ).value
+              ),
+
+            video:
+              document.getElementById(
+                "demonVideo"
+              ).value
+          });
+
+      if (error) {
+        popup(error.message);
+        return;
+      }
+
+      popup("Demon added!");
+
+      loadDemons();
+    };
+
+    window.deleteDemon = async function(id) {
+
+      await sb
+        .from("demons")
+        .delete()
+        .eq("id", id);
+
+      loadDemons();
+    };
+
+    loadDemons();
+
+  </script>
+
 </body>
 </html>
