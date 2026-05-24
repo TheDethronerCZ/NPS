@@ -1,3 +1,6 @@
+.admin .admin-only {
+  display: block !important;
+}
 .auth-card input {
   margin-bottom: 10px;
 }
