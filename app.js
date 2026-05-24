@@ -1,3 +1,28 @@
+async function isAdmin() {
+  const { data } = await supabase.auth.getUser();
+
+  if (!data.user) return false;
+
+  const res = await supabase
+    .from("profiles")
+    .select("is_admin")
+    .eq("id", data.user.id)
+    .single();
+
+  return res.data?.is_admin;
+}
+async function setupAdminUI() {
+  const admin = await isAdmin();
+
+  const btn = document.getElementById("adminEditBtn");
+
+  if (btn && admin) {
+    btn.style.display = "block";
+  }
+}
+
+setupAdminUI();
+
 const canvas = document.getElementById("bg");
 const ctx = canvas.getContext("2d");
 
