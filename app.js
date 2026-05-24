@@ -35,3 +35,34 @@ function draw() {
 }
 
 draw();
+const modal = document.getElementById("demonModal");
+
+const nameEl = document.getElementById("modalName");
+const creatorEl = document.getElementById("modalCreator");
+const idEl = document.getElementById("modalId");
+const diffEl = document.getElementById("modalDifficulty");
+const videoEl = document.getElementById("modalVideo");
+
+document.querySelectorAll(".demon-card").forEach(card => {
+  card.addEventListener("click", () => {
+
+    nameEl.textContent = card.dataset.name;
+    creatorEl.textContent = card.dataset.creator;
+    idEl.textContent = card.dataset.id;
+    diffEl.textContent = card.dataset.difficulty;
+
+    videoEl.href = card.dataset.video;
+
+    modal.classList.remove("hidden");
+  });
+});
+
+document.getElementById("closeModal").addEventListener("click", () => {
+  modal.classList.add("hidden");
+});
+
+window.addEventListener("click", (e) => {
+  if (e.target === modal) {
+    modal.classList.add("hidden");
+  }
+});
