@@ -19,11 +19,15 @@ window.sb = sb; // optional debug access
 //
 
 window.signUp = async function () {
-  const email = document.getElementById("email")?.value;
-  const password = document.getElementById("password")?.value;
+  const username = document.getElementById("username")?.value?.trim();
+  const password = document.getElementById("password")?.value?.trim();
+
+  if (!username || !password) return;
+
+  const fakeEmail = `${username}@season.nps`;
 
   const { error } = await sb.auth.signUp({
-    email,
+    email: fakeEmail,
     password
   });
 
@@ -31,11 +35,15 @@ window.signUp = async function () {
 };
 
 window.logIn = async function () {
-  const email = document.getElementById("email")?.value;
-  const password = document.getElementById("password")?.value;
+  const username = document.getElementById("username")?.value?.trim();
+  const password = document.getElementById("password")?.value?.trim();
+
+  if (!username || !password) return;
+
+  const fakeEmail = `${username}@season.nps`;
 
   const { error } = await sb.auth.signInWithPassword({
-    email,
+    email: fakeEmail,
     password
   });
 
@@ -46,12 +54,6 @@ window.logIn = async function () {
 
   loadProfile();
 };
-
-window.logOut = async function () {
-  await sb.auth.signOut();
-  location.reload();
-};
-
 
 //
 // =====================
@@ -75,11 +77,8 @@ async function loadProfile() {
     return;
   }
 
-  const usernameEl = document.getElementById("usernameDisplay");
-  if (usernameEl) {
-    usernameEl.textContent = "Username: " + (data.username || "Unknown");
-  }
-
+ document.getElementById("usernameDisplay").textContent =
+  "Username: " + (data.username || userData.user.email.split("@")[0]);
   setText("creatorPoints", "Creator Points: " + data.creator_points);
   setText("demonPoints", "Demon Points: " + data.demon_points);
   setText("stars", "Stars: " + data.stars);
