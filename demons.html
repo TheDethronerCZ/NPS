@@ -24,16 +24,35 @@
     <a href="rate.html">Rate</a>
     <a href="account.html">Account</a>
   </nav>
+<main class="page">
 
-  <main class="page">
+  <h1>Demons</h1>
 
-    <h1>Demons</h1>
+  <div class="card demon-card" data-name="Tidal Wave" data-creator="Zoink" data-id="1" data-difficulty="Extreme Demon" data-video="https://www.youtube.com/watch?v=dQw4w9WgXcQ">
+    Tidal Wave
+  </div>
 
-    <div class="card">Tidal Wave</div>
-    <div class="card">Acheron</div>
+  <div class="card demon-card" data-name="Acheron" data-creator="Riot" data-id="2" data-difficulty="Extreme Demon" data-video="https://www.youtube.com/watch?v=dQw4w9WgXcQ">
+    Acheron
+  </div>
 
-  </main>
+</main>
+<div class="modal hidden" id="demonModal">
 
+  <div class="modal-content">
+    <span class="close" id="closeModal">&times;</span>
+
+    <h2 id="modalName"></h2>
+
+    <p><strong>Creator:</strong> <span id="modalCreator"></span></p>
+    <p><strong>ID:</strong> <span id="modalId"></span></p>
+    <p><strong>Difficulty:</strong> <span id="modalDifficulty"></span></p>
+
+    <a id="modalVideo" target="_blank">Watch Video</a>
+
+  </div>
+
+</div>
   <script src="app.js"></script>
 </body>
 </html>
