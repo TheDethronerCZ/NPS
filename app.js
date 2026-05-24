@@ -83,7 +83,107 @@ async function loadProfile() {
   setText("demonPoints", "Demon Points: " + data.demon_points);
   setText("stars", "Stars: " + data.stars);
 }
+async function setupSubmitPage() {
+  const { data: userData } = await sb.auth.getUser();
 
+  if (!userData.user) return;
+
+  const { data: profile } = await sb
+    .from("profiles")
+    .select("is_admin")
+    .eq("id", userData.user.id)
+    .single();
+
+  if (!profile?.is_admin) return;
+
+  loadAdminSubmissions();
+}
+
+setupSubmitPage();
+async function loadAdminSubmissions() {
+
+  const { data } = await sb
+    .from("submissions")
+    .select("*")
+    .order("created_at", { ascending: false });
+
+  const panel = document.getElementById("adminPanel");
+
+  panel.innerHTML = "<h1>Admin Queue</h1>";
+
+  data.forEach(sub => {
+
+    panel.innerHTML += `
+      <div class="card">
+
+        <h3>${sub.level_name}</h3>
+
+        <p>Type: ${sub.submission_type}</p>
+        <p>Enjoyability: ${sub.enjoyability}/10</p>
+
+        <button onclick="acceptSubmission(${sub.id})">
+          Accept
+        </button>
+
+        <button onclick="denySubmission(${sub.id})">
+          Deny
+        </button>
+
+      </div>
+    `;
+  });
+}
+window.acceptSubmission = async function(id) {
+
+  await sb
+    .from("submissions")
+    .update({
+      accepted: true,
+      denied: false
+    })
+    .eq("id", id);
+
+  location.reload();
+}
+window.denySubmission = async function(id) {
+
+  await sb
+    .from("submissions")
+    .update({
+      denied: true,
+      accepted: false
+    })
+    .eq("id", id);
+
+  location.reload();
+}
+window.submitRun = async function() {
+
+  const { data: userData } = await sb.auth.getUser();
+
+  if (!userData.user) {
+    alert("You must be logged in.");
+    return;
+  }
+
+  await sb
+    .from("submissions")
+    .insert({
+      user_id: userData.user.id,
+
+      level_name: document.getElementById("levelName").value,
+
+      video: document.getElementById("video").value,
+
+      submission_type: document.getElementById("submissionType").value,
+
+      enjoyability: parseInt(
+        document.getElementById("enjoyability").value
+      )
+    });
+
+  alert("Submission sent.");
+}
 
 //
 // =====================
