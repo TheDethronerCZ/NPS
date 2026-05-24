@@ -1,3 +1,7 @@
+#usernameDisplay {
+  font-size: 18px;
+  color: #ffe08a;
+}
 .admin .admin-only {
   display: block !important;
 }
