@@ -138,3 +138,27 @@ async function updateUser() {
 }
 
 updateUser();
+async function loadProfile() {
+  const { data: userData } = await supabase.auth.getUser();
+
+  if (!userData.user) return;
+
+  const { data } = await supabase
+    .from("profiles")
+    .select("*")
+    .eq("id", userData.user.id)
+    .single();
+
+  if (!data) return;
+
+  document.getElementById("userEmail").textContent = data.email;
+
+  document.querySelector(".card:nth-of-type(3)").innerHTML = `
+    <h2>Stats</h2>
+    <p>Creator Points: ${data.creator_points}</p>
+    <p>Demon Points: ${data.demon_points}</p>
+    <p>Stars: ${data.stars}</p>
+  `;
+}
+
+loadProfile();
