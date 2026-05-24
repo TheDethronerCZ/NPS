@@ -3,7 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
   <title>NPS vSUNSET</title>
+
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -20,32 +22,63 @@
     <a href="demons.html">Demons</a>
     <a href="levels.html">Levels</a>
     <a href="submit.html">Submit</a>
-    <a href="rate.html">Rate</a>
+    <a href="leader.html">Leaderboard</a>
     <a href="account.html">Account</a>
   </nav>
 
   <main class="page">
 
     <section class="hero">
-      <h1>NPS vSUNSET</h1>
-      <p>Seasonal Geometry Dash Private Server</p>
+
+      <h1>
+        v<span>SUNSET</span>
+      </h1>
+
+      <p>
+        Seasonal progression GDPS
+      </p>
+
     </section>
 
     <div class="card">
+
       <h2>Featured Level</h2>
-      <p>None selected</p>
+
+      <p>ID: 1001</p>
+      <p>Name: Solar Collapse</p>
+      <p>Reward: +20 SP</p>
+
+      <button
+        class="admin-only"
+        style="display:none;"
+      >
+        Edit
+      </button>
+
     </div>
 
     <div class="card">
+
       <h2>Seasonal Challenges</h2>
-      <p>Coming soon...</p>
-      <button id="adminEditBtn" style="display:none;">Edit Page</button>
+
+      <p>Beat an Extreme Demon</p>
+      <p>Get 10 Creator Points</p>
+      <p>Make an Epic level</p>
+
+      <button
+        class="admin-only"
+        style="display:none;"
+      >
+        Edit
+      </button>
+
     </div>
 
   </main>
 
-  <script src="app.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<script src="app.js"></script>
+  <script src="particles.js"></script>
+  <script src="app.js"></script>
+
 </body>
 </html>
