@@ -36,24 +36,47 @@ canvas {
 /* ================= SUNSET HORIZON ================= */
 
 .horizon {
+
   position: fixed;
+
   left: 0;
   bottom: 0;
 
   width: 100%;
-  height: 50vh;
+  height: 180px;
 
-  z-index: 1;
   pointer-events: none;
 
-  background: linear-gradient(
-    to top,
-    rgba(0, 0, 0, 1) 0%,
-    rgba(15, 10, 20, 0.95) 25%,
-    rgba(255, 120, 60, 0.12) 60%,
-    rgba(255, 220, 150, 0.06) 80%,
-    transparent 100%
-  );
+  z-index: 1;
+
+  background:
+    linear-gradient(
+      to top,
+      rgba(255,220,120,0.22),
+      rgba(255,120,140,0.10),
+      transparent
+    );
+
+  filter: blur(45px);
+
+  animation:
+    horizonBreath 5s ease-in-out infinite;
+}
+
+@keyframes horizonBreath {
+
+  0%, 100% {
+
+    opacity: 0.7;
+    transform: scaleY(1);
+  }
+
+  50% {
+
+    opacity: 1;
+    transform: scaleY(1.12);
+  }
+}
 }
 
 .horizon::after {
