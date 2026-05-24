@@ -70,3 +70,46 @@ const SUPABASE_URL = "https://itlgyetcajqhbuqpxmyj.supabase.co";
 const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Iml0bGd5ZXRjYWpxaGJ1cXB4bXlqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzk2MDIxNDUsImV4cCI6MjA5NTE3ODE0NX0.0ix8VFlR-BRliJIZCkBor9RIczvw8skruGVYyKWamBo";
 
 const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+async function signUp() {
+  const email = document.getElementById("email").value;
+  const password = document.getElementById("password").value;
+
+  const { data, error } = await supabase.auth.signUp({
+    email,
+    password
+  });
+
+  if (error) console.log(error);
+}
+
+async function logIn() {
+  const email = document.getElementById("email").value;
+  const password = document.getElementById("password").value;
+
+  const { data, error } = await supabase.auth.signInWithPassword({
+    email,
+    password
+  });
+
+  if (error) console.log(error);
+  else updateUser();
+}
+
+async function logOut() {
+  await supabase.auth.signOut();
+  updateUser();
+}
+
+async function updateUser() {
+  const { data } = await supabase.auth.getUser();
+
+  const userEmail = document.getElementById("userEmail");
+
+  if (data.user) {
+    userEmail.textContent = data.user.email;
+  } else {
+    userEmail.textContent = "Not logged in";
+  }
+}
+
+updateUser();
