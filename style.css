@@ -204,3 +204,33 @@ canvas {
     transform: scaleY(1.2);
   }
 }
+.bottom-glow {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+
+  width: 100%;
+  height: 4px;
+
+  z-index: 9999; /* IMPORTANT */
+
+  pointer-events: none;
+
+  background: linear-gradient(
+    90deg,
+    transparent,
+    #ff8a3d,
+    #ffe08a,
+    #ff8a3d,
+    transparent
+  );
+
+  box-shadow:
+    0 0 20px rgba(255,138,61,0.35),
+    0 0 40px rgba(255,224,138,0.15);
+
+  opacity: 0.8;
+}
+canvas {
+  z-index: 0;
+}
