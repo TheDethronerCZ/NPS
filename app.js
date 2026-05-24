@@ -66,3 +66,7 @@ window.addEventListener("click", (e) => {
     modal.classList.add("hidden");
   }
 });
+const SUPABASE_URL = "https://itlgyetcajqhbuqpxmyj.supabase.co";
+const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Iml0bGd5ZXRjYWpxaGJ1cXB4bXlqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzk2MDIxNDUsImV4cCI6MjA5NTE3ODE0NX0.0ix8VFlR-BRliJIZCkBor9RIczvw8skruGVYyKWamBo";
+
+const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
