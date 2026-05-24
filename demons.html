@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>Demon List</title>
+  <title>Rated Levels</title>
 
   <link rel="stylesheet" href="style.css">
 </head>
@@ -29,8 +29,13 @@
   <main class="page">
 
     <section class="hero">
-      <h1>Demon List</h1>
-      <p>Hardest levels in vSUNSET</p>
+
+      <h1>Rated Levels</h1>
+
+      <p>
+        Officially rated vSUNSET levels
+      </p>
+
     </section>
 
     <!-- ========================= -->
@@ -42,51 +47,52 @@
       style="display:none;"
     >
 
-      <h2>Add Demon</h2>
+      <h2>Add Level</h2>
 
       <input
-        id="demonName"
-        placeholder="Demon Name"
+        id="levelAddName"
+        placeholder="Level Name"
       >
 
       <input
-        id="demonCreator"
+        id="levelAddCreator"
         placeholder="Creator"
       >
 
-      <select id="demonDifficulty">
+      <select id="levelAddDifficulty">
 
-        <option>Easy Demon</option>
-        <option>Medium Demon</option>
-        <option>Hard Demon</option>
-        <option>Insane Demon</option>
-        <option>Extreme Demon</option>
+        <option>Auto</option>
+        <option>Easy</option>
+        <option>Normal</option>
+        <option>Hard</option>
+        <option>Harder</option>
+        <option>Insane</option>
+        <option>Demon</option>
 
       </select>
 
-      <input
-        id="demonPoints"
-        type="number"
-        placeholder="Player Points Reward"
-      >
+      <select id="levelAddRating">
 
-      <input
-        id="demonVideo"
-        placeholder="Showcase Video"
-      >
+        <option>Rate</option>
+        <option>Feature</option>
+        <option>Epic</option>
+        <option>Legendary</option>
+        <option>Mythic</option>
 
-      <button onclick="addDemon()">
-        Add Demon
+      </select>
+
+      <button onclick="addLevel()">
+        Add Level
       </button>
 
     </div>
 
     <!-- ========================= -->
-    <!-- DEMON LIST -->
+    <!-- LEVELS -->
     <!-- ========================= -->
 
     <div
-      id="demonList"
+      id="levelList"
       style="
         display:flex;
         flex-wrap:wrap;
@@ -97,94 +103,51 @@
 
   </main>
 
-  <!-- ========================= -->
-  <!-- DEMON MODAL -->
-  <!-- ========================= -->
-
-  <div
-    id="demonModal"
-    style="
-      display:none;
-      position:fixed;
-      inset:0;
-      background:rgba(0,0,0,0.8);
-      z-index:99999;
-      justify-content:center;
-      align-items:center;
-    "
-  >
-
-    <div
-      class="card"
-      style="width:420px;"
-    >
-
-      <h2 id="modalName"></h2>
-
-      <p id="modalCreator"></p>
-      <p id="modalDifficulty"></p>
-      <p id="modalPoints"></p>
-
-      <a
-        id="modalVideo"
-        target="_blank"
-      >
-        Watch Showcase
-      </a>
-
-      <br><br>
-
-      <button onclick="closeDemonModal()">
-        Close
-      </button>
-
-    </div>
-
-  </div>
-
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="particles.js"></script>
   <script src="app.js"></script>
 
   <script>
 
-    async function loadDemons() {
+    async function loadLevels() {
 
       const list =
-        document.getElementById("demonList");
+        document.getElementById("levelList");
 
       const { data } =
         await sb
-          .from("demons")
+          .from("levels")
           .select("*")
-          .order("points", {
+          .order("created_at", {
             ascending: false
           });
 
       list.innerHTML = "";
 
-      data.forEach((demon, i) => {
+      data.forEach(level => {
 
         list.innerHTML += `
 
-          <div
-            class="card"
-            onclick='openDemonModal(${JSON.stringify(demon)})'
-            style="cursor:pointer;"
-          >
+          <div class="card">
 
-            <h2>#${i + 1}</h2>
+            <h2>${level.name}</h2>
 
-            <h3>${demon.name}</h3>
+            <p>Creator: ${level.creator}</p>
 
-            <p>${demon.difficulty}</p>
+            <p>
+              Difficulty:
+              ${level.difficulty}
+            </p>
 
-            <p>${demon.points} Points</p>
+            <p>
+              Rating:
+              ${level.rating}
+            </p>
 
             <button
               class="admin-only"
               style="display:none;"
-              onclick="deleteDemon(${demon.id})"
+              onclick="deleteLevel(${level.id})"
             >
               Delete
             </button>
@@ -195,75 +158,31 @@
       });
     }
 
-    function openDemonModal(demon) {
-
-      document.getElementById(
-        "demonModal"
-      ).style.display = "flex";
-
-      document.getElementById(
-        "modalName"
-      ).textContent = demon.name;
-
-      document.getElementById(
-        "modalCreator"
-      ).textContent =
-        "Creator: " + demon.creator;
-
-      document.getElementById(
-        "modalDifficulty"
-      ).textContent =
-        "Difficulty: " + demon.difficulty;
-
-      document.getElementById(
-        "modalPoints"
-      ).textContent =
-        "Reward: " + demon.points;
-
-      document.getElementById(
-        "modalVideo"
-      ).href = demon.video;
-    }
-
-    function closeDemonModal() {
-
-      document.getElementById(
-        "demonModal"
-      ).style.display = "none";
-    }
-
-    window.addDemon = async function () {
+    window.addLevel = async function () {
 
       const { error } =
         await sb
-          .from("demons")
+          .from("levels")
           .insert({
 
             name:
               document.getElementById(
-                "demonName"
+                "levelAddName"
               ).value,
 
             creator:
               document.getElementById(
-                "demonCreator"
+                "levelAddCreator"
               ).value,
 
             difficulty:
               document.getElementById(
-                "demonDifficulty"
+                "levelAddDifficulty"
               ).value,
 
-            points:
-              parseInt(
-                document.getElementById(
-                  "demonPoints"
-                ).value
-              ),
-
-            video:
+            rating:
               document.getElementById(
-                "demonVideo"
+                "levelAddRating"
               ).value
           });
 
@@ -272,22 +191,22 @@
         return;
       }
 
-      popup("Demon added!");
+      popup("Level added!");
 
-      loadDemons();
+      loadLevels();
     };
 
-    window.deleteDemon = async function(id) {
+    window.deleteLevel = async function(id) {
 
       await sb
-        .from("demons")
+        .from("levels")
         .delete()
         .eq("id", id);
 
-      loadDemons();
+      loadLevels();
     };
 
-    loadDemons();
+    loadLevels();
 
   </script>
 
