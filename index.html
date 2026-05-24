@@ -6,21 +6,6 @@
   <title>NPS vSUNSET</title>
   <link rel="stylesheet" href="style.css">
 </head>
-<script>
-  async function isAdmin() {
-  const { data } = await supabase.auth.getUser();
-
-  if (!data.user) return false;
-
-  const res = await supabase
-    .from("profiles")
-    .select("is_admin")
-    .eq("id", data.user.id)
-    .single();
-
-  return res.data?.is_admin;
-}
-</script>
 <body>
 
   <canvas id="bg"></canvas>
@@ -54,6 +39,7 @@
     <div class="card">
       <h2>Seasonal Challenges</h2>
       <p>Coming soon...</p>
+      <button id="adminEditBtn" style="display:none;">Edit Page</button>
     </div>
 
   </main>
