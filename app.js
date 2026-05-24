@@ -178,3 +178,27 @@ async function checkAdminUI() {
 }
 
 checkAdminUI();
+async function submitDemon(name, creator, difficulty, video) {
+  const { data: user } = await supabase.auth.getUser();
+
+  await supabase.from("demons").insert({
+    name,
+    creator,
+    difficulty,
+    video,
+    created_by: user.user.id
+  });
+}
+async function completeChallenge(type) {
+  const { data: user } = await supabase.auth.getUser();
+
+  let points = 0;
+
+  if (type === "extreme") points = 10;
+  if (type === "level") points = 5;
+
+  await supabase.rpc("increment_creator_points", {
+    user_id: user.user.id,
+    amount: points
+  });
+}
