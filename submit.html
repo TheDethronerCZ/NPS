@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
   <title>Submit</title>
 
   <link rel="stylesheet" href="style.css">
@@ -21,25 +22,36 @@
     <a href="demons.html">Demons</a>
     <a href="levels.html">Levels</a>
     <a href="submit.html">Submit</a>
-    <a href="rate.html">Rate</a>
+    <a href="leader.html">Leaderboard</a>
     <a href="account.html">Account</a>
   </nav>
 
   <main class="page">
 
-    <div id="adminPanel"></div>
-
     <div class="card">
 
       <h2>Submit Completion</h2>
 
-      <input id="levelName" placeholder="Level Name">
+      <input
+        id="levelName"
+        placeholder="Level Name"
+      >
 
-      <input id="video" placeholder="YouTube Video Link">
+      <input
+        id="video"
+        placeholder="YouTube Link"
+      >
 
       <select id="submissionType">
-        <option value="completion">Completion</option>
-        <option value="verification">Verification</option>
+
+        <option value="completion">
+          Completion
+        </option>
+
+        <option value="verification">
+          Verification
+        </option>
+
       </select>
 
       <input
@@ -47,7 +59,7 @@
         type="number"
         min="1"
         max="10"
-        placeholder="Enjoyability (1-10)"
+        placeholder="Enjoyability"
       >
 
       <button onclick="submitRun()">
