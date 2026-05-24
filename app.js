@@ -162,3 +162,19 @@ async function loadProfile() {
 }
 
 loadProfile();
+async function checkAdminUI() {
+  const { data: user } = await supabase.auth.getUser();
+  if (!user.user) return;
+
+  const { data } = await supabase
+    .from("profiles")
+    .select("is_admin")
+    .eq("id", user.user.id)
+    .single();
+
+  if (data?.is_admin) {
+    document.body.classList.add("admin");
+  }
+}
+
+checkAdminUI();
