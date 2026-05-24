@@ -1,6 +1,5 @@
 :root {
   --bg: #000;
-  --card: #111;
 
   --sunset1: #ff8a3d;
   --sunset2: #ffe08a;
@@ -21,6 +20,7 @@ body {
   background: var(--bg);
   color: var(--text);
   font-family: Arial, sans-serif;
+
   overflow-x: hidden;
 }
 
@@ -32,7 +32,55 @@ canvas {
   z-index: 0;
 }
 
-/* ================= MAIN PAGE ================= */
+/* ================= SUNSET HORIZON ================= */
+
+.horizon {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+
+  width: 100%;
+  height: 45vh;
+
+  z-index: 1;
+  pointer-events: none;
+
+  background: linear-gradient(
+    to top,
+    rgba(0, 0, 0, 1) 0%,
+    rgba(15, 8, 18, 0.95) 25%,
+    rgba(255, 120, 60, 0.14) 60%,
+    rgba(255, 200, 140, 0.06) 80%,
+    transparent 100%
+  );
+}
+
+/* soft horizon glow line (NO RED BEAM, just soft light) */
+.horizon::after {
+  content: "";
+
+  position: absolute;
+  bottom: 0;
+  left: 0;
+
+  width: 100%;
+  height: 4px;
+
+  background: linear-gradient(
+    90deg,
+    transparent,
+    var(--sunset1),
+    var(--sunset2),
+    var(--sunset1),
+    transparent
+  );
+
+  box-shadow:
+    0 0 18px rgba(255,138,61,0.45),
+    0 0 45px rgba(255,224,138,0.2);
+}
+
+/* ================= PAGE LAYOUT ================= */
 
 .page {
   position: relative;
@@ -65,7 +113,12 @@ canvas {
 }
 
 .logo span {
-  background: linear-gradient(90deg, var(--sunset1), var(--sunset2));
+  background: linear-gradient(
+    90deg,
+    var(--sunset1),
+    var(--sunset2)
+  );
+
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
@@ -98,7 +151,12 @@ canvas {
 }
 
 .nav a:hover {
-  background: linear-gradient(90deg, var(--sunset1), var(--sunset2));
+  background: linear-gradient(
+    90deg,
+    var(--sunset1),
+    var(--sunset2)
+  );
+
   color: black;
   transform: translateY(-2px);
 }
@@ -122,7 +180,7 @@ canvas {
 .card {
   width: 320px;
 
-  background: var(--card);
+  background: #111;
 
   padding: 20px;
 
@@ -136,149 +194,4 @@ canvas {
 .card:hover {
   transform: translateY(-3px);
   box-shadow: 0 0 35px rgba(255,138,61,0.15);
-}
-
-/* ================= BOTTOM GLOW LINE ================= */
-
-.bottom-glow {
-  position: fixed;
-  left: 0;
-  bottom: 0;
-
-  width: 100%;
-  height: 60px; /* taller so the glow can rise */
-
-  z-index: 9999;
-
-  pointer-events: none;
-
-  background: linear-gradient(
-    to top,
-    rgba(255, 138, 61, 0.6),
-    rgba(255, 179, 92, 0.35),
-    rgba(255, 224, 138, 0.15),
-    transparent
-  );
-
-  box-shadow:
-    0 0 40px rgba(255,138,61,0.35),
-    0 0 80px rgba(255,224,138,0.15);
-
-  opacity: 0.9;
-
-  animation: glowPulse 3.5s ease-in-out infinite;
-}
-
-  box-shadow:
-    0 0 25px rgba(255,138,61,0.5),
-    0 0 70px rgba(255,224,138,0.2);
-
-  opacity: 0.9;
-
-  animation: glowPulse 3.5s ease-in-out infinite;
-}
-
-/* subtle movement */
-@keyframes glowPulse {
-  0%, 100% {
-    opacity: 0.6;
-    transform: scaleY(1);
-  }
-  50% {
-    opacity: 1;
-    transform: scaleY(1.15);
-  }
-}
-.bottom-glow {
-  filter: blur(2px);
-}
-.horizon {
-  position: fixed;
-  left: 0;
-  bottom: 0;
-
-  width: 100%;
-  height: 35vh;
-
-  z-index: 1;
-  pointer-events: none;
-
-  background: linear-gradient(
-    to top,
-    rgba(0, 0, 0, 1) 0%,
-    rgba(10, 5, 10, 0.95) 20%,
-    rgba(30, 10, 20, 0.6) 45%,
-    rgba(255, 90, 40, 0.25) 70%,
-    rgba(255, 200, 120, 0.1) 85%,
-    transparent 100%
-  );
-}
-
-/* glowing horizon line */
-..horizon {
-  position: fixed;
-  left: 0;
-  bottom: 0;
-
-  width: 100%;
-  height: 45vh;
-
-  z-index: 1;
-  pointer-events: none;
-
-  background: linear-gradient(
-    to top,
-    rgba(0, 0, 0, 1) 0%,
-    rgba(20, 10, 20, 0.95) 25%,
-    rgba(255, 90, 40, 0.18) 60%,
-    rgba(255, 170, 90, 0.08) 80%,
-    transparent 100%
-  );
-}
-
-.horizon::after {
-  content: "";
-
-  position: absolute;
-  bottom: 0;
-  left: 0;
-
-  width: 100%;
-  height: 6px;
-
-  background: linear-gradient(
-    90deg,
-    transparent,
-    #ff8a3d,
-    #ffe08a,
-    #ff8a3d,
-    transparent
-  );
-
-  box-shadow:
-    0 0 25px rgba(255,138,61,0.6),
-    0 0 60px rgba(255,224,138,0.25);
-}
-.fog-layer {
-  position: fixed;
-  left: 0;
-  bottom: 0;
-
-  width: 100%;
-  height: 45vh;
-
-  z-index: 2;
-  pointer-events: none;
-
-  background: radial-gradient(
-    ellipse at bottom,
-    rgba(255, 140, 70, 0.18),
-    rgba(255, 180, 120, 0.08),
-    rgba(0, 0, 0, 0.9)
-  );
-
-  filter: blur(2px);
-}
-canvas {
-  z-index: 0;
 }
