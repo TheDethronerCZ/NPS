@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NPS Sunset</title>
+
+  <link rel="stylesheet" href="../style.css">
+</head>
+
+<body>
+
+  <!-- BACKGROUND -->
+  <canvas id="bg"></canvas>
+
+  <div class="sun-glow"></div>
+  <div class="grid-overlay"></div>
+
+  <!-- AUDIO -->
+  <audio id="bgMusic" loop>
+    <source src="../assets/audio/sunset.mp3" type="audio/mpeg">
+  </audio>
+
+  <!-- TOP BAR -->
+  <header class="topbar">
+
+    <div class="brand">
+      NPS <span>SUNSET</span>
+    </div>
+
+    <div class="top-controls">
+
+      <button id="musicToggle">
+        MUSIC
+      </button>
+
+      <button id="auraToggle">
+        AURA
+      </button>
+
+    </div>
+
+  </header>
+
+  <!-- MAIN MENU -->
+  <main class="menu-scene">
+
+    <section class="hero">
+
+      <h1>
+        NPS <span>SUNSET</span>
+      </h1>
+
+      <p>
+        A new generation GDPS experience.
+      </p>
+
+    </section>
+
+    <!-- MAIN BUTTONS -->
+    <section class="menu-buttons">
+
+      <a href="levels.html" class="menu-btn">
+        PLAY
+      </a>
+
+      <a href="demons.html" class="menu-btn">
+        DEMONS
+      </a>
+
+      <a href="leaderboard.html" class="menu-btn">
+        LEADERBOARD
+      </a>
+
+      <a href="account.html" class="menu-btn">
+        ACCOUNT
+      </a>
+
+    </section>
+
+    <!-- PANELS -->
+    <section class="panels">
+
+      <div class="panel">
+        <h2>🌟 Season Level</h2>
+        <div id="featuredLevel"></div>
+      </div>
+
+      <div class="panel">
+        <h2>🔥 Daily Challenge</h2>
+        <div id="seasonChallenge"></div>
+      </div>
+
+    </section>
+
+  </main>
+
+  <script src="../scripts/particles.js"></script>
+  <script src="../scripts/audio.js"></script>
+  <script src="../scripts/core.js"></script>
+
+</body>
+</html>
