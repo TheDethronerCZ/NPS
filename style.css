@@ -1,8 +1,27 @@
+/* =========================================================
+   🌅 NPS vSUNSET — UI SYSTEM 2.0
+========================================================= */
+
+:root {
+  --bg: #050505;
+  --card: rgba(255,255,255,0.05);
+  --card2: rgba(255,255,255,0.08);
+  --text: #ffffff;
+
+  --sun1: #ff8a3d;
+  --sun2: #ff4d6d;
+  --sun3: #ffe08a;
+}
+
+/* =========================
+   BASE
+========================= */
+
 body {
   margin: 0;
-  font-family: Arial, sans-serif;
-  background: #050505;
-  color: white;
+  font-family: "Arial", sans-serif;
+  background: var(--bg);
+  color: var(--text);
   overflow-x: hidden;
 }
 
@@ -12,60 +31,94 @@ canvas {
   z-index: 0;
 }
 
+/* =========================
+   SUNSET HORIZON
+========================= */
+
 .sunset-horizon {
   position: fixed;
   bottom: 0;
   width: 100%;
-  height: 120px;
-  background: linear-gradient(to top, rgba(255,140,60,0.4), transparent);
-  filter: blur(30px);
+  height: 160px;
+
+  background: linear-gradient(
+    to top,
+    rgba(255, 138, 61, 0.35),
+    rgba(255, 77, 109, 0.15),
+    transparent
+  );
+
+  filter: blur(40px);
+
+  animation: breathe 6s ease-in-out infinite;
+
   z-index: 1;
 }
 
-.page {
-  position: relative;
-  z-index: 2;
-  padding: 120px 20px;
-  text-align: center;
+@keyframes breathe {
+  0%, 100% {
+    transform: scaleY(1);
+    opacity: 0.9;
+  }
+
+  50% {
+    transform: scaleY(1.08);
+    opacity: 1;
+  }
 }
+
+/* =========================
+   NAV
+========================= */
 
 .nav {
   position: fixed;
-  top: 10px;
+  top: 14px;
   left: 50%;
   transform: translateX(-50%);
+
   display: flex;
   gap: 10px;
+
   z-index: 10;
 }
 
 .nav a {
-  color: white;
   text-decoration: none;
-  padding: 8px 12px;
-  background: rgba(255,255,255,0.05);
-  border-radius: 10px;
-}
-
-.toggle-btn {
-  position: fixed;
-  right: 15px;
-  bottom: 20px;
-  padding: 10px 14px;
-  border: none;
-  border-radius: 12px;
-  background: rgba(255,255,255,0.08);
   color: white;
+
+  padding: 10px 14px;
+
+  background: var(--card);
+  border: 1px solid rgba(255,255,255,0.08);
+
+  border-radius: 12px;
+
+  transition: 0.2s;
 }
 
-.music-btn {
-  bottom: 70px;
+.nav a:hover {
+  transform: translateY(-2px);
+  background: var(--card2);
 }
+
+/* =========================
+   PAGE
+========================= */
+
 .page {
-  animation: fadeIn 0.4s ease;
+  position: relative;
+  z-index: 2;
+
+  padding: 120px 20px;
+
+  max-width: 1100px;
+  margin: auto;
+
+  animation: pageIn 0.4s ease;
 }
 
-@keyframes fadeIn {
+@keyframes pageIn {
   from {
     opacity: 0;
     transform: translateY(10px);
@@ -74,5 +127,146 @@ canvas {
   to {
     opacity: 1;
     transform: translateY(0);
+  }
+}
+
+/* =========================
+   HERO
+========================= */
+
+.hero h1 {
+  font-size: 42px;
+  margin: 0;
+}
+
+.hero span {
+  background: linear-gradient(90deg, var(--sun1), var(--sun2));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* =========================
+   CARDS (GD STYLE)
+========================= */
+
+.card {
+  background: var(--card);
+  border: 1px solid rgba(255,255,255,0.08);
+
+  border-radius: 16px;
+
+  padding: 18px;
+  margin: 14px 0;
+
+  backdrop-filter: blur(10px);
+
+  transition: 0.2s;
+
+  box-shadow: 0 0 0 rgba(0,0,0,0);
+}
+
+.card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 40px rgba(0,0,0,0.4);
+}
+
+/* =========================
+   INPUTS
+========================= */
+
+input, textarea, select {
+  width: 100%;
+  margin-top: 8px;
+
+  padding: 10px;
+
+  border-radius: 10px;
+
+  border: 1px solid rgba(255,255,255,0.1);
+
+  background: rgba(0,0,0,0.3);
+
+  color: white;
+
+  outline: none;
+}
+
+/* =========================
+   BUTTONS
+========================= */
+
+button {
+  margin-top: 10px;
+
+  padding: 10px 14px;
+
+  border-radius: 12px;
+
+  border: none;
+
+  cursor: pointer;
+
+  background: linear-gradient(90deg, var(--sun1), var(--sun2));
+
+  color: white;
+
+  font-weight: bold;
+
+  transition: 0.2s;
+}
+
+button:hover {
+  transform: scale(1.05);
+}
+
+/* =========================
+   TOGGLES
+========================= */
+
+.toggle-btn {
+  position: fixed;
+
+  right: 14px;
+
+  padding: 10px 12px;
+
+  border-radius: 12px;
+
+  background: var(--card);
+
+  border: 1px solid rgba(255,255,255,0.1);
+
+  color: white;
+
+  cursor: pointer;
+
+  z-index: 20;
+}
+
+.music-btn {
+  bottom: 20px;
+}
+
+#auraToggle {
+  bottom: 70px;
+}
+
+/* =========================
+   MOBILE
+========================= */
+
+@media (max-width: 768px) {
+
+  .hero h1 {
+    font-size: 30px;
+  }
+
+  .nav {
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+
+  .card {
+    padding: 14px;
   }
 }
