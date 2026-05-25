@@ -149,12 +149,12 @@ async function loadProfile() {
     return;
   }
 
-  currentProfile = data;
-
-  if (data.is_admin) {
-
-    showAdminUI();
-  }
+ if (data && data.is_admin === true) {
+  console.log("ADMIN CONFIRMED");
+  showAdminUI();
+} else {
+  console.log("NOT ADMIN OR PROFILE MISSING");
+}
 
   const usernameDisplay =
     document.getElementById(
@@ -168,8 +168,6 @@ async function loadProfile() {
   }
 }
 
-console.log("PROFILE:", data);
-console.log("IS ADMIN:", data?.is_admin);
 //
 // ========================================
 // ADMIN UI
