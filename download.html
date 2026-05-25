@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <title>Download vSUNSET</title>
+
+  <link rel="stylesheet" href="style.css">
+
+</head>
+<body>
+
+  <!-- BACKGROUND -->
+
+  <canvas id="bg"></canvas>
+
+  <div class="horizon"></div>
+
+  <!-- LOGO -->
+
+  <a class="logo" href="index.html">
+    NPS v<span>SUNSET</span>
+  </a>
+
+  <!-- NAV -->
+
+  <nav class="nav">
+
+    <a href="index.html">Home</a>
+
+    <a href="demons.html">Demons</a>
+
+    <a href="levels.html">Levels</a>
+
+    <a href="submit.html">Submit</a>
+
+    <a href="leader.html">Leaderboard</a>
+
+    <a href="download.html">Download</a>
+
+    <a href="account.html">Account</a>
+
+  </nav>
+
+  <!-- PAGE -->
+
+  <main class="page">
+
+    <!-- HERO -->
+
+    <section class="hero">
+
+      <h1>
+        Download <span>vSUNSET</span>
+      </h1>
+
+      <p>
+        Join the seasonal progression GDPS
+      </p>
+
+    </section>
+
+    <!-- DOWNLOAD PANEL -->
+
+    <div
+      class="card"
+      style="
+        display:flex;
+        flex-direction:column;
+        gap:20px;
+        align-items:center;
+      "
+    >
+
+      <h2>Game Downloads</h2>
+
+      <!-- ANDROID -->
+
+      <button
+        onclick="
+          window.open(
+            'https://www.mediafire.com/file/a90uuqzn5otyonj/NewPS.apk/file',
+            '_blank'
+          )
+        "
+        style="width:100%;"
+      >
+
+        Android Download
+
+      </button>
+
+      <!-- WINDOWS -->
+
+      <button
+        onclick="
+          window.open(
+            'https://www.mediafire.com/folder/dzi0jrfgwei3r/NPS-vSUNSET-Launcher',
+            '_blank'
+          )
+        "
+        style="width:100%;"
+      >
+
+        Windows Download
+
+      </button>
+
+      <!-- SWITCHER -->
+
+      <button
+        onclick="copySwitcher()"
+        style="width:100%;"
+      >
+
+        Copy Switcher Link
+
+      </button>
+
+      <p
+        id="switcherStatus"
+        style="
+          color:#999;
+          margin-top:10px;
+        "
+      ></p>
+
+    </div>
+
+  </main>
+
+  <!-- SCRIPTS -->
+
+  <script src="particles.js"></script>
+
+  <script>
+
+    async function copySwitcher() {
+
+      const link =
+        "https://newps.ps.fhgdps.com";
+
+      await navigator.clipboard.writeText(
+        link
+      );
+
+      document.getElementById(
+        "switcherStatus"
+      ).textContent =
+        "Switcher link copied!";
+    }
+
+  </script>
+
+</body>
+</html>
