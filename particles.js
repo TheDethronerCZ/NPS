@@ -17,8 +17,10 @@ resize();
 const isMobile = window.innerWidth < 768;
 
 // fewer particles on mobile = HUGE performance boost
-const PARTICLE_COUNT = isMobile ? 25 : 80;
-
+function getParticleCount() {
+  if (vibeMode) return isMobile ? 60 : 140;
+  return isMobile ? 25 : 80;
+}
 const particles = [];
 
 function rand(min, max) {
@@ -72,3 +74,38 @@ function draw() {
 }
 
 draw();
+function createParticles() {
+
+  particles.length = 0;
+
+  const count = getParticleCount();
+
+  for (let i = 0; i < count; i++) {
+
+    particles.push({
+      x: rand(0, w),
+      y: rand(0, h),
+
+      r: vibeMode
+        ? rand(2, isMobile ? 3 : 4)
+        : rand(1, isMobile ? 2 : 3),
+
+      dx: vibeMode
+        ? rand(-0.8, 0.8)
+        : rand(-0.3, 0.3),
+
+      dy: vibeMode
+        ? rand(-0.6, 0.6)
+        : rand(-0.2, 0.2),
+
+      color: vibeMode
+        ? ["#ff4d6d", "#ff8a3d", "#ffe08a", "#ff2e63"][Math.floor(Math.random() * 4)]
+        : ["#ff8a3d", "#ffb35c", "#ffe08a", "#ff6aa0"][Math.floor(Math.random() * 4)],
+
+      alpha: vibeMode
+        ? rand(0.6, 1)
+        : rand(0.3, 0.8)
+    });
+  }
+}
+createParticles();
