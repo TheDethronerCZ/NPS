@@ -1,95 +1,73 @@
-const canvas =
-  document.getElementById("bg");
+const canvas = document.getElementById("bg");
+const ctx = canvas.getContext("2d");
 
-const ctx =
-  canvas.getContext("2d");
+let w, h;
 
-canvas.width = innerWidth;
-canvas.height = innerHeight;
+function resize() {
+  w = canvas.width = window.innerWidth;
+  h = canvas.height = window.innerHeight;
+}
+
+window.addEventListener("resize", resize);
+resize();
+
+
+// detect mobile (important for performance)
+const isMobile = window.innerWidth < 768;
+
+// fewer particles on mobile = HUGE performance boost
+const PARTICLE_COUNT = isMobile ? 25 : 80;
 
 const particles = [];
 
-for (let i = 0; i < 140; i++) {
+function rand(min, max) {
+  return Math.random() * (max - min) + min;
+}
 
+// sunset palette
+const colors = [
+  "#ff8a3d",
+  "#ffb35c",
+  "#ffe08a",
+  "#ff6aa0"
+];
+
+for (let i = 0; i < PARTICLE_COUNT; i++) {
   particles.push({
-
-    x: Math.random() * canvas.width,
-
-    y: Math.random() * canvas.height,
-
-    size: Math.random() * 4 + 1,
-
-    speed: Math.random() * 0.8 + 0.2,
-
-    life: Math.random()
+    x: rand(0, w),
+    y: rand(0, h),
+    r: rand(1, isMobile ? 2 : 3),
+    dx: rand(-0.3, 0.3),
+    dy: rand(-0.2, 0.2),
+    color: colors[Math.floor(Math.random() * colors.length)],
+    alpha: rand(0.3, 0.8)
   });
 }
 
-function render() {
+function draw() {
+  ctx.clearRect(0, 0, w, h);
 
-  ctx.clearRect(
-    0,
-    0,
-    canvas.width,
-    canvas.height
-  );
+  for (let p of particles) {
 
-  particles.forEach(p => {
+    p.x += p.dx;
+    p.y += p.dy;
 
-    p.y -= p.speed;
+    // wrap around screen
+    if (p.x < 0) p.x = w;
+    if (p.x > w) p.x = 0;
+    if (p.y < 0) p.y = h;
+    if (p.y > h) p.y = 0;
 
-    if (p.y < -10) {
+    ctx.globalAlpha = p.alpha;
+    ctx.fillStyle = p.color;
 
-      p.y = canvas.height + 10;
-
-      p.x =
-        Math.random() * canvas.width;
-    }
-
-    p.life += 0.002;
-
-    if (p.life > 1) {
-      p.life = 0;
-    }
-
-    // yellow -> pink transition
-
-    const r = 255;
-
-    const g =
-      Math.floor(
-        230 - (120 * p.life)
-      );
-
-    const b =
-      Math.floor(
-        120 + (90 * p.life)
-      );
-
-    ctx.fillStyle =
-      `rgb(${r},${g},${b})`;
-
-    ctx.fillRect(
-
-      p.x,
-      p.y,
-
-      p.size,
-      p.size
-    );
-  });
-
-  requestAnimationFrame(render);
-}
-
-render();
-
-window.addEventListener(
-  "resize",
-
-  () => {
-
-    canvas.width = innerWidth;
-    canvas.height = innerHeight;
+    ctx.beginPath();
+    ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+    ctx.fill();
   }
-);
+
+  ctx.globalAlpha = 1;
+  requestAnimationFrame(draw);
+}
+
+draw();
