@@ -180,7 +180,7 @@ window.showAdminUI = function () {
 //
 
 loadProfile();
-const { data, error } = await sb.from("profiles").select("*");
+async const { data, error } = await sb.from("profiles").select("*");
 
 if (error) {
   console.log(error);
