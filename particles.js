@@ -1,3 +1,4 @@
+let vibeMode = false;
 const canvas = document.getElementById("bg");
 const ctx = canvas.getContext("2d");
 
