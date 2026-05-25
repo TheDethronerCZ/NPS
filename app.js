@@ -148,6 +148,8 @@ async function loadProfile() {
   if (data.is_admin) {
     showAdminUI();
   }
+  console.log(data);
+  .single();
 }
 
 
