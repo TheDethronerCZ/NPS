@@ -1,87 +1,42 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 
 <head>
-
   <meta charset="UTF-8">
-
-  <meta
-    name="viewport"
-    content="width=device-width, initial-scale=1.0">
-
-  <title>Demons • NPS Sunset</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Demons</title>
 
   <link rel="stylesheet" href="style.css">
-
 </head>
 
 <body>
 
   <canvas id="bg"></canvas>
-
   <div class="sun-glow"></div>
-
   <div class="grid-overlay"></div>
 
   <audio id="bgMusic" loop>
-    <source
-      src="assets/audio/sunset.mp3"
-      type="audio/mpeg">
+    <source src="assets/audio/sunset.mp3">
   </audio>
 
   <header class="topbar">
-
-    <a href="index.html" class="brand">
-      NPS <span>SUNSET</span>
-    </a>
-
+    <div class="brand">NPS <span>SUNSET</span></div>
     <div class="top-controls">
-
-      <button id="musicToggle">
-        MUSIC OFF
-      </button>
-
-      <button id="auraToggle">
-        AURA OFF
-      </button>
-
+      <button id="musicToggle">MUSIC</button>
+      <button id="auraToggle">AURA</button>
     </div>
-
   </header>
 
   <main class="menu-scene">
 
     <section class="hero">
-
       <h1>DEMONS</h1>
-
-      <p>
-        The hardest challenges.
-      </p>
-
     </section>
 
     <section class="panels">
 
-      <div class="panel level-card">
-
-        <h2>Eclipse Core</h2>
-
-        <p>
-          Extreme Demon • by Nova
-        </p>
-
-      </div>
-
-      <div class="panel level-card">
-
-        <h2>Solar Collapse</h2>
-
-        <p>
-          Insane Demon • by Hexa
-        </p>
-
-      </div>
+      <div class="panel">Eclipse Core</div>
+      <div class="panel">Solar Collapse</div>
 
     </section>
 
@@ -92,4 +47,5 @@
   <script src="scripts/core.js"></script>
 
 </body>
+
 </html>
