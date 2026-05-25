@@ -2,52 +2,56 @@
 <html lang="en">
 
 <head>
+
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0">
 
   <title>Levels • NPS Sunset</title>
 
-  <link rel="stylesheet" href="../style.css">
+  <link rel="stylesheet" href="style.css">
+
 </head>
 
 <body>
 
-  <!-- BACKGROUND -->
   <canvas id="bg"></canvas>
 
   <div class="sun-glow"></div>
+
   <div class="grid-overlay"></div>
 
-  <!-- AUDIO -->
   <audio id="bgMusic" loop>
-    <source src="../assets/audio/sunset.mp3" type="audio/mpeg">
+    <source
+      src="assets/audio/sunset.mp3"
+      type="audio/mpeg">
   </audio>
 
-  <!-- TOPBAR -->
   <header class="topbar">
 
-    <a href="home.html" class="brand">
+    <a href="index.html" class="brand">
       NPS <span>SUNSET</span>
     </a>
 
     <div class="top-controls">
 
       <button id="musicToggle">
-        MUSIC
+        MUSIC OFF
       </button>
 
       <button id="auraToggle">
-        AURA
+        AURA OFF
       </button>
 
     </div>
 
   </header>
 
-  <!-- PAGE -->
   <main class="menu-scene">
 
-    <section class="page-title">
+    <section class="hero">
 
       <h1>LEVELS</h1>
 
@@ -57,50 +61,45 @@
 
     </section>
 
-    <!-- LEVEL LIST -->
-    <section
-      id="levelList"
-      class="level-list">
+    <section class="panels">
+
+      <div class="panel level-card">
+
+        <h2>Sunset Pulse</h2>
+
+        <p>
+          Easy Demon • by Nova
+        </p>
+
+      </div>
+
+      <div class="panel level-card">
+
+        <h2>Afterglow</h2>
+
+        <p>
+          Medium Demon • by Hexa
+        </p>
+
+      </div>
+
+      <div class="panel level-card">
+
+        <h2>Crimson Void</h2>
+
+        <p>
+          Extreme Demon • by Skye
+        </p>
+
+      </div>
 
     </section>
 
   </main>
 
-  <!-- FULLSCREEN LEVEL PANEL -->
-  <div id="levelOverlay">
-
-    <div id="levelPanel">
-
-      <button id="closeOverlay">
-        ✕
-      </button>
-
-      <h2 id="overlayTitle"></h2>
-
-      <p id="overlayDifficulty"></p>
-
-      <p id="overlayCreator"></p>
-
-      <div class="overlay-buttons">
-
-        <button>
-          PLAY
-        </button>
-
-        <button>
-          LEADERBOARD
-        </button>
-
-      </div>
-
-    </div>
-
-  </div>
-
-  <script src="../scripts/particles.js"></script>
-  <script src="../scripts/audio.js"></script>
-  <script src="../scripts/core.js"></script>
-  <script src="../scripts/levels.js"></script>
+  <script src="scripts/particles.js"></script>
+  <script src="scripts/audio.js"></script>
+  <script src="scripts/core.js"></script>
 
 </body>
 </html>
