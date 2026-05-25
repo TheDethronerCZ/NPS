@@ -34,3 +34,30 @@ export async function logOut() {
   await sb.auth.signOut();
   location.reload();
 }
+async function loadProfileUI() {
+
+  const { data: userData } =
+    await sb.auth.getUser();
+
+  if (!userData?.user) return;
+
+  const user = userData.user;
+
+  const { data } = await sb
+    .from("profiles")
+    .select("*")
+    .eq("id", user.id)
+    .single();
+
+  if (!data) return;
+
+  document.getElementById("stats").innerText =
+    `Creator: ${data.creator_points} | Player: ${data.player_points}`;
+
+  if (data.avatar) {
+    document.getElementById("avatar").src =
+      data.avatar;
+  }
+}
+
+loadProfileUI();
