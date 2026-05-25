@@ -1,5 +1,5 @@
 /* =========================================================
-   🌄 NPS CLIENT V3
+   🌄 NPS CLIENT V4
 ========================================================= */
 
 :root {
@@ -8,10 +8,9 @@
 
   --sun1: #ff8a3d;
   --sun2: #ff4d6d;
-  --sun3: #ffe08a;
 
   --panel:
-    rgba(255,255,255,0.06);
+    rgba(255,255,255,0.05);
 
   --border:
     rgba(255,255,255,0.08);
@@ -32,7 +31,7 @@ body {
   background:
     radial-gradient(
       circle at center,
-      #111 0%,
+      #111,
       #050505 70%
     );
 
@@ -44,7 +43,7 @@ body {
 }
 
 /* =========================
-   CANVAS
+   BACKGROUND
 ========================= */
 
 #bg {
@@ -57,10 +56,6 @@ body {
 
   z-index: 0;
 }
-
-/* =========================
-   SUN GLOW
-========================= */
 
 .sun-glow {
 
@@ -79,7 +74,7 @@ body {
   background:
     radial-gradient(
       circle,
-      rgba(255,138,61,0.55),
+      rgba(255,138,61,0.5),
       rgba(255,77,109,0.15),
       transparent
     );
@@ -108,7 +103,7 @@ body {
 }
 
 /* =========================
-   GRID OVERLAY
+   GRID
 ========================= */
 
 .grid-overlay {
@@ -128,15 +123,6 @@ body {
     );
 
   background-size: 40px 40px;
-
-  mask-image:
-    linear-gradient(
-      to bottom,
-      transparent,
-      black 40%,
-      black 60%,
-      transparent
-    );
 
   z-index: 0;
 }
@@ -165,7 +151,7 @@ body {
 
 .brand {
 
-  font-size: 24px;
+  font-size: 26px;
   font-weight: bold;
 }
 
@@ -183,7 +169,7 @@ body {
 }
 
 /* =========================
-   CONTROLS
+   BUTTONS
 ========================= */
 
 .top-controls {
@@ -194,11 +180,12 @@ body {
 
 button {
 
-  padding: 10px 16px;
+  padding: 12px 16px;
 
-  border-radius: 14px;
+  border-radius: 16px;
 
-  border: 1px solid var(--border);
+  border:
+    1px solid var(--border);
 
   background:
     rgba(255,255,255,0.05);
@@ -212,15 +199,16 @@ button {
 
 button:hover {
 
-  transform: scale(1.06);
+  transform:
+    scale(1.06);
 
   box-shadow:
-    0 0 20px
+    0 0 25px
     rgba(255,138,61,0.25);
 }
 
 /* =========================
-   MAIN SCENE
+   MAIN
 ========================= */
 
 .menu-scene {
@@ -268,13 +256,6 @@ button:hover {
   -webkit-text-fill-color: transparent;
 }
 
-.hero p {
-
-  opacity: 0.8;
-
-  margin-top: 10px;
-}
-
 /* =========================
    MENU BUTTONS
 ========================= */
@@ -286,7 +267,7 @@ button:hover {
 
   gap: 18px;
 
-  margin-bottom: 50px;
+  margin-bottom: 40px;
 }
 
 .menu-btn {
@@ -309,8 +290,6 @@ button:hover {
   border:
     1px solid var(--border);
 
-  backdrop-filter: blur(12px);
-
   transition: 0.25s ease;
 }
 
@@ -321,11 +300,8 @@ button:hover {
     scale(1.02);
 
   box-shadow:
-    0 0 30px
-    rgba(255,138,61,0.22);
-
-  border-color:
-    rgba(255,138,61,0.35);
+    0 0 35px
+    rgba(255,138,61,0.2);
 }
 
 /* =========================
@@ -350,300 +326,17 @@ button:hover {
 
   border-radius: 22px;
 
-  padding: 22px;
-
-  backdrop-filter: blur(14px);
+  padding: 24px;
 
   transition: 0.25s ease;
 }
 
 .panel:hover {
 
-  transform: translateY(-3px);
-
-  box-shadow:
-    0 0 35px
-    rgba(255,138,61,0.12);
-}
-
-/* =========================
-   MOBILE
-========================= */
-
-@media (max-width: 768px) {
-
-  .hero h1 {
-    font-size: 48px;
-  }
-
-  .menu-btn {
-    font-size: 18px;
-    padding: 18px;
-  }
-
-  .topbar {
-    padding: 14px;
-  }
-
-  .brand {
-    font-size: 18px;
-  }
-}
-/* =========================
-   LEVELS
-========================= */
-
-.page-title {
-
-  text-align: center;
-
-  margin-bottom: 40px;
-}
-
-.page-title h1 {
-
-  font-size: 58px;
-
-  margin: 0;
-}
-
-.level-list,
-.demon-list {
-
-  display: flex;
-  flex-direction: column;
-
-  gap: 18px;
-}
-
-/* =========================
-   LEVEL CARD
-========================= */
-
-.level-card {
-
-  position: relative;
-
-  padding: 24px;
-
-  border-radius: 22px;
-
-  background:
-    rgba(255,255,255,0.05);
-
-  border:
-    1px solid rgba(255,255,255,0.08);
-
-  overflow: hidden;
-
-  cursor: pointer;
-
-  transition: 0.25s ease;
-}
-
-.level-card:hover {
-
   transform:
-    translateY(-4px)
-    scale(1.01);
+    translateY(-4px);
 
   box-shadow:
-    0 0 35px
-    rgba(255,138,61,0.18);
-}
-
-.level-card h2 {
-
-  margin: 0;
-
-  font-size: 28px;
-}
-
-.level-meta {
-
-  opacity: 0.75;
-
-  margin-top: 10px;
-}
-
-/* =========================
-   DEMON COLORS
-========================= */
-
-.easy {
-  border-color:
-    rgba(100,255,100,0.4);
-}
-
-.medium {
-  border-color:
-    rgba(255,220,100,0.4);
-}
-
-.hard {
-  border-color:
-    rgba(255,120,100,0.4);
-}
-
-.insane {
-  border-color:
-    rgba(255,80,120,0.4);
-}
-
-.extreme {
-  border-color:
-    rgba(255,0,80,0.5);
-}
-/* =========================
-   OVERLAY
-========================= */
-
-#levelOverlay {
-
-  position: fixed;
-  inset: 0;
-
-  background:
-    rgba(0,0,0,0.75);
-
-  backdrop-filter: blur(14px);
-
-  display: flex;
-
-  justify-content: center;
-  align-items: center;
-
-  opacity: 0;
-  pointer-events: none;
-
-  transition: 0.25s ease;
-
-  z-index: 100;
-}
-
-#levelOverlay.active {
-
-  opacity: 1;
-  pointer-events: auto;
-}
-
-#levelPanel {
-
-  width: min(700px, 92vw);
-
-  padding: 40px;
-
-  border-radius: 28px;
-
-  background:
-    rgba(255,255,255,0.06);
-
-  border:
-    1px solid rgba(255,255,255,0.08);
-
-  transform: scale(0.9);
-
-  transition: 0.25s ease;
-}
-
-#levelOverlay.active #levelPanel {
-
-  transform: scale(1);
-}
-
-#closeOverlay {
-
-  float: right;
-}
-
-.overlay-buttons {
-
-  display: flex;
-  gap: 12px;
-
-  margin-top: 24px;
-}
-/* =========================
-   LEADERBOARDS
-========================= */
-
-.leaderboards {
-
-  display: grid;
-
-  grid-template-columns:
-    repeat(auto-fit, minmax(320px,1fr));
-
-  gap: 20px;
-}
-
-.leader-entry {
-
-  padding: 14px;
-
-  margin-top: 10px;
-
-  border-radius: 14px;
-
-  background:
-    rgba(255,255,255,0.04);
-
-  transition: 0.2s ease;
-}
-
-.leader-entry:hover {
-
-  transform: translateX(4px);
-
-  box-shadow:
-    0 0 20px
-    rgba(255,138,61,0.15);
-}
-
-/* =========================
-   INPUTS
-========================= */
-
-input,
-textarea,
-select {
-
-  width: 100%;
-
-  padding: 14px;
-
-  margin-top: 14px;
-
-  border-radius: 16px;
-
-  border:
-    1px solid rgba(255,255,255,0.08);
-
-  background:
-    rgba(255,255,255,0.05);
-
-  color: white;
-
-  outline: none;
-
-  transition: 0.2s ease;
-}
-
-input:focus,
-textarea:focus,
-select:focus {
-
-  border-color:
-    rgba(255,138,61,0.45);
-
-  box-shadow:
-    0 0 20px
-    rgba(255,138,61,0.18);
-}
-
-textarea {
-
-  min-height: 120px;
-
-  resize: vertical;
+    0 0 30px
+    rgba(255,138,61,0.14);
 }
