@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Demons • NPS Sunset</title>
+
+  <link rel="stylesheet" href="../style.css">
+</head>
+
+<body>
+
+  <canvas id="bg"></canvas>
+
+  <div class="sun-glow"></div>
+  <div class="grid-overlay"></div>
+
+  <audio id="bgMusic" loop>
+    <source src="../assets/audio/sunset.mp3" type="audio/mpeg">
+  </audio>
+
+  <header class="topbar">
+
+    <a href="home.html" class="brand">
+      NPS <span>SUNSET</span>
+    </a>
+
+    <div class="top-controls">
+
+      <button id="musicToggle">
+        MUSIC
+      </button>
+
+      <button id="auraToggle">
+        AURA
+      </button>
+
+    </div>
+
+  </header>
+
+  <main class="menu-scene">
+
+    <section class="page-title">
+
+      <h1>DEMONS</h1>
+
+      <p>
+        The hardest challenges.
+      </p>
+
+    </section>
+
+    <section
+      id="demonList"
+      class="demon-list">
+
+    </section>
+
+  </main>
+
+  <script src="../scripts/particles.js"></script>
+  <script src="../scripts/audio.js"></script>
+  <script src="../scripts/core.js"></script>
+  <script src="../scripts/demons.js"></script>
+
+</body>
+</html>
