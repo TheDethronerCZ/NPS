@@ -1,96 +1,136 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
 
   <title>NPS vSUNSET</title>
-<button id="vibeToggle" class="vibe-toggle">
-  LDM: ON
-</button>
-  <button id="musicToggle" class="vibe-toggle music-btn">
-  Music: OFF
-</button>
+
   <link rel="stylesheet" href="style.css">
 </head>
-<body>
-  <canvas id="bg"></canvas>
-  <div class="horizon"></div>
 
+<body>
+
+  <!-- BACKGROUND -->
+  <canvas id="bg"></canvas>
+
+  <div class="sunset-horizon"></div>
+
+  <!-- LOGO -->
   <a class="logo" href="index.html">
     NPS v<span>SUNSET</span>
   </a>
 
-   <nav class="nav">
+  <!-- NAV -->
+  <nav class="nav">
+
     <a href="index.html">Home</a>
-    <a href="demons.html">Demons</a>
+
     <a href="levels.html">Levels</a>
+
+    <a href="demons.html">Demons</a>
+
     <a href="submit.html">Submit</a>
+
     <a href="leader.html">Leaderboard</a>
-    <a href="account.html">Account</a>
+
     <a href="download.html">Download</a>
+
+    <a href="account.html">Account</a>
+
   </nav>
 
+  <!-- PAGE -->
   <main class="page">
 
+    <!-- HERO -->
     <section class="hero">
+
+      <img
+        src="logo.png"
+        class="hero-logo"
+      >
 
       <h1>
         v<span>SUNSET</span>
       </h1>
 
       <p>
-        Seasonal progression GDPS
+        Seasonal Geometry Dash competition.
       </p>
+
     </section>
 
-    <div class="card">
+    <!-- FEATURED -->
+    <section class="card featured">
 
-      <h2>Featured Level</h2>
+      <div class="featured-top">
 
-      <p>ID: 1001</p>
-      <p>Name: Solar Collapse</p>
-      <p>Reward: +20 SP</p>
+        <span>ID: 000001</span>
 
-        <button class="admin-only add-level" style="display:none;">
-  Edit level
-</button>
+        <span>Featured Level</span>
 
-    </div>
+        <span>+25 SP</span>
 
-    <div class="card">
+      </div>
+
+      <h2>Sunset Horizon</h2>
+
+    </section>
+
+    <!-- CHALLENGES -->
+    <section class="card">
 
       <h2>Seasonal Challenges</h2>
 
-      <p>Beat an Extreme Demon</p>
-      <p>Get 10 Creator Points</p>
-      <p>Make an Epic level</p>
+      <ul class="challenge-list">
 
-   <button class="admin-only add-level" style="display:none;">
-  Edit
-</button>
-    </div>
+        <li>Beat an Extreme Demon</li>
+
+        <li>Get 10 Creator Points</li>
+
+        <li>Make an Epic Level</li>
+
+        <li>Draw Sunset Art in Editor</li>
+
+      </ul>
+
+    </section>
 
   </main>
-<audio
-  id="bgMusic"
-  loop
-  preload="auto"
->
-  <source
-    src="assets/music/sunset.mp3"
-    type="audio/mpeg"
+
+  <!-- TOGGLES -->
+  <button id="ldmToggle" class="toggle-btn">
+    LDM: OFF
+  </button>
+
+  <button
+    id="musicToggle"
+    class="toggle-btn music-btn"
   >
-</audio>
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    Music: OFF
+  </button>
+
+  <!-- AUDIO -->
+  <audio
+    id="bgMusic"
+    loop
+    preload="auto"
+  >
+    <source
+      src="assets/music/sunset.mp3"
+      type="audio/mpeg"
+    >
+  </audio>
+
+  <!-- SCRIPTS -->
   <script src="particles.js"></script>
   <script src="app.js"></script>
-<audio
-  id="bgMusic"
-  loop
-  preload="auto"
->
-  <source src="assets/music/sunset.mp3" type="audio/mpeg">
-</audio>
+
 </body>
 </html>
