@@ -90,18 +90,18 @@ body {
   pointer-events: none;
 }
 
-@keyframes breathe {
+@keyframes fogPulse {
 
-  0%,100% {
+  0%, 100% {
     transform:
-      translateX(-50%)
+      translate(-50%, -50%)
       scale(1);
   }
 
   50% {
     transform:
-      translateX(-50%)
-      scale(1.06);
+      translate(-50%, -50%)
+      scale(1.08);
   }
 }
 
