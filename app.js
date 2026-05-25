@@ -179,13 +179,30 @@ window.showAdminUI = function () {
 // ========================================
 //
 loadProfile();
-console.log("BINDING ADMIN FUNCTIONS");
 
-window.showAdminUI = showAdminUI;
-window.editLevel = editLevel;
-window.deleteLevel = deleteLevel;
-window.addLevel = addLevel;
-window.editDemon = editDemon;
-window.deleteDemon = deleteDemon;
-window.acceptSubmission = acceptSubmission;
-window.denySubmission = denySubmission;
+let isAdmin = false;
+let profile = null;
+
+async function loadProfile() {
+
+  const { data: userData } =
+    await sb.auth.getUser();
+
+  if (!userData?.user) return;
+
+  const user = userData.user;
+
+  const { data } = await sb
+    .from("profiles")
+    .select("*")
+    .eq("id", user.id)
+    .single();
+
+  profile = data;
+
+  isAdmin = data?.is_admin === true;
+
+  if (isAdmin) {
+    enableAdminUI();
+  }
+}
