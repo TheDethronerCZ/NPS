@@ -172,7 +172,7 @@ function showAdminUI() {
       el.style.display = "block";
     });
 }
-
+window.showAdminUI = function () {
 
 //
 // ========================================
