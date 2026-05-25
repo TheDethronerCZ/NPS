@@ -179,7 +179,15 @@ window.showAdminUI = function () {
 // ========================================
 //
 loadProfile();
+function enableAdminUI() {
 
+  document
+    .querySelectorAll(".admin-only")
+    .forEach(el => {
+
+      el.style.display = "block";
+    });
+}
 let isAdmin = false;
 let profile = null;
 
@@ -206,3 +214,22 @@ async function loadProfile() {
     enableAdminUI();
   }
 }
+document.addEventListener("click", async (e) => {
+
+  if (!e.target.matches(".add-level")) return;
+
+  if (!isAdmin) return;
+
+  const name = prompt("Level name?");
+  if (!name) return;
+
+  const { error } = await sb
+    .from("levels")
+    .insert([{ name }]);
+
+  if (error) {
+    alert(error.message);
+  } else {
+    alert("Level added!");
+  }
+});
