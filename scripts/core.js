@@ -1,109 +1,59 @@
-/* =========================================================
-   CORE ENGINE
-========================================================= */
+const views = ["home", "levels", "demons", "leaderboard"];
 
-window.addEventListener(
-  "DOMContentLoaded",
-  () => {
+const music = document.getElementById("music");
+const musicBtn = document.getElementById("musicBtn");
 
-    initTransitions();
-    initAura();
-  }
-);
+let musicOn = false;
 
 /* =========================
-   PAGE TRANSITIONS
+   VIEW SYSTEM
 ========================= */
 
-function initTransitions() {
+function showView(name) {
 
-  document
-    .querySelectorAll("a")
-    .forEach(link => {
+  views.forEach(v => {
+    document.getElementById(v).classList.remove("active");
+  });
 
-      link.addEventListener(
-        "click",
-        e => {
-
-          const href =
-            link.getAttribute("href");
-
-          if (!href) return;
-
-          e.preventDefault();
-
-          document.body.animate(
-            [
-              { opacity: 1 },
-              { opacity: 0 }
-            ],
-            {
-              duration: 180,
-              fill: "forwards"
-            }
-          );
-
-          setTimeout(() => {
-            window.location.href = href;
-          }, 180);
-        }
-      );
-    });
+  document.getElementById(name).classList.add("active");
 }
 
 /* =========================
-   AURA MODE
+   BUTTON EVENTS
 ========================= */
 
-function initAura() {
+document.getElementById("viewHome")
+  .onclick = () => showView("home");
 
-  const auraBtn =
-    document.getElementById(
-      "auraToggle"
-    );
+document.getElementById("viewLevels")
+  .onclick = () => showView("levels");
 
-  if (!auraBtn) return;
+document.getElementById("viewDemons")
+  .onclick = () => showView("demons");
 
-  let enabled =
-    localStorage.getItem("aura")
-    === "true";
+document.getElementById("viewLeaderboard")
+  .onclick = () => showView("leaderboard");
 
-  update();
+/* =========================
+   MUSIC SYSTEM
+========================= */
 
-  auraBtn.onclick = () => {
+musicBtn.onclick = async () => {
 
-    enabled = !enabled;
+  musicOn = !musicOn;
 
-    localStorage.setItem(
-      "aura",
-      enabled
-    );
-
-    document.body.classList.toggle(
-      "aura-mode",
-      enabled
-    );
-
-    update();
-
-    window.dispatchEvent(
-      new CustomEvent(
-        "auraToggle",
-        { detail: enabled }
-      )
-    );
-  };
-
-  function update() {
-
-    auraBtn.textContent =
-      enabled
-        ? "AURA ON"
-        : "AURA OFF";
-
-    document.body.classList.toggle(
-      "aura-mode",
-      enabled
-    );
+  if (musicOn) {
+    music.volume = 0.4;
+    await music.play();
+    musicBtn.textContent = "MUSIC ON";
+  } else {
+    music.pause();
+    musicBtn.textContent = "MUSIC OFF";
   }
-}
+};
+
+/* =========================
+   AUTO START VIEW
+========================= */
+
+showView("home");
