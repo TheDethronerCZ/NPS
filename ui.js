@@ -1,97 +1,73 @@
+/* =========================================================
+   🌅 UI SYSTEM 2.0
+========================================================= */
+
+function pulse(el) {
+  if (!el) return;
+
+  el.animate(
+    [
+      { transform: "scale(1)" },
+      { transform: "scale(1.06)" },
+      { transform: "scale(1)" }
+    ],
+    {
+      duration: 200
+    }
+  );
+}
+
+/* =========================
+   GLOBAL BUTTON FEEL
+========================= */
+
+document.addEventListener("click", (e) => {
+
+  if (e.target.tagName === "BUTTON") {
+    pulse(e.target);
+  }
+});
+
+/* =========================
+   PAGE FADE ON NAV
+========================= */
+
 document.querySelectorAll("a").forEach(a => {
 
-  a.addEventListener("click", e => {
-
-    e.preventDefault();
+  a.addEventListener("click", (e) => {
 
     const href = a.href;
 
-    document.body.style.opacity = 0;
+    if (!href.includes("#")) {
 
-    setTimeout(() => {
-      window.location.href = href;
-    }, 200);
+      e.preventDefault();
 
+      document.body.style.opacity = "0";
+
+      setTimeout(() => {
+        window.location.href = href;
+      }, 180);
+    }
+  });
+});
+
+/* =========================
+   HOVER SOUND FEEL (optional hook)
+========================= */
+
+document.querySelectorAll(".card").forEach(card => {
+
+  card.addEventListener("mouseenter", () => {
+    card.style.transform = "translateY(-4px) scale(1.01)";
   });
 
+  card.addEventListener("mouseleave", () => {
+    card.style.transform = "translateY(0) scale(1)";
+  });
 });
-let auraMode =
-  localStorage.getItem("auraMode") === "true";
 
-const auraBtn =
-  document.getElementById("auraToggle");
+/* =========================
+   LOG
+========================= */
 
-const music =
-  document.getElementById("bgMusic");
-
-const musicBtn =
-  document.getElementById("musicToggle");
-
-let musicEnabled =
-  localStorage.getItem("musicEnabled") === "true";
-
-function updateUI() {
-
-  if (auraBtn) {
-    auraBtn.textContent =
-      auraMode ? "AURA: ON" : "AURA: OFF";
-  }
-
-  if (musicBtn) {
-    musicBtn.textContent =
-      musicEnabled ? "MUSIC: ON" : "MUSIC: OFF";
-  }
-}
-
-if (auraBtn) {
-
-  auraBtn.onclick = () => {
-
-    auraMode = !auraMode;
-
-    localStorage.setItem("auraMode", auraMode);
-
-    updateUI();
-
-    window.dispatchEvent(
-      new CustomEvent("auraToggle", {
-        detail: auraMode
-      })
-    );
-  };
-}
-
-if (music) {
-
-  music.volume = 0.4;
-
-  const saved = localStorage.getItem("musicTime");
-
-  if (saved) music.currentTime = parseFloat(saved);
-
-  setInterval(() => {
-    localStorage.setItem("musicTime", music.currentTime);
-  }, 1000);
-}
-
-if (musicBtn && music) {
-
-  musicBtn.onclick = async () => {
-
-    musicEnabled = !musicEnabled;
-
-    localStorage.setItem("musicEnabled", musicEnabled);
-
-    updateUI();
-
-    if (musicEnabled) {
-      try {
-        await music.play();
-      } catch (e) {}
-    } else {
-      music.pause();
-    }
-  };
-}
-
-updateUI();
+console.log("🌅 UI v2 loaded");
