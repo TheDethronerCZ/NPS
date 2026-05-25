@@ -1,78 +1,52 @@
-/* =========================================================
-   AUDIO ENGINE
-========================================================= */
-
 window.addEventListener(
   "DOMContentLoaded",
   () => {
 
-    initMusic();
-  }
-);
+    const music =
+      document.getElementById(
+        "bgMusic"
+      );
 
-function initMusic() {
+    const button =
+      document.getElementById(
+        "musicToggle"
+      );
 
-  const music =
-    document.getElementById(
-      "bgMusic"
-    );
+    if (!music || !button) return;
 
-  const button =
-    document.getElementById(
-      "musicToggle"
-    );
+    let enabled =
+      localStorage.getItem("music")
+      === "true";
 
-  if (!music || !button) return;
-
-  music.volume = 0.45;
-
-  let enabled =
-    localStorage.getItem("music")
-    === "true";
-
-  update();
-
-  button.onclick = async () => {
-
-    enabled = !enabled;
-
-    localStorage.setItem(
-      "music",
-      enabled
-    );
-
-    if (enabled) {
-
-      try {
-        await music.play();
-      } catch {}
-    }
-    else {
-      music.pause();
-    }
+    music.volume = 0.4;
 
     update();
-  };
 
-  function update() {
+    button.onclick = async () => {
 
-    button.textContent =
-      enabled
-        ? "MUSIC ON"
-        : "MUSIC OFF";
-  }
+      enabled = !enabled;
 
-  document.addEventListener(
-    "click",
-    async () => {
+      localStorage.setItem(
+        "music",
+        enabled
+      );
 
       if (enabled) {
-
-        try {
-          await music.play();
-        } catch {}
+        await music.play();
       }
-    },
-    { once: true }
-  );
-}
+      else {
+        music.pause();
+      }
+
+      update();
+    };
+
+    function update() {
+
+      button.textContent =
+        enabled
+          ? "MUSIC ON"
+          : "MUSIC OFF";
+    }
+  }
+);
