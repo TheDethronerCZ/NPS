@@ -252,3 +252,38 @@ toggleBtn.addEventListener("click", () => {
     vibeMode ? "LDM: OFF" : "LDM: ON";
   createParticles();
 });
+const music = document.getElementById("bgMusic");
+const musicBtn = document.getElementById("musicToggle");
+
+let musicEnabled = false;
+
+music.volume = 0.4;
+
+musicBtn.addEventListener("click", async () => {
+
+  musicEnabled = !musicEnabled;
+
+  if (musicEnabled) {
+
+    try {
+
+      await music.play();
+
+      musicBtn.textContent = "Music: ON";
+
+    } catch (err) {
+
+      console.log("Playback blocked:", err);
+    }
+
+  } else {
+
+    music.pause();
+
+    musicBtn.textContent = "Music: OFF";
+  }
+});
+musicBtn.classList.toggle(
+  "music-active",
+  musicEnabled
+);
