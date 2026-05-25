@@ -71,3 +71,52 @@ document.querySelectorAll(".card").forEach(card => {
 ========================= */
 
 console.log("🌅 UI v2 loaded");
+function bindToggles() {
+
+  const auraBtn = document.getElementById("auraToggle");
+  const musicBtn = document.getElementById("musicToggle");
+  const music = document.getElementById("bgMusic");
+
+  if (!music) return;
+
+  music.volume = 0.4;
+
+  let aura = localStorage.getItem("aura") === "true";
+  let musicOn = localStorage.getItem("music") === "true";
+
+  function update() {
+    if (auraBtn)
+      auraBtn.textContent = aura ? "AURA: ON" : "AURA: OFF";
+
+    if (musicBtn)
+      musicBtn.textContent = musicOn ? "MUSIC: ON" : "MUSIC: OFF";
+  }
+
+  if (auraBtn) {
+    auraBtn.onclick = () => {
+      aura = !aura;
+      localStorage.setItem("aura", aura);
+      window.dispatchEvent(new CustomEvent("auraToggle", { detail: aura }));
+      update();
+    };
+  }
+
+  if (musicBtn) {
+    musicBtn.onclick = async () => {
+      musicOn = !musicOn;
+      localStorage.setItem("music", musicOn);
+
+      if (musicOn) {
+        try { await music.play(); } catch {}
+      } else {
+        music.pause();
+      }
+
+      update();
+    };
+  }
+
+  update();
+}
+
+window.addEventListener("load", bindToggles);
