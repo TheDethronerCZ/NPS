@@ -1,11 +1,14 @@
-//
-// ========================================
-// SUPABASE
-// ========================================
-//
+/* =========================================================
+   🌅 NPS vSUNSET — FULL REBUILT APP.JS
+========================================================= */
+
+
+/* =========================================================
+   SUPABASE
+========================================================= */
 
 const SUPABASE_URL =
-  "https://itlgyetcajqhbuqpxmyj.supabase.co/";
+  "https://itlgyetcajqhbuqpxmyj.supabase.co";
 
 const SUPABASE_KEY =
   "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Iml0bGd5ZXRjYWpxaGJ1cXB4bXlqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzk2MDIxNDUsImV4cCI6MjA5NTE3ODE0NX0.0ix8VFlR-BRliJIZCkBor9RIczvw8skruGVYyKWamBo";
@@ -17,11 +20,307 @@ const sb =
   );
 
 
-//
-// ========================================
-// POPUP
-// ========================================
-//
+/* =========================================================
+   GLOBAL STATE
+========================================================= */
+
+let profile = null;
+
+let isAdmin = false;
+
+let ldmMode = false;
+
+let musicEnabled = false;
+
+
+/* =========================================================
+   PROFILE LOADING
+========================================================= */
+
+async function loadProfile() {
+
+  const {
+    data: userData,
+    error: userError
+  } = await sb.auth.getUser();
+
+  if (
+    userError ||
+    !userData?.user
+  ) {
+    console.log("No user logged in.");
+    return;
+  }
+
+  const user = userData.user;
+
+  console.log("USER:", user.id);
+
+  const {
+    data,
+    error
+  } = await sb
+    .from("profiles")
+    .select("*")
+    .eq("id", user.id)
+    .single();
+
+  console.log("PROFILE:", data);
+
+  if (error || !data) {
+
+    console.log(
+      "Profile missing or blocked."
+    );
+
+    return;
+  }
+
+  profile = data;
+
+  isAdmin =
+    data.is_admin === true;
+
+  if (isAdmin) {
+    enableAdminUI();
+  }
+
+  const usernameDisplay =
+    document.getElementById(
+      "usernameDisplay"
+    );
+
+  if (usernameDisplay) {
+
+    usernameDisplay.textContent =
+      data.username;
+  }
+}
+
+
+/* =========================================================
+   ADMIN UI
+========================================================= */
+
+function enableAdminUI() {
+
+  document
+    .querySelectorAll(".admin-only")
+    .forEach(el => {
+
+      el.style.display = "block";
+    });
+
+  console.log("Admin UI enabled.");
+}
+
+
+/* =========================================================
+   LDM MODE
+========================================================= */
+
+const ldmToggle =
+  document.getElementById(
+    "ldmToggle"
+  );
+
+if (ldmToggle) {
+
+  ldmToggle.addEventListener(
+    "click",
+
+    () => {
+
+      ldmMode = !ldmMode;
+
+      ldmToggle.textContent =
+        ldmMode
+          ? "LDM: ON"
+          : "LDM: OFF";
+
+      ldmToggle.classList.toggle(
+        "active-toggle",
+        ldmMode
+      );
+
+      // 🌅 particles.js listens for this
+      window.dispatchEvent(
+        new CustomEvent(
+          "ldmToggle",
+          {
+            detail: ldmMode
+          }
+        )
+      );
+    }
+  );
+}
+
+
+/* =========================================================
+   MUSIC
+========================================================= */
+
+const music =
+  document.getElementById(
+    "bgMusic"
+  );
+
+const musicToggle =
+  document.getElementById(
+    "musicToggle"
+  );
+
+if (music) {
+  music.volume = 0.4;
+}
+
+if (
+  music &&
+  musicToggle
+) {
+
+  musicToggle.addEventListener(
+    "click",
+
+    async () => {
+
+      musicEnabled =
+        !musicEnabled;
+
+      if (musicEnabled) {
+
+        try {
+
+          await music.play();
+
+          musicToggle.textContent =
+            "Music: ON";
+
+          musicToggle.classList.add(
+            "active-toggle"
+          );
+
+        } catch (err) {
+
+          console.log(
+            "Playback blocked:",
+            err
+          );
+        }
+
+      } else {
+
+        music.pause();
+
+        musicToggle.textContent =
+          "Music: OFF";
+
+        musicToggle.classList.remove(
+          "active-toggle"
+        );
+      }
+    }
+  );
+}
+
+
+/* =========================================================
+   NAVIGATION GLOW FX
+========================================================= */
+
+document
+  .querySelectorAll(".nav a")
+  .forEach(link => {
+
+    link.addEventListener(
+      "mouseenter",
+
+      () => {
+
+        link.style.boxShadow =
+          `
+          0 0 20px rgba(255,138,61,0.35)
+          `;
+      }
+    );
+
+    link.addEventListener(
+      "mouseleave",
+
+      () => {
+
+        link.style.boxShadow =
+          "none";
+      }
+    );
+  });
+
+
+/* =========================================================
+   CARD FLOAT FX
+========================================================= */
+
+document
+  .querySelectorAll(".card")
+  .forEach(card => {
+
+    card.addEventListener(
+      "mousemove",
+
+      e => {
+
+        const rect =
+          card.getBoundingClientRect();
+
+        const x =
+          e.clientX -
+          rect.left;
+
+        const y =
+          e.clientY -
+          rect.top;
+
+        const centerX =
+          rect.width / 2;
+
+        const centerY =
+          rect.height / 2;
+
+        const rotateX =
+          (y - centerY) / 30;
+
+        const rotateY =
+          (centerX - x) / 30;
+
+        card.style.transform =
+          `
+          rotateX(${rotateX}deg)
+          rotateY(${rotateY}deg)
+          translateY(-4px)
+          `;
+      }
+    );
+
+    card.addEventListener(
+      "mouseleave",
+
+      () => {
+
+        card.style.transform =
+          `
+          rotateX(0deg)
+          rotateY(0deg)
+          translateY(0px)
+          `;
+      }
+    );
+  });
+
+
+/* =========================================================
+   SIMPLE POPUP
+========================================================= */
 
 function popup(text) {
 
@@ -29,261 +328,95 @@ function popup(text) {
 }
 
 
-//
-// ========================================
-// PROFILE
-// ========================================
-//
+/* =========================================================
+   AUTH HELPERS
+========================================================= */
 
-let currentProfile = null;
-
-
-//
-// ========================================
-// AUTH
-// ========================================
-//
-
-window.signUp = async function () {
-
-  const username =
-    document
-      .getElementById("username")
-      .value
-      .trim();
-
-  const password =
-    document
-      .getElementById("password")
-      .value
-      .trim();
+async function signUp(
+  username,
+  password
+) {
 
   const fakeEmail =
     `${username}@vsunset.gg`;
 
-  const { error } =
+  const {
+    error
+  } =
     await sb.auth.signUp({
 
       email: fakeEmail,
-      password: password
+      password
     });
 
   if (error) {
 
     popup(error.message);
+
     return;
   }
 
   popup("Account created!");
-};
+}
 
-window.logIn = async function () {
 
-  const username =
-    document
-      .getElementById("username")
-      .value
-      .trim();
-
-  const password =
-    document
-      .getElementById("password")
-      .value
-      .trim();
+async function logIn(
+  username,
+  password
+) {
 
   const fakeEmail =
     `${username}@vsunset.gg`;
 
-  const { error } =
+  const {
+    error
+  } =
     await sb.auth.signInWithPassword({
 
       email: fakeEmail,
-      password: password
+      password
     });
 
   if (error) {
 
     popup(error.message);
+
     return;
   }
 
   popup("Logged in!");
 
   location.reload();
-};
+}
 
-window.logOut = async function () {
+
+async function logOut() {
 
   await sb.auth.signOut();
 
   popup("Logged out.");
 
   location.reload();
-};
-
-
-//
-// ========================================
-// PROFILE LOADING
-// ========================================
-//
-
-async function loadProfile() {
-
-  const { data: userData, error: userError } =
-    await sb.auth.getUser();
-
-  if (userError || !userData?.user) return;
-
-  const user = userData.user;
-
-  console.log("USER ID:", user.id);
-
-  const { data, error } = await sb
-    .from("profiles")
-    .select("*")
-    .eq("id", user.id)
-    .single();
-
-  console.log("PROFILE:", data);
-  console.log("ERROR:", error);
-
-  if (error || !data) return;
-
-  currentProfile = data;
-
-  if (data.is_admin === true) {
-    showAdminUI();
-  }
 }
 
-//
-// ========================================
-// ADMIN UI
-// ========================================
-//
 
-window.showAdminUI = function () {
+/* =========================================================
+   GLOBAL EXPORTS
+========================================================= */
 
-  document
-    .querySelectorAll(".admin-only")
-    .forEach(el => {
+window.signUp = signUp;
 
-      el.style.display = "block";
-    });
-}
+window.logIn = logIn;
 
-//
-// ========================================
-// INIT
-// ========================================
-//
+window.logOut = logOut;
+
+
+/* =========================================================
+   INIT
+========================================================= */
+
 loadProfile();
-function enableAdminUI() {
 
-  document
-    .querySelectorAll(".admin-only")
-    .forEach(el => {
-
-      el.style.display = "block";
-    });
-}
-let isAdmin = false;
-let profile = null;
-
-async function loadProfile() {
-
-  const { data: userData } =
-    await sb.auth.getUser();
-
-  if (!userData?.user) return;
-
-  const user = userData.user;
-
-  const { data } = await sb
-    .from("profiles")
-    .select("*")
-    .eq("id", user.id)
-    .single();
-
-  profile = data;
-
-  isAdmin = data?.is_admin === true;
-
-  if (isAdmin) {
-    enableAdminUI();
-  }
-}
-function enableAdminUI() {
-
-  document
-    .querySelectorAll(".admin-only")
-    .forEach(el => {
-
-      el.style.display = "block";
-    });
-}
-document.addEventListener("click", async (e) => {
-
-  if (!e.target.matches(".add-level")) return;
-
-  if (!isAdmin) return;
-
-  const name = prompt("Level name?");
-  if (!name) return;
-
-  const { error } = await sb
-    .from("levels")
-    .insert([{ name }]);
-
-  if (error) {
-    alert(error.message);
-  } else {
-    alert("Level added!");
-  }
-});
-const toggleBtn = document.getElementById("vibeToggle");
-
-toggleBtn.addEventListener("click", () => {
-
-  vibeMode = !vibeMode;
-
-  toggleBtn.textContent =
-    vibeMode ? "LDM: OFF" : "LDM: ON";
-  createParticles();
-});
-const music = document.getElementById("bgMusic");
-const musicBtn = document.getElementById("musicToggle");
-
-let musicEnabled = false;
-
-music.volume = 0.4;
-
-musicBtn.addEventListener("click", async () => {
-
-  musicEnabled = !musicEnabled;
-
-  if (musicEnabled) {
-
-    try {
-
-      await music.play();
-
-      musicBtn.textContent = "Music: ON";
-
-    } catch (err) {
-
-      console.log("Playback blocked:", err);
-    }
-
-  } else {
-
-    music.pause();
-
-    musicBtn.textContent = "Music: OFF";
-  }
-});
-musicBtn.classList.toggle(
-  "music-active",
-  musicEnabled
+console.log(
+  "🌅 NPS vSUNSET initialized."
 );
