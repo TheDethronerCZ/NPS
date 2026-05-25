@@ -249,5 +249,5 @@ toggleBtn.addEventListener("click", () => {
   vibeMode = !vibeMode;
 
   toggleBtn.textContent =
-    vibeMode ? "Vibe: ON" : "Vibe: OFF";
+    vibeMode ? "LDM: OFF" : "LDM: ON";
 });
