@@ -242,3 +242,12 @@ document.addEventListener("click", async (e) => {
     alert("Level added!");
   }
 });
+const toggleBtn = document.getElementById("vibeToggle");
+
+toggleBtn.addEventListener("click", () => {
+
+  vibeMode = !vibeMode;
+
+  toggleBtn.textContent =
+    vibeMode ? "Vibe: ON" : "Vibe: OFF";
+});
