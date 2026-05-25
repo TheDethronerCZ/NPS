@@ -163,7 +163,7 @@ async function loadProfile() {
 // ========================================
 //
 
-function showAdminUI() {
+window.showAdminUI = function () {
 
   document
     .querySelectorAll(".admin-only")
@@ -172,7 +172,6 @@ function showAdminUI() {
       el.style.display = "block";
     });
 }
-window.showAdminUI = function () {
 
 //
 // ========================================
