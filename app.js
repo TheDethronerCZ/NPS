@@ -250,4 +250,5 @@ toggleBtn.addEventListener("click", () => {
 
   toggleBtn.textContent =
     vibeMode ? "LDM: OFF" : "LDM: ON";
+  createParticles();
 });
