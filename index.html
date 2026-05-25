@@ -1,58 +1,45 @@
-<!DOCTYPE html>
-<html>
-
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>NPS Sunset</title>
-
-  <link rel="stylesheet" href="style.css">
-</head>
-
 <body>
 
   <canvas id="bg"></canvas>
   <div class="sun-glow"></div>
-  <div class="grid-overlay"></div>
 
   <audio id="bgMusic" loop>
     <source src="assets/audio/sunset.mp3">
   </audio>
 
+  <!-- NAV BAR -->
   <header class="topbar">
 
     <div class="brand">NPS <span>SUNSET</span></div>
 
     <div class="top-controls">
-      <button id="musicToggle">MUSIC</button>
-      <button id="auraToggle">AURA</button>
+      <button onclick="showView('home')">HOME</button>
+      <button onclick="showView('levels')">LEVELS</button>
+      <button onclick="showView('demons')">DEMONS</button>
+      <button onclick="showView('leaderboard')">LEADERBOARD</button>
     </div>
 
   </header>
 
-  <main class="menu-scene">
+  <!-- VIEWS CONTAINER -->
+  <main id="app">
 
-    <section class="hero">
-      <h1>NPS <span>SUNSET</span></h1>
-      <p>Season based Geometry dash private server</p>
+    <section id="home" class="view active">
+      <h1>HOME</h1>
     </section>
 
-    <section class="menu-buttons">
+    <section id="levels" class="view">
+      <h1>LEVELS</h1>
+    </section>
 
-      <a class="menu-btn" href="levels.html">LEVELS</a>
-      <a class="menu-btn" href="demons.html">DEMONS</a>
-      <a class="menu-btn" href="leaderboard.html">LEADERBOARD</a>
-      <a class="menu-btn" href="submit.html">SUBMIT</a>
-      <a class="menu-btn" href="account.html">ACCOUNT</a>
+    <section id="demons" class="view">
+      <h1>DEMONS</h1>
+    </section>
 
+    <section id="leaderboard" class="view">
+      <h1>LEADERBOARD</h1>
     </section>
 
   </main>
 
-  <script src="scripts/particles.js"></script>
-  <script src="scripts/audio.js"></script>
-  <script src="scripts/core.js"></script>
-
 </body>
-
-</html>
