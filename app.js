@@ -139,8 +139,7 @@ async function loadProfile() {
     await sb
       .from("profiles")
       .select("*")
-      .eq("id", userData.user.id)
-      .single();
+      .eq("id", userData.user.id);
 
   console.log(data);
 
