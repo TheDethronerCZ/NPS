@@ -168,7 +168,8 @@ async function loadProfile() {
   }
 }
 
-
+console.log("PROFILE:", data);
+console.log("IS ADMIN:", data?.is_admin);
 //
 // ========================================
 // ADMIN UI
