@@ -214,6 +214,15 @@ async function loadProfile() {
     enableAdminUI();
   }
 }
+function enableAdminUI() {
+
+  document
+    .querySelectorAll(".admin-only")
+    .forEach(el => {
+
+      el.style.display = "block";
+    });
+}
 document.addEventListener("click", async (e) => {
 
   if (!e.target.matches(".add-level")) return;
