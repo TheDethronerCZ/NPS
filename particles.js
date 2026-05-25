@@ -73,7 +73,15 @@ function draw() {
   requestAnimationFrame(draw);
 }
 
-draw();
+draw(){
+  if (vibeMode) {
+  ctx.shadowBlur = 10;
+  ctx.shadowColor = "#ff8a3d";
+} else {
+  ctx.shadowBlur = 0;
+}
+
+};
 function createParticles() {
 
   particles.length = 0;
