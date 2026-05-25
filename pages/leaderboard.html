@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Leaderboard • NPS Sunset</title>
+
+  <link rel="stylesheet" href="/style.css">
+</head>
+
+<body>
+
+  <canvas id="bg"></canvas>
+
+  <div class="sun-glow"></div>
+  <div class="grid-overlay"></div>
+
+  <audio id="bgMusic" loop>
+    <source src="/assets/audio/sunset.mp3" type="audio/mpeg">
+  </audio>
+
+  <header class="topbar">
+
+    <a href="/pages/home.html" class="brand">
+      NPS <span>SUNSET</span>
+    </a>
+
+    <div class="top-controls">
+
+      <button id="musicToggle">
+        MUSIC
+      </button>
+
+      <button id="auraToggle">
+        AURA
+      </button>
+
+    </div>
+
+  </header>
+
+  <main class="menu-scene">
+
+    <section class="page-title">
+
+      <h1>LEADERBOARD</h1>
+
+    </section>
+
+    <section class="leaderboards">
+
+      <div class="panel">
+
+        <h2>👑 Creators</h2>
+
+        <div id="creatorBoard">
+
+          <div class="leader-entry">
+            #1 Nova — 120
+          </div>
+
+          <div class="leader-entry">
+            #2 Hexa — 90
+          </div>
+
+        </div>
+
+      </div>
+
+      <div class="panel">
+
+        <h2>🎮 Players</h2>
+
+        <div id="playerBoard">
+
+          <div class="leader-entry">
+            #1 Skye — 220
+          </div>
+
+          <div class="leader-entry">
+            #2 Zeno — 170
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+  </main>
+
+  <script src="/scripts/particles.js"></script>
+  <script src="/scripts/audio.js"></script>
+  <script src="/scripts/core.js"></script>
+
+</body>
+</html>
