@@ -490,3 +490,14 @@ button:active, .nav a:active {
   margin: 0 auto;
   width: min(360px, 92vw);
 }
+canvas {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+@media (max-width: 768px) {
+  canvas {
+    opacity: 0.8;
+  }
+}
