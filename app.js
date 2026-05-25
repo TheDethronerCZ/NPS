@@ -119,111 +119,127 @@ function enableAdminUI() {
    LDM MODE
 ========================================================= */
 
-const ldmToggle =
-  document.getElementById(
-    "ldmToggle"
-  );
+window.addEventListener(
 
-if (ldmToggle) {
+  "DOMContentLoaded",
 
-  ldmToggle.addEventListener(
-    "click",
+  () => {
 
-    () => {
+    /* =========================
+       LDM
+    ========================= */
 
-      ldmMode = !ldmMode;
-
-      ldmToggle.textContent =
-        ldmMode
-          ? "LDM: ON"
-          : "LDM: OFF";
-
-      ldmToggle.classList.toggle(
-        "active-toggle",
-        ldmMode
+    const ldmToggle =
+      document.getElementById(
+        "ldmToggle"
       );
 
-      // 🌅 particles.js listens for this
-      window.dispatchEvent(
-        new CustomEvent(
-          "ldmToggle",
-          {
-            detail: ldmMode
-          }
-        )
-      );
-    }
-  );
-}
+    let ldmMode = false;
 
+    if (ldmToggle) {
 
-/* =========================================================
-   MUSIC
-========================================================= */
+      ldmToggle.addEventListener(
+        "click",
 
-const music =
-  document.getElementById(
-    "bgMusic"
-  );
+        () => {
 
-const musicToggle =
-  document.getElementById(
-    "musicToggle"
-  );
+          ldmMode = !ldmMode;
 
-if (music) {
-  music.volume = 0.4;
-}
+          ldmToggle.textContent =
+            ldmMode
+              ? "LDM: ON"
+              : "LDM: OFF";
 
-if (
-  music &&
-  musicToggle
-) {
-
-  musicToggle.addEventListener(
-    "click",
-
-    async () => {
-
-      musicEnabled =
-        !musicEnabled;
-
-      if (musicEnabled) {
-
-        try {
-
-          await music.play();
-
-          musicToggle.textContent =
-            "Music: ON";
-
-          musicToggle.classList.add(
-            "active-toggle"
+          ldmToggle.classList.toggle(
+            "active-toggle",
+            ldmMode
           );
 
-        } catch (err) {
-
-          console.log(
-            "Playback blocked:",
-            err
+          window.dispatchEvent(
+            new CustomEvent(
+              "ldmToggle",
+              {
+                detail: ldmMode
+              }
+            )
           );
         }
-
-      } else {
-
-        music.pause();
-
-        musicToggle.textContent =
-          "Music: OFF";
-
-        musicToggle.classList.remove(
-          "active-toggle"
-        );
-      }
+      );
     }
-  );
-}
 
+
+    /* =========================
+       MUSIC
+    ========================= */
+
+    const music =
+      document.getElementById(
+        "bgMusic"
+      );
+
+    const musicToggle =
+      document.getElementById(
+        "musicToggle"
+      );
+
+    let musicEnabled = false;
+
+    if (music) {
+      music.volume = 0.4;
+    }
+
+    if (
+      music &&
+      musicToggle
+    ) {
+
+      musicToggle.addEventListener(
+
+        "click",
+
+        async () => {
+
+          musicEnabled =
+            !musicEnabled;
+
+          if (musicEnabled) {
+
+            try {
+
+              await music.play();
+
+              musicToggle.textContent =
+                "Music: ON";
+
+              musicToggle.classList.add(
+                "active-toggle"
+              );
+
+            } catch (err) {
+
+              console.log(err);
+            }
+
+          } else {
+
+            music.pause();
+
+            musicToggle.textContent =
+              "Music: OFF";
+
+            musicToggle.classList.remove(
+              "active-toggle"
+            );
+          }
+        }
+      );
+    }
+
+    console.log(
+      "Toggle systems loaded"
+    );
+  }
+);
 
 /* =========================================================
    NAVIGATION GLOW FX
