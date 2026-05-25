@@ -178,7 +178,27 @@ window.showAdminUI = function () {
 // INIT
 // ========================================
 //
-
+window.showAdminUI = function () {
+  alert("AdminUI");
+};
+window.editLevel = function () {
+  alert("Edit level");
+};
+window.deleteLevel = function () {
+  alert("delete level");
+};
+window.editdemon = function () {
+  alert("edit demon");
+};
+window.deletedemon = function () {
+  alert("delete demon");
+};
+window.acceptsubmission = function () {
+  alert("accept submission");
+};
+window.denysubmission = function () {
+  alert("deny submission");
+};
 loadProfile();
 console.log("BINDING ADMIN FUNCTIONS");
 
