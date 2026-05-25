@@ -130,41 +130,40 @@ window.logOut = async function () {
 
 async function loadProfile() {
 
-  const { data: userData } =
+  const { data: userData, error: userError } =
     await sb.auth.getUser();
 
-  if (!userData.user) return;
+  if (userError || !userData?.user) {
 
- const { data, error } = await sb
-  .from("profiles")
-  .select("*")
-  .eq("id", user.id)
-  .single();
-
-  console.log(data);
-
-  if (error) {
-
-    console.error(error);
+    console.log("No user logged in");
     return;
   }
 
- if (data && data.is_admin === true) {
-  console.log("ADMIN CONFIRMED");
-  showAdminUI();
-} else {
-  console.log("NOT ADMIN OR PROFILE MISSING");
-}
+  const user = userData.user;
 
-  const usernameDisplay =
-    document.getElementById(
-      "usernameDisplay"
-    );
+  console.log("USER ID:", user.id);
 
-  if (usernameDisplay) {
+  const { data, error } = await sb
+    .from("profiles")
+    .select("*")
+    .eq("id", user.id)
+    .single();
 
-    usernameDisplay.textContent =
-      data.username;
+  console.log("PROFILE:", data);
+  console.log("ERROR:", error);
+
+  if (error || !data) {
+
+    console.log("Profile missing or blocked");
+    return;
+  }
+
+  currentProfile = data;
+
+  if (data.is_admin === true) {
+
+    console.log("ADMIN ENABLED");
+    showAdminUI();
   }
 }
 
