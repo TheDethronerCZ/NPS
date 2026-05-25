@@ -180,7 +180,11 @@ window.showAdminUI = function () {
 //
 
 loadProfile();
-console.log("PROFILE ERROR:", error);
+const { data, error } = await sb.from("profiles").select("*");
+
+if (error) {
+  console.log(error);
+}
 console.log("PROFILE DATA:", data);
 
 console.log("BINDING ADMIN FUNCTIONS");
