@@ -52,8 +52,8 @@ window.signUp = async function () {
     return;
   }
 
-  const fakeEmail =
-    `${username}@season.nps`;
+const fakeEmail =
+  `${username}@gmail.com`;
 
   const { data, error } =
     await sb.auth.signUp({
