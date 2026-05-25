@@ -3,10 +3,11 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Levels</title>
+
+  <title>Rated Levels</title>
+
   <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
 
   <canvas id="bg"></canvas>
@@ -16,7 +17,7 @@
     NPS v<span>SUNSET</span>
   </a>
 
-  <nav class="nav">
+   <nav class="nav">
     <a href="index.html">Home</a>
     <a href="demons.html">Demons</a>
     <a href="levels.html">Levels</a>
@@ -28,13 +29,187 @@
 
   <main class="page">
 
-    <h1>Rated Levels</h1>
+    <section class="hero">
 
-    <div class="card">Level 1</div>
-    <div class="card">Level 2</div>
+      <h1>Rated Levels</h1>
+
+      <p>
+        Officially rated vSUNSET levels
+      </p>
+
+    </section>
+
+    <!-- ========================= -->
+    <!-- ADMIN PANEL -->
+    <!-- ========================= -->
+
+    <div
+      class="card admin-only"
+      style="display:none;"
+    >
+
+      <h2>Add Level</h2>
+
+      <input
+        id="levelAddName"
+        placeholder="Level Name"
+      >
+
+      <input
+        id="levelAddCreator"
+        placeholder="Creator"
+      >
+
+      <select id="levelAddDifficulty">
+
+        <option>Auto</option>
+        <option>Easy</option>
+        <option>Normal</option>
+        <option>Hard</option>
+        <option>Harder</option>
+        <option>Insane</option>
+        <option>Demon</option>
+
+      </select>
+
+      <select id="levelAddRating">
+
+        <option>Rate</option>
+        <option>Feature</option>
+        <option>Epic</option>
+        <option>Legendary</option>
+        <option>Mythic</option>
+
+      </select>
+
+      <button onclick="addLevel()">
+        Add Level
+      </button>
+
+    </div>
+
+    <!-- ========================= -->
+    <!-- LEVELS -->
+    <!-- ========================= -->
+
+    <div
+      id="levelList"
+      style="
+        display:flex;
+        flex-wrap:wrap;
+        gap:20px;
+        justify-content:center;
+      "
+    ></div>
 
   </main>
 
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="particles.js"></script>
   <script src="app.js"></script>
+
+  <script>
+
+    async function loadLevels() {
+
+      const list =
+        document.getElementById("levelList");
+
+      const { data } =
+        await sb
+          .from("levels")
+          .select("*")
+          .order("created_at", {
+            ascending: false
+          });
+
+      list.innerHTML = "";
+
+      data.forEach(level => {
+
+        list.innerHTML += `
+
+          <div class="card">
+
+            <h2>${level.name}</h2>
+
+            <p>Creator: ${level.creator}</p>
+
+            <p>
+              Difficulty:
+              ${level.difficulty}
+            </p>
+
+            <p>
+              Rating:
+              ${level.rating}
+            </p>
+
+            <button
+              class="admin-only"
+              style="display:none;"
+              onclick="deleteLevel(${level.id})"
+            >
+              Delete
+            </button>
+
+          </div>
+
+        `;
+      });
+    }
+
+    window.addLevel = async function () {
+
+      const { error } =
+        await sb
+          .from("levels")
+          .insert({
+
+            name:
+              document.getElementById(
+                "levelAddName"
+              ).value,
+
+            creator:
+              document.getElementById(
+                "levelAddCreator"
+              ).value,
+
+            difficulty:
+              document.getElementById(
+                "levelAddDifficulty"
+              ).value,
+
+            rating:
+              document.getElementById(
+                "levelAddRating"
+              ).value
+          });
+
+      if (error) {
+        popup(error.message);
+        return;
+      }
+
+      popup("Level added!");
+
+      loadLevels();
+    };
+
+    window.deleteLevel = async function(id) {
+
+      await sb
+        .from("levels")
+        .delete()
+        .eq("id", id);
+
+      loadLevels();
+    };
+
+    loadLevels();
+
+  </script>
+
 </body>
 </html>
