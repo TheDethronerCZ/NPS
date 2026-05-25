@@ -135,11 +135,11 @@ async function loadProfile() {
 
   if (!userData.user) return;
 
-  const { data, error } =
-    await sb
-      .from("profiles")
-      .select("*")
-      .eq("id", userData.user.id);
+ const { data, error } = await sb
+  .from("profiles")
+  .select("*")
+  .eq("id", user.id)
+  .single();
 
   console.log(data);
 
@@ -192,3 +192,6 @@ function showAdminUI() {
 //
 
 loadProfile();
+console.log("USER:", userData.user.id);
+console.log("PROFILE ERROR:", error);
+console.log("PROFILE DATA:", data);
