@@ -1,31 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NPS SUNSET</title>
+
+  <link rel="stylesheet" href="style.css">
+</head>
+
 <body>
 
+  <!-- BACKGROUND -->
   <canvas id="bg"></canvas>
-  <div class="sun-glow"></div>
+  <div class="fog"></div>
+  <div class="grid"></div>
 
-  <audio id="bgMusic" loop>
-    <source src="assets/audio/sunset.mp3">
+  <!-- MUSIC -->
+  <audio id="music" loop>
+    <source src="assets/audio/sunset.mp3" type="audio/mpeg">
   </audio>
 
-  <!-- NAV BAR -->
+  <!-- TOP BAR -->
   <header class="topbar">
 
-    <div class="brand">NPS <span>SUNSET</span></div>
+    <div class="brand">
+      NPS <span>SUNSET</span>
+    </div>
 
-    <div class="top-controls">
-      <button onclick="showView('home')">HOME</button>
-      <button onclick="showView('levels')">LEVELS</button>
-      <button onclick="showView('demons')">DEMONS</button>
-      <button onclick="showView('leaderboard')">LEADERBOARD</button>
+    <div class="controls">
+      <button id="musicBtn">MUSIC</button>
+      <button id="viewHome">HOME</button>
+      <button id="viewLevels">LEVELS</button>
+      <button id="viewDemons">DEMONS</button>
+      <button id="viewLeaderboard">LEADERBOARD</button>
     </div>
 
   </header>
 
-  <!-- VIEWS CONTAINER -->
-  <main id="app">
+  <!-- APP -->
+  <main class="app">
 
     <section id="home" class="view active">
-      <h1>HOME</h1>
+      <h1>WELCOME</h1>
+      <p>Geometry Dash style client</p>
     </section>
 
     <section id="levels" class="view">
@@ -42,4 +60,8 @@
 
   </main>
 
+  <script src="core.js"></script>
+
 </body>
+
+</html>
