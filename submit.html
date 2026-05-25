@@ -29,14 +29,22 @@
 
   <h1>Submit Level</h1>
 
-  <div class="card">
+<div class="card">
 
-    <input placeholder="Level Name">
-    <textarea placeholder="Description"></textarea>
+  <input id="levelName" placeholder="Level name">
 
-    <button>Submit</button>
+  <select id="type">
+    <option value="level">Level</option>
+    <option value="verification">Verification</option>
+  </select>
 
-  </div>
+  <input id="enjoyability" type="number" placeholder="Enjoyability (1-10)">
+
+  <button onclick="submitLevel()">
+    Submit
+  </button>
+
+</div>
 
   <!-- admin panel -->
   <div class="card admin-only" style="display:none;">
