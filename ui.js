@@ -1,3 +1,20 @@
+document.querySelectorAll("a").forEach(a => {
+
+  a.addEventListener("click", e => {
+
+    e.preventDefault();
+
+    const href = a.href;
+
+    document.body.style.opacity = 0;
+
+    setTimeout(() => {
+      window.location.href = href;
+    }, 200);
+
+  });
+
+});
 let auraMode =
   localStorage.getItem("auraMode") === "true";
 
