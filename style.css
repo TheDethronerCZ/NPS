@@ -1,3 +1,116 @@
+.view {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+
+  transform: translate(-50%, -40%) scale(0.9);
+
+  opacity: 0;
+
+  transition:
+    transform 0.35s ease,
+    opacity 0.35s ease;
+
+  pointer-events: none;
+}
+
+.view.active {
+  opacity: 1;
+
+  transform: translate(-50%, -50%) scale(1);
+
+  pointer-events: auto;
+}
+
+/* =========================
+   GD BUTTON STYLE
+========================= */
+
+.controls button {
+
+  position: relative;
+
+  overflow: hidden;
+
+  transition: 0.2s ease;
+
+}
+
+.controls button:hover {
+
+  transform: scale(1.08);
+
+  box-shadow:
+    0 0 20px rgba(255,140,0,0.35);
+
+}
+
+/* pulse glow */
+.controls button::after {
+
+  content: "";
+
+  position: absolute;
+
+  inset: 0;
+
+  background: radial-gradient(
+    circle,
+    rgba(255,140,0,0.3),
+    transparent
+  );
+
+  opacity: 0;
+
+  transition: 0.3s;
+
+}
+
+.controls button:hover::after {
+  opacity: 1;
+}
+
+/* =========================
+   TRANSITION FLASH
+========================= */
+
+#transitionLayer {
+
+  position: fixed;
+  inset: 0;
+
+  background: black;
+
+  opacity: 0;
+
+  pointer-events: none;
+
+  z-index: 999;
+}
+
+#transitionLayer.active {
+  animation: flash 0.35s ease;
+}
+
+@keyframes flash {
+  0% { opacity: 0; }
+  40% { opacity: 1; }
+  100% { opacity: 0; }
+}
+
+/* =========================
+   TITLE STYLE (GD FEEL)
+========================= */
+
+h1 {
+
+  font-size: 64px;
+
+  letter-spacing: 3px;
+
+  text-shadow:
+    0 0 20px rgba(255,120,80,0.3);
+}
 /* =========================
    BASE
 ========================= */
