@@ -2,11 +2,17 @@
 <html lang="en">
 
 <head>
+
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0">
+
   <title>NPS Sunset</title>
 
-  <link rel="stylesheet" href="../style.css">
+  <link rel="stylesheet" href="style.css">
+
 </head>
 
 <body>
@@ -15,14 +21,17 @@
   <canvas id="bg"></canvas>
 
   <div class="sun-glow"></div>
+
   <div class="grid-overlay"></div>
 
-  <!-- AUDIO -->
+  <!-- MUSIC -->
   <audio id="bgMusic" loop>
-    <source src="../assets/audio/sunset.mp3" type="audio/mpeg">
+    <source
+      src="assets/audio/sunset.mp3"
+      type="audio/mpeg">
   </audio>
 
-  <!-- TOP BAR -->
+  <!-- TOPBAR -->
   <header class="topbar">
 
     <div class="brand">
@@ -32,18 +41,18 @@
     <div class="top-controls">
 
       <button id="musicToggle">
-        MUSIC
+        MUSIC OFF
       </button>
 
       <button id="auraToggle">
-        AURA
+        AURA OFF
       </button>
 
     </div>
 
   </header>
 
-  <!-- MAIN MENU -->
+  <!-- MAIN -->
   <main class="menu-scene">
 
     <section class="hero">
@@ -53,12 +62,12 @@
       </h1>
 
       <p>
-        A new generation GDPS experience.
+        A new generation GDPS.
       </p>
 
     </section>
 
-    <!-- MAIN BUTTONS -->
+    <!-- MENU -->
     <section class="menu-buttons">
 
       <a href="levels.html" class="menu-btn">
@@ -73,6 +82,10 @@
         LEADERBOARD
       </a>
 
+      <a href="submit.html" class="menu-btn">
+        SUBMIT
+      </a>
+
       <a href="account.html" class="menu-btn">
         ACCOUNT
       </a>
@@ -83,22 +96,33 @@
     <section class="panels">
 
       <div class="panel">
-        <h2>🌟 Season Level</h2>
-        <div id="featuredLevel"></div>
+
+        <h2>🌟 Featured Level</h2>
+
+        <p>
+          Coming soon...
+        </p>
+
       </div>
 
       <div class="panel">
-        <h2>🔥 Daily Challenge</h2>
-        <div id="seasonChallenge"></div>
+
+        <h2>🔥 Season Challenge</h2>
+
+        <p>
+          Coming soon...
+        </p>
+
       </div>
 
     </section>
 
   </main>
 
-  <script src="../scripts/particles.js"></script>
-  <script src="../scripts/audio.js"></script>
-  <script src="../scripts/core.js"></script>
+  <!-- SCRIPTS -->
+  <script src="scripts/particles.js"></script>
+  <script src="scripts/audio.js"></script>
+  <script src="scripts/core.js"></script>
 
 </body>
 </html>
