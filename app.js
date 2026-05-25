@@ -189,6 +189,5 @@ function showAdminUI() {
 //
 
 loadProfile();
-console.log("USER:", userData.user.id);
 console.log("PROFILE ERROR:", error);
 console.log("PROFILE DATA:", data);
