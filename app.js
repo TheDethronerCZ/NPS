@@ -133,11 +133,9 @@ async function loadProfile() {
   const { data: userData, error: userError } =
     await sb.auth.getUser();
 
-  if (userError || !userData?.user) {
+  if (userError || !userData?.user) return;
 
-    console.log("No user logged in");
-    return;
-  }
+  const user = userData.user;
 
   console.log("USER ID:", user.id);
 
@@ -150,17 +148,11 @@ async function loadProfile() {
   console.log("PROFILE:", data);
   console.log("ERROR:", error);
 
-  if (error || !data) {
-
-    console.log("Profile missing or blocked");
-    return;
-  }
+  if (error || !data) return;
 
   currentProfile = data;
 
   if (data.is_admin === true) {
-
-    console.log("ADMIN ENABLED");
     showAdminUI();
   }
 }
