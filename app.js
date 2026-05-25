@@ -139,8 +139,6 @@ async function loadProfile() {
     return;
   }
 
-  const user = userData.user;
-
   console.log("USER ID:", user.id);
 
   const { data, error } = await sb
