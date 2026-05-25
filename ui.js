@@ -120,3 +120,14 @@ function bindToggles() {
 }
 
 window.addEventListener("load", bindToggles);
+document.addEventListener("click", () => {
+
+  const music = document.getElementById("bgMusic");
+
+  if (!music) return;
+
+  if (localStorage.getItem("music") === "true") {
+    music.play().catch(() => {});
+  }
+
+}, { once: true });
