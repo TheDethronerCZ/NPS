@@ -2,12 +2,17 @@
 <html lang="en">
 
 <head>
+
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0">
 
   <title>Submit • NPS Sunset</title>
 
-  <link rel="stylesheet" href="/style.css">
+  <link rel="stylesheet" href="style.css">
+
 </head>
 
 <body>
@@ -15,26 +20,29 @@
   <canvas id="bg"></canvas>
 
   <div class="sun-glow"></div>
+
   <div class="grid-overlay"></div>
 
   <audio id="bgMusic" loop>
-    <source src="/assets/audio/sunset.mp3" type="audio/mpeg">
+    <source
+      src="assets/audio/sunset.mp3"
+      type="audio/mpeg">
   </audio>
 
   <header class="topbar">
 
-    <a href="/pages/home.html" class="brand">
+    <a href="index.html" class="brand">
       NPS <span>SUNSET</span>
     </a>
 
     <div class="top-controls">
 
       <button id="musicToggle">
-        MUSIC
+        MUSIC OFF
       </button>
 
       <button id="auraToggle">
-        AURA
+        AURA OFF
       </button>
 
     </div>
@@ -43,43 +51,54 @@
 
   <main class="menu-scene">
 
-    <section class="page-title">
+    <section class="hero">
 
       <h1>SUBMIT</h1>
 
       <p>
-        Send your level to the moderators.
+        Send your level to moderators.
       </p>
 
     </section>
 
-    <div class="panel">
+    <section class="panels">
 
-      <input placeholder="Level Name">
+      <div class="panel">
 
-      <select>
-        <option>Easy Demon</option>
-        <option>Medium Demon</option>
-        <option>Hard Demon</option>
-        <option>Insane Demon</option>
-        <option>Extreme Demon</option>
-      </select>
+        <input
+          type="text"
+          placeholder="Level Name">
 
-      <input placeholder="YouTube Verification Link">
+        <select>
 
-      <textarea placeholder="Description"></textarea>
+          <option>Easy Demon</option>
+          <option>Medium Demon</option>
+          <option>Hard Demon</option>
+          <option>Insane Demon</option>
+          <option>Extreme Demon</option>
 
-      <button>
-        SUBMIT LEVEL
-      </button>
+        </select>
 
-    </div>
+        <input
+          type="text"
+          placeholder="YouTube Link">
+
+        <textarea
+          placeholder="Description"></textarea>
+
+        <button>
+          SUBMIT
+        </button>
+
+      </div>
+
+    </section>
 
   </main>
 
-  <script src=".../scripts/particles.js"></script>
-  <script src=".../scripts/audio.js"></script>
-  <script src=".../scripts/core.js"></script>
+  <script src="scripts/particles.js"></script>
+  <script src="scripts/audio.js"></script>
+  <script src="scripts/core.js"></script>
 
 </body>
 </html>
