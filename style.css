@@ -1,90 +1,67 @@
-.music-active {
-  background: linear-gradient(
-    90deg,
-    #ff8a3d,
-    #ff6aa0
-  );
+/* =========================================================
+   🌅 NPS vSUNSET — FULL REBUILT STYLE.CSS
+========================================================= */
 
-  color: black;
-}
-.music-btn {
-  bottom: 70px;
-}
-.vibe-toggle {
-  position: fixed;
-  bottom: 20px;
-  right: 20px;
-
-  z-index: 9999;
-
-  padding: 10px 14px;
-  border-radius: 12px;
-
-  border: none;
-  cursor: pointer;
-
-  background: rgba(255, 255, 255, 0.08);
-  color: white;
-
-  backdrop-filter: blur(10px);
-
-  transition: 0.2s;
-}
-
-.vibe-toggle:hover {
-  transform: scale(1.05);
-  background: linear-gradient(90deg, #ff8a3d, #ff6aa0);
-  color: black;
-}
 :root {
 
   --bg: #050505;
 
-  --card: rgba(20,20,20,0.82);
+  --card: rgba(18, 18, 18, 0.78);
 
   --text: #ffffff;
-  --muted: #999;
 
-  --yellow: #ffe08a;
-  --orange: #ffb35c;
-  --pink: #ff7eb6;
+  --muted: #8d8d8d;
 
-  --radius: 24px;
+  --sunset1: #ff8a3d;
+  --sunset2: #ffcf6b;
+  --sunset3: #ff6aa0;
+
+  --glow:
+    0 0 20px rgba(255,138,61,0.25),
+    0 0 50px rgba(255,106,160,0.12);
+
+  --radius: 22px;
 }
 
-/* ======================================== */
-/* RESET */
-/* ======================================== */
+/* =========================================================
+   RESET
+========================================================= */
 
 * {
-
   margin: 0;
   padding: 0;
-
   box-sizing: border-box;
 }
 
-html {
+/* =========================================================
+   BASE
+========================================================= */
 
-  scroll-behavior: smooth;
-}
-
+html,
 body {
+
+  width: 100%;
+  min-height: 100%;
+
+  overflow-x: hidden;
 
   background: var(--bg);
 
   color: var(--text);
 
-  font-family: Arial, sans-serif;
-
-  overflow-x: hidden;
-
-  min-height: 100vh;
+  font-family:
+    Inter,
+    Arial,
+    sans-serif;
 }
 
-/* ======================================== */
-/* PARTICLES */
-/* ======================================== */
+body {
+  position: relative;
+}
+
+/* =========================================================
+   BACKGROUND CANVAS
+========================================================= */
 
 canvas {
 
@@ -92,14 +69,19 @@ canvas {
 
   inset: 0;
 
+  width: 100%;
+  height: 100%;
+
   z-index: 0;
+
+  pointer-events: none;
 }
 
-/* ======================================== */
-/* HORIZON */
-/* ======================================== */
+/* =========================================================
+   SUNSET HORIZON GLOW
+========================================================= */
 
-.horizon {
+.sunset-horizon {
 
   position: fixed;
 
@@ -107,50 +89,42 @@ canvas {
   bottom: 0;
 
   width: 100%;
-  height: 220px;
+  height: 120px;
 
   z-index: 1;
 
   pointer-events: none;
 
   background:
-
     linear-gradient(
       to top,
-
-      rgba(255,224,138,0.22),
-
-      rgba(255,170,120,0.14),
-
-      rgba(255,126,182,0.08),
-
+      rgba(255,207,107,0.55),
+      rgba(255,138,61,0.18),
       transparent
     );
 
-  filter: blur(55px);
+  filter: blur(30px);
 
   animation:
-    horizonBreath 6s ease-in-out infinite;
+    horizonBreath 5s ease-in-out infinite;
 }
 
 @keyframes horizonBreath {
 
   0%, 100% {
-
     opacity: 0.65;
     transform: scaleY(1);
   }
 
   50% {
-
     opacity: 1;
-    transform: scaleY(1.1);
+    transform: scaleY(1.12);
   }
 }
 
-/* ======================================== */
-/* PAGE */
-/* ======================================== */
+/* =========================================================
+   PAGE LAYOUT
+========================================================= */
 
 .page {
 
@@ -164,34 +138,40 @@ canvas {
   flex-direction: column;
   align-items: center;
 
-  gap: 70px;
+  gap: 42px;
 
   padding:
-
-    180px
+    150px
     20px
-    240px;
+    220px;
 }
 
-/* ======================================== */
-/* LOGO */
-/* ======================================== */
+/* =========================================================
+   LOGO
+========================================================= */
 
 .logo {
 
   position: fixed;
 
-  top: 22px;
-  left: 24px;
+  top: 18px;
+  left: 20px;
 
   z-index: 9999;
 
-  font-size: 22px;
-  font-weight: bold;
-
   text-decoration: none;
 
-  color: #777;
+  font-size: 22px;
+  font-weight: 800;
+  letter-spacing: 1px;
+
+  color: #8a8a8a;
+
+  transition: 0.2s;
+}
+
+.logo:hover {
+  transform: scale(1.03);
 }
 
 .logo span {
@@ -199,33 +179,36 @@ canvas {
   background:
     linear-gradient(
       90deg,
-      var(--orange),
-      var(--yellow)
+      var(--sunset1),
+      var(--sunset2)
     );
 
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
-/* ======================================== */
-/* NAV */
-/* ======================================== */
+/* =========================================================
+   NAVIGATION
+========================================================= */
 
 .nav {
+
   position: fixed;
-  top: 20px;
+
+  top: 18px;
   left: 50%;
+
   transform: translateX(-50%);
-
-  display: flex;
-  gap: 10px;
-  flex-wrap: wrap;
-
-  justify-content: center;
 
   z-index: 9999;
 
-  max-width: 95vw;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+
+  gap: 10px;
+
+  max-width: 92vw;
 }
 
 .nav a {
@@ -237,50 +220,70 @@ canvas {
   background:
     rgba(255,255,255,0.05);
 
-  backdrop-filter: blur(10px);
+  border:
+    1px solid rgba(255,255,255,0.06);
 
   padding:
-    12px
-    18px;
+    10px
+    15px;
 
-  border-radius: 16px;
+  border-radius: 14px;
+
+  backdrop-filter: blur(10px);
 
   transition:
-    0.25s;
+    0.2s ease;
 }
 
 .nav a:hover {
 
   transform:
-    translateY(-3px);
+    translateY(-2px);
 
   background:
     linear-gradient(
       90deg,
-      var(--orange),
-      var(--yellow)
+      var(--sunset1),
+      var(--sunset2)
     );
 
   color: black;
 
-  box-shadow:
-    0 0 25px rgba(255,180,90,0.25);
+  box-shadow: var(--glow);
 }
 
-/* ======================================== */
-/* HERO */
-/* ======================================== */
+/* =========================================================
+   HERO
+========================================================= */
 
 .hero {
 
   text-align: center;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  gap: 14px;
+}
+
+.hero-logo {
+
+  width: 160px;
+
+  user-select: none;
+  pointer-events: none;
+
+  filter:
+    drop-shadow(0 0 24px rgba(255,138,61,0.2));
 }
 
 .hero h1 {
 
-  font-size: 82px;
-
+  font-size: 64px;
   font-weight: 900;
+
+  letter-spacing: 2px;
 }
 
 .hero h1 span {
@@ -288,8 +291,8 @@ canvas {
   background:
     linear-gradient(
       90deg,
-      var(--orange),
-      var(--yellow)
+      var(--sunset1),
+      var(--sunset2)
     );
 
   -webkit-background-clip: text;
@@ -300,35 +303,33 @@ canvas {
 
   color: var(--muted);
 
-  margin-top: 12px;
-
-  font-size: 18px;
+  font-size: 17px;
 }
 
-/* ======================================== */
-/* CARDS */
-/* ======================================== */
+/* =========================================================
+   CARDS
+========================================================= */
 
 .card {
 
-  width: min(720px, 92vw);
+  width:
+    min(720px, 92vw);
 
-  background: var(--card);
-
-  backdrop-filter: blur(18px);
-
-  border:
-    1px solid rgba(255,255,255,0.06);
+  padding: 26px;
 
   border-radius: var(--radius);
 
-  padding: 28px;
+  background: var(--card);
+
+  border:
+    1px solid rgba(255,255,255,0.05);
+
+  backdrop-filter: blur(14px);
 
   box-shadow:
-    0 0 40px rgba(0,0,0,0.35);
+    0 0 25px rgba(0,0,0,0.35);
 
-  transition:
-    0.25s;
+  transition: 0.25s ease;
 }
 
 .card:hover {
@@ -337,33 +338,105 @@ canvas {
     translateY(-4px);
 
   box-shadow:
-    0 0 45px rgba(255,180,90,0.12);
+    0 0 30px rgba(255,138,61,0.12);
 }
 
-.card h2 {
+/* =========================================================
+   FEATURED PANEL
+========================================================= */
 
-  margin-bottom: 18px;
+.featured-top {
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  color: var(--muted);
+
+  font-size: 14px;
+
+  margin-bottom: 16px;
 }
 
-.card p {
+.featured h2 {
 
-  color: #ddd;
+  text-align: center;
 
-  margin-top: 10px;
+  font-size: 34px;
 
-  line-height: 1.5;
+  background:
+    linear-gradient(
+      90deg,
+      var(--sunset1),
+      var(--sunset2)
+    );
+
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
-/* ======================================== */
-/* INPUTS */
-/* ======================================== */
+/* =========================================================
+   CHALLENGES
+========================================================= */
 
-input,
-select {
+.challenge-list {
 
-  width: 100%;
+  margin-top: 18px;
 
-  margin-top: 14px;
+  display: flex;
+  flex-direction: column;
+
+  gap: 14px;
+
+  list-style: none;
+}
+
+.challenge-list li {
+
+  background:
+    rgba(255,255,255,0.04);
+
+  padding:
+    14px
+    16px;
+
+  border-radius: 14px;
+
+  transition: 0.2s;
+}
+
+.challenge-list li:hover {
+
+  transform:
+    translateX(4px);
+
+  background:
+    rgba(255,138,61,0.08);
+}
+
+/* =========================================================
+   TOGGLE BUTTONS
+========================================================= */
+
+.toggle-btn {
+
+  position: fixed;
+
+  right: 20px;
+
+  z-index: 9999;
+
+  padding:
+    11px
+    16px;
+
+  border: none;
+
+  border-radius: 14px;
+
+  cursor: pointer;
+
+  color: white;
 
   background:
     rgba(255,255,255,0.06);
@@ -371,13 +444,76 @@ select {
   border:
     1px solid rgba(255,255,255,0.08);
 
-  color: white;
+  backdrop-filter: blur(10px);
+
+  transition: 0.2s ease;
+}
+
+.toggle-btn:hover {
+
+  transform:
+    scale(1.05);
+
+  background:
+    linear-gradient(
+      90deg,
+      var(--sunset1),
+      var(--sunset3)
+    );
+
+  color: black;
+}
+
+#ldmToggle {
+  bottom: 20px;
+}
+
+.music-btn {
+  bottom: 75px;
+}
+
+/* =========================================================
+   ACTIVE BUTTON STATES
+========================================================= */
+
+.active-toggle {
+
+  background:
+    linear-gradient(
+      90deg,
+      var(--sunset1),
+      var(--sunset3)
+    );
+
+  color: black;
+
+  box-shadow: var(--glow);
+}
+
+/* =========================================================
+   INPUTS
+========================================================= */
+
+input,
+textarea {
+
+  width: 100%;
 
   padding:
     14px
     16px;
 
-  border-radius: 16px;
+  margin-top: 12px;
+
+  border-radius: 14px;
+
+  border:
+    1px solid rgba(255,255,255,0.08);
+
+  background:
+    rgba(255,255,255,0.04);
+
+  color: white;
 
   outline: none;
 
@@ -385,100 +521,58 @@ select {
 }
 
 input:focus,
-select:focus {
+textarea:focus {
 
   border-color:
-    rgba(255,190,100,0.45);
+    rgba(255,138,61,0.6);
 
   box-shadow:
-    0 0 15px rgba(255,180,90,0.14);
+    0 0 15px rgba(255,138,61,0.2);
 }
 
-/* ======================================== */
-/* BUTTONS */
-/* ======================================== */
+/* =========================================================
+   BUTTONS
+========================================================= */
 
 button {
 
-  margin-top: 18px;
-
   border: none;
-
-  background:
-    linear-gradient(
-      90deg,
-      var(--orange),
-      var(--yellow)
-    );
-
-  color: black;
-
-  padding:
-    13px
-    18px;
-
-  border-radius: 16px;
-
-  font-weight: bold;
 
   cursor: pointer;
 
-  transition: 0.25s;
+  transition: 0.2s;
+
+  font-family: inherit;
 }
 
-button:hover {
+button:active {
 
   transform:
-    translateY(-3px);
-
-  box-shadow:
-    0 0 25px rgba(255,180,90,0.25);
+    scale(0.96);
 }
 
-/* ======================================== */
-/* LEADERBOARD */
-/* ======================================== */
+/* =========================================================
+   MOBILE
+========================================================= */
 
-#creatorBoard,
-#playerBoard {
-
-  display: flex;
-  flex-direction: column;
-
-  gap: 18px;
-
-  margin-top: 20px;
-}
-
-/* ======================================== */
-/* MODAL */
-/* ======================================== */
-
-.modal {
-
-  position: fixed;
-
-  inset: 0;
-
-  background:
-    rgba(0,0,0,0.8);
-
-  display: flex;
-
-  justify-content: center;
-  align-items: center;
-
-  z-index: 99999;
-}
 @media (max-width: 768px) {
 
   .page {
-    padding: 100px 12px 180px;
-    gap: 30px;
+
+    padding:
+      120px
+      14px
+      180px;
+
+    gap: 28px;
+  }
+
+  .hero-logo {
+    width: 110px;
   }
 
   .hero h1 {
-    font-size: 32px;
+    font-size: 42px;
   }
 
   .hero p {
@@ -486,56 +580,58 @@ button:hover {
   }
 
   .nav {
-    flex-wrap: wrap;
-    gap: 6px;
-    padding: 6px;
+
+    top: 64px;
+
+    gap: 8px;
+
+    width: 95vw;
   }
 
   .nav a {
-    padding: 8px 10px;
+
     font-size: 13px;
+
+    padding:
+      8px
+      10px;
   }
 
   .logo {
-    font-size: 16px;
-    top: 12px;
-    left: 12px;
+
+    font-size: 18px;
+
+    top: 16px;
+    left: 14px;
   }
 
   .card {
+
     width: 100%;
-    max-width: 360px;
+
+    padding: 20px;
   }
 
-  button, .nav a {
-    touch-action: manipulation;
+  .featured h2 {
+    font-size: 26px;
   }
-}
-html, body {
-  width: 100%;
-  overflow-x: hidden;
-}
-button, .nav a {
-  cursor: pointer;
-  -webkit-tap-highlight-color: transparent;
-  transition: transform 0.15s ease;
-}
 
-button:active, .nav a:active {
-  transform: scale(0.95);
-}
-.card {
-  margin: 0 auto;
-  width: min(360px, 92vw);
-}
-canvas {
-  position: fixed;
-  inset: 0;
-  z-index: 0;
-  pointer-events: none;
-}
-@media (max-width: 768px) {
-  canvas {
-    opacity: 0.8;
+  .toggle-btn {
+
+    right: 12px;
+
+    padding:
+      9px
+      12px;
+
+    font-size: 13px;
+  }
+
+  .music-btn {
+    bottom: 68px;
+  }
+
+  .sunset-horizon {
+    height: 90px;
   }
 }
