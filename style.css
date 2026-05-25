@@ -78,6 +78,46 @@ body {
       rgba(255,77,109,0.15),
       transparent 70%
     );
+   .fog-layer-2 {
+
+  position: fixed;
+
+  top: 50%;
+  left: 50%;
+
+  width: 1200px;
+  height: 600px;
+
+  transform: translate(-50%, -50%);
+
+  background:
+    radial-gradient(
+      circle,
+      rgba(255,255,255,0.04),
+      transparent 60%
+    );
+
+  filter: blur(120px);
+
+  z-index: 0;
+
+  animation: fogPulse2 10s ease-in-out infinite;
+}
+
+@keyframes fogPulse2 {
+
+  0%, 100% {
+    transform:
+      translate(-50%, -50%)
+      scale(1);
+  }
+
+  50% {
+    transform:
+      translate(-50%, -50%)
+      scale(1.12);
+  }
+}
 
   filter: blur(90px);
 
