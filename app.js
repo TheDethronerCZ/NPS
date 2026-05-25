@@ -78,7 +78,7 @@ window.logIn = async function () {
     document.getElementById("password")?.value.trim();
 
  const fakeEmail =
-  `${username}@vsunset.com`;
+  `${username}@gmail.com`;
 
   const { error } =
     await sb.auth.signInWithPassword({
