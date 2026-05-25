@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Account</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<canvas id="bg"></canvas>
+<div class="sunset-horizon"></div>
+
+<nav class="nav">
+  <a href="index.html">Home</a>
+  <a href="levels.html">Levels</a>
+  <a href="demons.html">Demons</a>
+  <a href="submit.html">Submit</a>
+  <a href="leader.html">Leaderboard</a>
+  <a href="account.html">Account</a>
+</nav>
+
+<main class="page">
+
+  <h1>Account</h1>
+
+  <div class="card">
+
+    <input id="username" placeholder="Username">
+    <input id="password" type="password" placeholder="Password">
+
+    <button onclick="signUp()">Sign Up</button>
+    <button onclick="logIn()">Log In</button>
+
+  </div>
+
+  <div class="card">
+    <p id="userInfo">Not logged in</p>
+  </div>
+
+</main>
+
+<button id="auraToggle" class="toggle-btn">AURA: OFF</button>
+<button id="musicToggle" class="toggle-btn music-btn">MUSIC: OFF</button>
+
+<audio id="bgMusic" loop>
+  <source src="assets/music/sunset.mp3">
+</audio>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="scripts/particles.js"></script>
+<script src="scripts/ui.js"></script>
+<script src="scripts/auth.js"></script>
+<script src="scripts/admin.js"></script>
+
+</body>
+</html>
