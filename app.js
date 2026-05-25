@@ -182,3 +182,14 @@ window.showAdminUI = function () {
 loadProfile();
 console.log("PROFILE ERROR:", error);
 console.log("PROFILE DATA:", data);
+
+console.log("BINDING ADMIN FUNCTIONS");
+
+window.showAdminUI = showAdminUI;
+window.editLevel = editLevel;
+window.deleteLevel = deleteLevel;
+window.addLevel = addLevel;
+window.editDemon = editDemon;
+window.deleteDemon = deleteDemon;
+window.acceptSubmission = acceptSubmission;
+window.denySubmission = denySubmission;
